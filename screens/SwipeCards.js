@@ -18,9 +18,10 @@ class Card extends React.Component {
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <Text style={styles.question}>{this.props.question}</Text>
           <Text style={styles.category}>Category: {this.props.category}</Text>
+          <Text style={styles.category}>Swipe right if true and left is false.</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
-          <Text style={styles.question}>CD</Text>
+          <Text style={styles.hint}>{this.props.hint}</Text>
         </TouchableOpacity>
       </CardFlip>
     )
@@ -45,10 +46,17 @@ const cards = [
   {
     question: 'The worst case time complexity for search, insert and delete operations in a general Binary Search Tree is O(n).',
     solution: true,
+    hint: "Binary search tree (BST):\n\nA binary tree that uses comparable keys to assign which direction a child is.\n- Left child has a key smaller than it's parent node.\n- Right child has a key greater than it's parent node.\n- There can be no duplicate node.\n- Because of the above it is more likely to be used as a data structure than a binary tree.\n\nAverage case Big-O:\nIndexing: O(log n)\nSearch: O(log n)\nInsertion O(log n)",
     category: 'Trees',
     image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'
   },
-  {question: '2', image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'},
+  {
+    question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n2. Visit the root. \n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
+    solution: true,
+    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
+    category: 'Trees',
+    image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
   {question: '3', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
   {question: '4', image: 'https://media.giphy.com/media/fFBmUMzFL5zRS/giphy.gif'},
   {question: '5', image: 'https://media.giphy.com/media/oDLDbBgf0dkis/giphy.gif'},
@@ -65,8 +73,12 @@ const cards2 = [
   {question: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
 ]
 
-function alertResult() {
-  alert("Correct or incorrect")
+function alertResult(question, givenSolution) {
+  if (question.solution === givenSolution) {
+    alert("Correct!")
+  } else {
+    alert("Incorrect!")
+  }
 }
 
 export default class App extends React.Component {
@@ -79,12 +91,12 @@ export default class App extends React.Component {
   }
 
   handleYup (card) {
-    alertResult();
+    alertResult(card, true);
     console.log("yup")
   }
 
   handleNope (card) {
-    alertResult();    
+    alertResult(card, false);    
     console.log("nope")
   }
 
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
   card:{
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 200,
+    paddingVertical: 150,
   },
   card1: {
     backgroundColor: '#FE474C',
@@ -154,20 +166,26 @@ const styles = StyleSheet.create({
   },
   question: {
     width: 300,
-    height: 300,
-    fontSize: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
+    height: 450,
+    fontSize: 26,
+    paddingTop: 5,
+    paddingBottom: 5,
     color: '#000000'
   },
-  category: {
-    width: 150,
-    height: 150,
-    fontSize: 15,
+  hint: {
+    width: 300,
+    height: 600,
+    fontSize: 22,
     paddingTop: 10,
     paddingBottom: 10,
     color: '#000000'
   },  
+  category: {
+    width: 300,
+    height: 20,
+    fontSize: 15,
+    color: '#000000'
+  },
   thumbnail: {
     width: 100,
     height: 100,
