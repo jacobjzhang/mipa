@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import SwipeCards from './SwipeCards.js'
+import Swiper from 'react-native-swiper';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
@@ -20,54 +20,53 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      // <Swiper style={styles.wrapper} showsButtons={true}>
-      //   <View style={styles.container}>
-      //     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      //       <View style={styles.welcomeContainer}>
-      //         <Image
-      //           source={
-      //             __DEV__
-      //               ? require('../assets/images/robot-dev.png')
-      //               : require('../assets/images/robot-prod.png')
-      //           }
-      //           style={styles.welcomeImage}
-      //         />
-      //       </View>
+      <Swiper style={styles.wrapper} showsButtons={true}>
+        <View style={styles.container}>
+          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            <View style={styles.welcomeContainer}>
+              <Image
+                source={
+                  __DEV__
+                    ? require('../assets/images/robot-dev.png')
+                    : require('../assets/images/robot-prod.png')
+                }
+                style={styles.welcomeImage}
+              />
+            </View>
 
-      //       <View style={styles.getStartedContainer}>
-      //         <Text style={styles.getStartedText}>What is a binary search tree?</Text>
+            <View style={styles.getStartedContainer}>
+              <Text style={styles.getStartedText}>What is a binary search tree?</Text>
 
-      //         <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-      //           <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-      //         </View>
-      //       </View>
+              <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+              </View>
+            </View>
 
-      //       <View style={styles.helpContainer}>
-      //         <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-      //           <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-      //         </TouchableOpacity>
-      //       </View>
-      //     </ScrollView>
+            <View style={styles.helpContainer}>
+              <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+                <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
 
-      //     <View style={styles.tabBarInfoContainer}>
-      //       <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+          <View style={styles.tabBarInfoContainer}>
+            <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
-      //       <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-      //         <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-      //       </View>
-      //     </View>
-      //   </View>
-      //   <View style={styles.slide1}>
-      //     <Text style={styles.text}>The worst case time complexity of inserting a value into a binary search tree is O(n). The space complexity is O(n).</Text>
-      //   </View>
-      //   <View style={styles.slide2}>
-      //     <Text style={styles.text}>Sab is Beautiful!</Text>
-      //   </View>
-      //   <View style={styles.slide3}>
-      //     <Text style={styles.text}>And Jake is the man!</Text>
-      //   </View>
-      // </Swiper>
-      <SwipeCards style={{flex: 1}} />      
+            <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+              <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+            </View>
+          </View>
+        </View>
+        <View style={styles.slide1}>
+          <Text style={styles.text}>The worst case time complexity of inserting a value into a binary search tree is O(n). The space complexity is O(n).</Text>
+        </View>
+        <View style={styles.slide2}>
+          <Text style={styles.text}>Sab is Beautiful!</Text>
+        </View>
+        <View style={styles.slide3}>
+          <Text style={styles.text}>And Jake is the man!</Text>
+        </View>
+      </Swiper>
     );
   }
 
