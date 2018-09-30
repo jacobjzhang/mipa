@@ -1,9 +1,10 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
 import SwipeCards from 'react-native-swipe-cards';
+import CardFlip from 'react-native-card-flip';
 
 class Card extends React.Component {
   constructor(props) {
@@ -12,10 +13,18 @@ class Card extends React.Component {
 
   render() {
     return (
-      <View style={styles.card}>
-        <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        <Text style={styles.text}>This is card {this.props.name}</Text>
-      </View>
+      <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
+        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
+          <View style={styles.card}>
+            <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+            <Text style={styles.text}>{this.props.question}</Text>
+            <Text style={styles.text}>Category: {this.props.category}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
+          <Text>CD</Text>
+        </TouchableOpacity>
+      </CardFlip>
     )
   }
 }
@@ -35,7 +44,7 @@ class NoMoreCards extends React.Component {
 }
 
 const cards = [
-  {name: '1', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'},
+  {question: '1', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'},
   {name: '2', image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'},
   {name: '3', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
   {name: '4', image: 'https://media.giphy.com/media/fFBmUMzFL5zRS/giphy.gif'},
@@ -132,8 +141,8 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   thumbnail: {
-    width: 300,
-    height: 300,
+    width: 100,
+    height: 100,
   },
   text: {
     fontSize: 20,
