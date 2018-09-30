@@ -22,15 +22,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
-        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
-          <Text style={styles.label}>AB</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
-          <Text style={styles.label}>CD</Text>
-        </TouchableOpacity>
-      </CardFlip>
-      // <SwipeCards style={{flex: 1}} />      
+      <SwipeCards style={{flex: 1}} />
     );
   }
 
@@ -71,35 +63,6 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  cardContainer:{
-    flex: 1,
-  },
-  card:{
-    flex: 1,
-    alignItems: 'center',    
-    backgroundColor: '#FE474C',
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-    shadowOpacity:0.5,
-  },
-  card1: {
-    backgroundColor: '#FE474C',
-  },
-  card2: {
-    backgroundColor: '#FEB12C',
-  },
-  label: {
-    textAlign: 'center',
-    fontSize: 45,
-    fontFamily: 'System',
-    color: '#ffffff',
-    backgroundColor: 'transparent',
-    paddingVertical: 300,
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -158,9 +121,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#92BB',
   },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  }
 });
