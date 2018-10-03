@@ -21,17 +21,19 @@ class Card extends React.Component {
   }
 
   render() {
-    var action = (<Text> My action</Text>); 
+    var action = (<Text> My action</Text>);
       
     return (
         <View style={theme.cardStyle}>
           <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
             <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
-              <Image source={require('../assets/images/welcome_card.jpg')} style={theme.cardImageStyle} />
+              <Image source={require('../assets/images/welcome_card.jpg')} style={[theme.cardImageStyle, {width: 340}]} />
               <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
               <Text style={[theme.cardContentStyle, styles.question]}>
+                Question:{"\n\n"}
                 {this.props.question}
               </Text>
+              {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
               <Text style={theme.cardActionStyle}>
                 Swipe right if correct, swipe left if wrong.{"\n"}
                 Tap on this card to get hints.
@@ -41,8 +43,10 @@ class Card extends React.Component {
               <Image source={require('../assets/images/welcome_card.jpg')} style={theme.cardImageStyle} />
               <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
               <Text style={[theme.cardContentStyle, styles.question]}>
+                Hint:{"\n\n"}
                 {this.props.hint}
               </Text>
+              {this.props.hintImage && <Image source={{uri : this.props.hintImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}              
               <Text style={theme.cardActionStyle}>
                 Tap on this card to go back to the question
               </Text>
@@ -73,14 +77,14 @@ const cards = [
     solution: true,
     hint: "Binary search tree (BST):\nA binary tree that uses comparable keys to assign which direction a child is.\n\n- Left child has a key smaller than it's parent node.\n- Right child has a key greater than it's parent node.\n- There can be no duplicate node.\n- Because of the above it is more likely to be used as a data structure than a binary tree.\n\nAverage case Big-O:\nIndexing: O(log n)\nSearch: O(log n)\nInsertion O(log n)",
     category: 'Trees',
-    image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'
+    questionImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/192px-Binary_tree.svg.png'
   },
   {
     question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n\n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n\n2. Visit the root. \n\n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
     solution: true,
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Trees',
-    image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {question: '3', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
   {question: '4', image: 'https://media.giphy.com/media/fFBmUMzFL5zRS/giphy.gif'},
@@ -117,12 +121,12 @@ export default class App extends React.Component {
 
   handleYup (card) {
     alertResult(card, true);
-    console.log("yup")
+    console.log("correct")
   }
 
   handleNope (card) {
     alertResult(card, false);    
-    console.log("nope")
+    console.log("wrong")
   }
 
   handleMaybe (card) {
@@ -185,6 +189,6 @@ const styles = StyleSheet.create({
     paddingVertical: 150,
   },
   question: {
-    fontSize: 18,
+    fontSize: 16,
   },
 })
