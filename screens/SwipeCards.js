@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-
+import cards from '../content/cards';
 import SwipeCards from 'react-native-swipe-cards';
 import CardFlip from 'react-native-card-flip';
 
@@ -70,37 +70,6 @@ class NoMoreCards extends React.Component {
     )
   }
 }
-
-const cards = [
-  {
-    question: 'The worst case time complexity for search, insert and delete operations in a general Binary Search Tree is O(n).',
-    solution: true,
-    hint: "Binary search tree (BST):\nA binary tree that uses comparable keys to assign which direction a child is.\n\n- Left child has a key smaller than it's parent node.\n- Right child has a key greater than it's parent node.\n- There can be no duplicate node.\n- Because of the above it is more likely to be used as a data structure than a binary tree.\n\nAverage case Big-O:\nIndexing: O(log n)\nSearch: O(log n)\nInsertion O(log n)",
-    category: 'Trees',
-    questionImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/192px-Binary_tree.svg.png'
-  },
-  {
-    question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n\n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n\n2. Visit the root. \n\n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
-    solution: true,
-    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
-    category: 'Trees',
-    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },
-  {question: '3', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
-  {question: '4', image: 'https://media.giphy.com/media/fFBmUMzFL5zRS/giphy.gif'},
-  {question: '5', image: 'https://media.giphy.com/media/oDLDbBgf0dkis/giphy.gif'},
-  {question: '6', image: 'https://media.giphy.com/media/7r4g8V2UkBUcw/giphy.gif'},
-  {question: '7', image: 'https://media.giphy.com/media/K6Q7ZCdLy8pCE/giphy.gif'},
-  {question: '8', image: 'https://media.giphy.com/media/hEwST9KM0UGti/giphy.gif'},
-  {question: '9', image: 'https://media.giphy.com/media/3oEduJbDtIuA2VrtS0/giphy.gif'},
-]
-
-const cards2 = [
-  {question: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-  {question: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-  {question: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-  {question: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
-]
 
 function alertResult(question, givenSolution) {
   if (question.solution === givenSolution) {
