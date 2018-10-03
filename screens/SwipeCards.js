@@ -6,25 +6,50 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import CardFlip from 'react-native-card-flip';
 
+import {
+  MKButton,
+  MKColor,
+  MKIconToggle,  
+  getTheme
+} from 'react-native-material-kit';
+
+const theme = getTheme();
+
 class Card extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    var action = (<Text> My action</Text>); 
+      
     return (
-      <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
-        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
-          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-          <Text style={styles.question}>{this.props.question}</Text>
-          <Text style={styles.category}>Category: {this.props.category}</Text>
-          <Text style={styles.category}>Swipe right if true and left is false.</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.card} onPress={() => this.card.flip()} >
-          <Text style={styles.hint}>{this.props.hint}</Text>
-        </TouchableOpacity>
-      </CardFlip>
-    )
+        <View style={theme.cardStyle}>
+          <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+              <Image source={require('../assets/images/welcome_card.jpg')} style={theme.cardImageStyle} />
+              <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
+              <Text style={[theme.cardContentStyle, styles.question]}>
+                {this.props.question}
+              </Text>
+              <Text style={theme.cardActionStyle}>
+                Swipe right if correct, swipe left if wrong.{"\n"}
+                Tap on this card to get hints.
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={theme.cardContainer} onPress={() => this.card.flip()} >
+              <Image source={require('../assets/images/welcome_card.jpg')} style={theme.cardImageStyle} />
+              <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
+              <Text style={[theme.cardContentStyle, styles.question]}>
+                {this.props.hint}
+              </Text>
+              <Text style={theme.cardActionStyle}>
+                Tap on this card to go back to the question
+              </Text>
+            </TouchableOpacity>     
+          </CardFlip>
+        </View>
+    );
   }
 }
 
@@ -46,12 +71,12 @@ const cards = [
   {
     question: 'The worst case time complexity for search, insert and delete operations in a general Binary Search Tree is O(n).',
     solution: true,
-    hint: "Binary search tree (BST):\n\nA binary tree that uses comparable keys to assign which direction a child is.\n- Left child has a key smaller than it's parent node.\n- Right child has a key greater than it's parent node.\n- There can be no duplicate node.\n- Because of the above it is more likely to be used as a data structure than a binary tree.\n\nAverage case Big-O:\nIndexing: O(log n)\nSearch: O(log n)\nInsertion O(log n)",
+    hint: "Binary search tree (BST):\nA binary tree that uses comparable keys to assign which direction a child is.\n\n- Left child has a key smaller than it's parent node.\n- Right child has a key greater than it's parent node.\n- There can be no duplicate node.\n- Because of the above it is more likely to be used as a data structure than a binary tree.\n\nAverage case Big-O:\nIndexing: O(log n)\nSearch: O(log n)\nInsertion O(log n)",
     category: 'Trees',
     image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'
   },
   {
-    question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n2. Visit the root. \n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
+    question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n\n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n\n2. Visit the root. \n\n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
     solution: true,
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Trees',
@@ -150,49 +175,16 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  cardContainer:{
-    flex: 1,
+  cardContainer: {
+    width: 340,
+    height: 680,
   },
-  card:{
+  card: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 150,
   },
-  card1: {
-    backgroundColor: '#FE474C',
-  },
-  card2: {
-    backgroundColor: '#FEB12C',
-  },
   question: {
-    width: 300,
-    height: 450,
-    fontSize: 26,
-    paddingTop: 5,
-    paddingBottom: 5,
-    color: '#000000'
+    fontSize: 18,
   },
-  hint: {
-    width: 300,
-    height: 600,
-    fontSize: 22,
-    paddingTop: 10,
-    paddingBottom: 10,
-    color: '#000000'
-  },  
-  category: {
-    width: 300,
-    height: 20,
-    fontSize: 15,
-    color: '#000000'
-  },
-  thumbnail: {
-    width: 100,
-    height: 100,
-  },
-  noMoreCards: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
 })
