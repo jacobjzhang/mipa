@@ -1,20 +1,20 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {
   MKButton,
   MKColor,
   MKIconToggle,  
   getTheme
 } from 'react-native-material-kit';
-
 import * as Progress from 'react-native-progress';
 import { withNavigation } from 'react-navigation';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
-import cards from '../content/cards';
+import CardFlip from 'react-native-card-flip';
 
+import questions from '../content/questions';
 import Swipe from '../components/Swipe'
 
 const theme = getTheme();
@@ -44,67 +44,133 @@ class App extends React.Component {
     console.log(props)
     super(props);
     this.state = {
-      cards: cards,
-      outOfCards: false,
+      questions: questions,
+      answer: '',
+      currentCard: questions[0],
     }
   }
 
-  handleYup (card) {
+  checkAnswer(gestureName) {
+    let answer;
+    if (gestureName == SWIPE_LEFT) {
+      answer = false;
+    } else if (gestureName == SWIPE_RIGHT) {
+      answer = true;
+    }
+
     this.props.navigation.navigate("MainCart",{},{
       type: "Navigate",
       routeName: "Checkout",
       params: {name:"Jo"}
     });
-
-    // this.handleAnswer(card, true);
-
-    console.log("correct")
   }
 
-  handleNope (card) {
-    this.handleAnswer(card, false);    
-    console.log("wrong")
+  onSwipeUp(gestureState) {
+    this.setState({mySelection: 'You swiped up!'});
   }
 
-  handleMaybe (card) {
-    console.log(`Maybe for ${card.text}`)
+  onSwipeDown(gestureState) {
+    this.setState({mySelection: 'You swiped down!'});
   }
 
-  cardRemoved (index) {
-    console.log(`The index is ${index}`);
+  onSwipeLeft(gestureState) {
+    this.setState({mySelection: 'You swiped left!'});
+  }
 
-    let CARD_REFRESH_LIMIT = 3
+  onSwipeRight(gestureState) {
+    this.setState({mySelection: 'You swiped right!'});
+  }
 
-    if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
-      console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
-
-      if (!this.state.outOfCards) {
-        console.log(`Adding ${cards2.length} more cards`)
-
-        this.setState({
-          cards: this.state.cards.concat(cards2),
-          outOfCards: true
-        })
+  onSwipe(gestureName, gestureState) {
+    if (this.state.currentCard.type == 'swipe') {
+      const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+      this.checkAnswer(gestureName);
+      switch (gestureName) {
+        case SWIPE_UP:
+          this.setState({answer: 'up'});
+          break;
+        case SWIPE_DOWN:
+          this.setState({answer: 'down'});
+          break;
+        case SWIPE_LEFT:
+          this.setState({answer: 'FALSE'});
+          break;
+        case SWIPE_RIGHT:
+          this.setState({answer: 'TRUE'});
+          break;
       }
-
     }
 
-  }
+  }  
 
   render() {
-    const currentScore = this.state.score / this.state.cards.length;
+    const currentScore = this.state.score / this.state.questions.length;
+    const currentCard = this.state.questions[0];
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
 
     return (
-      <View style={{flex: 1,}}>
-        <Swipe />
-        <Progress.Bar
-          style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
-          progress={0.3}
-          width={320}
-        />
+      <View style={{flex: 1, paddingVertical: 0}}>
+        <GestureRecognizer
+          onSwipe={(direction, state) => this.onSwipe(direction, state)}
+          onSwipeUp={(state) => this.onSwipeUp(state)}
+          onSwipeDown={(state) => this.onSwipeDown(state)}
+          onSwipeLeft={(state) => this.onSwipeLeft(state)}
+          onSwipeRight={(state) => this.onSwipeRight(state)}
+          config={config}
+          style={{
+            flex: 1,
+            backgroundColor: this.state.backgroundColor
+          }}>
+          <CardFlip ref={(card) => this.card = card} >
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+              <Swipe {...currentCard} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+              <View style={theme.cardStyle}>
+                <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
+                <Text style={theme.cardTitleStyle}>Hint</Text>
+                <Text style={[theme.cardContentStyle, styles.question]}>
+                  {currentCard.hint}
+                </Text>
+                {currentCard.hintImage && <Image source={{uri : currentCard.hintImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}              
+                <Text style={theme.cardActionStyle}>
+                  Tap on this card to go back to the question
+                </Text>
+              </View>
+            </TouchableOpacity>   
+          </CardFlip>
+          <Progress.Bar
+            style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
+            progress={0.3}
+            width={320}
+          />
+          <Text style={styles.selection}>{this.state.answer}</Text>
+        </GestureRecognizer>
       </View>
     )
   }
 }
 
 export default withNavigation(App);
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    height: 600
+  },
+  question: {
+    width: null,
+    height: null,
+    fontSize: 16,
+  },
+  cardImageStyle: {
+    alignSelf: 'stretch'
+  },
+  selection: {
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 100
+  }
+})

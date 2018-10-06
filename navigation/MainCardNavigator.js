@@ -1,15 +1,16 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 
 import Question from '../screens/Question';
 
-const QuestionStack = createStackNavigator({
+const QuestionStack = createSwitchNavigator({
   Question: Question,
 });
 
 QuestionStack.navigationOptions = {
+  title: 'Question'
 };
 
-export default createStackNavigator({
+export default createSwitchNavigator({
   QuestionStack,
 });
