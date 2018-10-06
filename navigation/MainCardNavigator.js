@@ -1,62 +1,15 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
-import SwipeCards from '../screens/SwipeCards';
-import MultipleChoice from '../screens/MultipleChoice';
-import PseudoCodeFill from '../screens/PseudoCodeFill';
+import Question from '../screens/Question';
 
-
-const SwipeCardsStack = createStackNavigator({
-  Home: SwipeCards,
+const QuestionStack = createStackNavigator({
+  Question: Question,
 });
 
-SwipeCardsStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  initialRouteParams: {},
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-const MultipleChoiceStack = createStackNavigator({
-  Links: MultipleChoice,
-});
-
-MultipleChoiceStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-    />
-  ),
-};
-
-const PseudoCodeFillStack = createStackNavigator({
-  Settings: PseudoCodeFill,
-});
-
-PseudoCodeFillStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
+QuestionStack.navigationOptions = {
 };
 
 export default createStackNavigator({
-  SwipeCardsStack,
-  MultipleChoiceStack,
-  PseudoCodeFillStack,
+  QuestionStack,
 });
