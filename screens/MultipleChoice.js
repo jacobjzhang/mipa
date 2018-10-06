@@ -1,11 +1,18 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { ExpoLinksView } from '../node_modules/@expo/samples';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Links',
   };
+
+  componentWillMount() {
+    this.props = {
+      ...this.props,
+      ...this.props.navigation.state.params
+    }
+  }
 
   render() {
     return (

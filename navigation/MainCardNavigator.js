@@ -3,16 +3,18 @@ import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import SwipeCards from '../screens/SwipeCards';
 import MultipleChoice from '../screens/MultipleChoice';
 import PseudoCodeFill from '../screens/PseudoCodeFill';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+
+const SwipeCardsStack = createStackNavigator({
+  Home: SwipeCards,
 });
 
-HomeStack.navigationOptions = {
+SwipeCardsStack.navigationOptions = {
   tabBarLabel: 'Home',
+  initialRouteParams: {},
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -54,7 +56,7 @@ PseudoCodeFillStack.navigationOptions = {
 };
 
 export default createStackNavigator({
-  HomeStack,
+  SwipeCardsStack,
   MultipleChoiceStack,
   PseudoCodeFillStack,
 });

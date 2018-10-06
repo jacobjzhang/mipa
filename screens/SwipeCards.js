@@ -2,7 +2,6 @@
 
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import cards from '../content/cards';
 import SwipeCards from 'react-native-swipe-cards';
 import CardFlip from 'react-native-card-flip';
 
@@ -14,6 +13,9 @@ import {
 } from 'react-native-material-kit';
 
 import * as Progress from 'react-native-progress';
+import { withNavigation } from 'react-navigation';
+
+import cards from '../content/cards';
 
 const theme = getTheme();
 
@@ -21,6 +23,17 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  componentWillMount() {
+    this.props = {
+      ...this.props,
+      ...this.getNavigationParams
+    }
+  }  
+
+  getNavigationParams() {
+    return this.props.navigation.state.params || {}
+  }  
 
   render() {
     var action = (<Text> My action</Text>);
@@ -73,36 +86,45 @@ class NoMoreCards extends React.Component {
   }
 }
 
-export default class App extends React.Component {
+let COUNT = 0;
+
+function incrementScore() {
+  this.setState({score: this.state.score++})
+}
+
+function decrementScore() {
+  this.setState({score: this.state.score--})
+}
+
+function handleAnswer(question, givenSolution) {
+  if (question.solution === givenSolution) {
+    alert("Correct!")
+    this.incrementScore();
+  } else {
+    alert("Incorrect!")
+    this.decrementScore();
+  }
+}
+
+class App extends React.Component {
   constructor(props) {
+    console.log(props)
     super(props);
     this.state = {
       cards: cards,
       outOfCards: false,
-      score: 1
-    }
-  }
-
-  incrementScore() {
-    this.setState({score: this.state.score++})
-  }
-
-  decrementScore() {
-    this.setState({score: this.state.score--})
-  }
-
-  handleAnswer(question, givenSolution) {
-    if (question.solution === givenSolution) {
-      alert("Correct!")
-      this.incrementScore();
-    } else {
-      alert("Incorrect!")
-      this.decrementScore();
     }
   }
 
   handleYup (card) {
-    this.handleAnswer(card, true);
+    this.props.navigation.navigate("MainCart",{},{
+      type: "Navigate",
+      routeName: "Checkout",
+      params: {name:"Jo"}
+    });
+
+    // this.handleAnswer(card, true);
+
     console.log("correct")
   }
 
@@ -154,20 +176,22 @@ export default class App extends React.Component {
           showNope={true}
           hasMaybeAction
 
-          handleYup={this.handleYup}
+          handleYup={this.handleYup.bind(this)}
           handleNope={this.handleNope}
           handleMaybe={this.handleMaybe}        
           cardRemoved={this.cardRemoved.bind(this)}
         />
         <Progress.Bar
           style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
-          progress={currentScore}
+          progress={0.3}
           width={320}
         />
       </View>
     )
   }
 }
+
+export default withNavigation(App);
 
 const styles = StyleSheet.create({
   cardContainer: {
