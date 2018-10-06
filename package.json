@@ -19,6 +19,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-card-flip": "^1.0.4",
     "react-native-material-kit": "^0.5.1",
+    "react-native-progress": "^3.5.0",
     "react-native-swipe-cards": "^0.1.1",
     "react-navigation": "^2.16.0"
   },

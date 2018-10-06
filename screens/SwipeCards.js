@@ -13,6 +13,8 @@ import {
   getTheme
 } from 'react-native-material-kit';
 
+import * as Progress from 'react-native-progress';
+
 const theme = getTheme();
 
 class Card extends React.Component {
@@ -71,30 +73,41 @@ class NoMoreCards extends React.Component {
   }
 }
 
-function alertResult(question, givenSolution) {
-  if (question.solution === givenSolution) {
-    alert("Correct!")
-  } else {
-    alert("Incorrect!")
-  }
-}
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cards: cards,
-      outOfCards: false
+      outOfCards: false,
+      score: 1
+    }
+  }
+
+  incrementScore() {
+    this.setState({score: this.state.score++})
+  }
+
+  decrementScore() {
+    this.setState({score: this.state.score--})
+  }
+
+  handleAnswer(question, givenSolution) {
+    if (question.solution === givenSolution) {
+      alert("Correct!")
+      this.incrementScore();
+    } else {
+      alert("Incorrect!")
+      this.decrementScore();
     }
   }
 
   handleYup (card) {
-    alertResult(card, true);
+    this.handleAnswer(card, true);
     console.log("correct")
   }
 
   handleNope (card) {
-    alertResult(card, false);    
+    this.handleAnswer(card, false);    
     console.log("wrong")
   }
 
@@ -124,25 +137,34 @@ export default class App extends React.Component {
   }
 
   render() {
+    const currentScore = this.state.score / this.state.cards.length;
+
     return (
-      <SwipeCards
-        cards={this.state.cards}
-        loop={false}
+      <View style={{flex: 1,}}>
+        <SwipeCards
+          cards={this.state.cards}
+          loop={false}
 
-        renderCard={(cardData) => <Card {...cardData} />}
-        renderNoMoreCards={() => <NoMoreCards />}
+          renderCard={(cardData) => <Card {...cardData} />}
+          renderNoMoreCards={() => <NoMoreCards />}
 
-        maybeViewText={"Need a hint"}
+          maybeViewText={"Need a hint"}
 
-        showYup={true}
-        showNope={true}
-        hasMaybeAction
+          showYup={true}
+          showNope={true}
+          hasMaybeAction
 
-        handleYup={this.handleYup}
-        handleNope={this.handleNope}
-        handleMaybe={this.handleMaybe}        
-        cardRemoved={this.cardRemoved.bind(this)}
-      />
+          handleYup={this.handleYup}
+          handleNope={this.handleNope}
+          handleMaybe={this.handleMaybe}        
+          cardRemoved={this.cardRemoved.bind(this)}
+        />
+        <Progress.Bar
+          style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
+          progress={currentScore}
+          width={320}
+        />
+      </View>
     )
   }
 }

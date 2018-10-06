@@ -1,11 +1,11 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import MultipleChoice from '../screens/MultipleChoice';
+import PseudoCodeFill from '../screens/PseudoCodeFill';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,11 +25,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const MultipleChoiceStack = createStackNavigator({
+  Links: MultipleChoice,
 });
 
-LinksStack.navigationOptions = {
+MultipleChoiceStack.navigationOptions = {
   tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -39,11 +39,11 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const PseudoCodeFillStack = createStackNavigator({
+  Settings: PseudoCodeFill,
 });
 
-SettingsStack.navigationOptions = {
+PseudoCodeFillStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -53,8 +53,8 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
+export default createStackNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  MultipleChoiceStack,
+  PseudoCodeFillStack,
 });
