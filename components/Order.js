@@ -44,6 +44,8 @@ class Swipe extends React.Component {
       } else {
         alert('nope!')
       }
+
+      this.props.goToNextQuestion();
     }
   }
 

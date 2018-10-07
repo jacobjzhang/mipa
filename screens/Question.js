@@ -32,6 +32,8 @@ class App extends React.Component {
       score: 0,
       currentCard: questions[0],
     }
+
+    this.goToNextQuestion = this.goToNextQuestion.bind(this);
   }
 
   goToNextQuestion() {
@@ -49,6 +51,7 @@ class App extends React.Component {
   }
   
   handleAnswer(question, givenSolution) {
+    console.log(question.solution, givenSolution)
     if (question.solution === givenSolution) {
       alert("Correct!")
       this.incrementScore();
@@ -127,7 +130,7 @@ class App extends React.Component {
         content = <MultipleChoice {...currentCard} />
         break;
       case 'order':
-        content = <Order {...currentCard} />
+        content = <Order {...currentCard} goToNextQuestion={this.goToNextQuestion} />
         break;
     }
 
