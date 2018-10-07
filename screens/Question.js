@@ -21,24 +21,6 @@ const theme = getTheme();
 
 let COUNT = 0;
 
-function incrementScore() {
-  this.setState({score: this.state.score++})
-}
-
-function decrementScore() {
-  this.setState({score: this.state.score--})
-}
-
-function handleAnswer(question, givenSolution) {
-  if (question.solution === givenSolution) {
-    alert("Correct!")
-    this.incrementScore();
-  } else {
-    alert("Incorrect!")
-    this.decrementScore();
-  }
-}
-
 class App extends React.Component {
   constructor(props) {
     console.log(props)
@@ -46,23 +28,51 @@ class App extends React.Component {
     this.state = {
       questions: questions,
       answer: '',
+      score: 0,
       currentCard: questions[0],
     }
   }
 
+  goToNextQuestion() {
+    let currIdx = this.state.questions.indexOf(this.state.currentCard);
+    console.log(currIdx, questions[currIdx++])
+    this.setState({currentCard: questions[currIdx++]})
+  }
+
+  incrementScore() {
+    this.setState({score: this.state.score++})
+  }
+  
+  decrementScore() {
+    this.setState({score: this.state.score--})
+  }
+  
+  handleAnswer(question, givenSolution) {
+    if (question.solution === givenSolution) {
+      alert("Correct!")
+      this.incrementScore();
+    } else {
+      alert("Incorrect!")
+      this.decrementScore();
+    }
+  }  
+
   checkAnswer(gestureName) {
     let answer;
-    if (gestureName == SWIPE_LEFT) {
+
+    if (gestureName == 'SWIPE_LEFT') {
       answer = false;
-    } else if (gestureName == SWIPE_RIGHT) {
+    } else if (gestureName == 'SWIPE_RIGHT') {
       answer = true;
     }
 
-    this.props.navigation.navigate("MainCart",{},{
-      type: "Navigate",
-      routeName: "Checkout",
-      params: {name:"Jo"}
-    });
+    this.handleAnswer(this.state.currentCard, answer);
+    this.goToNextQuestion();
+    // this.props.navigation.navigate("MainCart",{},{
+    //   type: "Navigate",
+    //   routeName: "Checkout",
+    //   params: {name:"Jo"}
+    // });
   }
 
   onSwipeUp(gestureState) {
@@ -105,7 +115,7 @@ class App extends React.Component {
 
   render() {
     const currentScore = this.state.score / this.state.questions.length;
-    const currentCard = this.state.questions[0];
+    const currentCard = this.state.currentCard;
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
