@@ -9,8 +9,9 @@ const questions = [
   },
   {
     type: 'order',
-    question: 'The following is a correct example of the Inorder Traversal of a tree:\n\nInorder(tree) \n\n1. Traverse the left subtree, i.e., call Inorder(left-subtree) \n\n2. Visit the root. \n\n3. Traverse the right subtree, i.e., call Inorder(right-subtree)',
-    solution: true,
+    question: 'In-order Traversal for a Binary Search Tree:',
+    options: ['Visit the root.', 'Traverse the left subtree, i.e., call Inorder(left-subtree) ', 'Traverse the right subtree, i.e., call Inorder(right-subtree)'],
+    solution: ['1. Traverse the left subtree, i.e., call Inorder(left-subtree) ', '2. Visit the root.', '3. Traverse the right subtree, i.e., call Inorder(right-subtree)'],
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'

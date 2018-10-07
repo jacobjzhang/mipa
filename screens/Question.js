@@ -16,6 +16,7 @@ import CardFlip from 'react-native-card-flip';
 
 import questions from '../content/questions';
 import Swipe from '../components/Swipe'
+import Order from '../components/Order'
 
 const theme = getTheme();
 
@@ -116,6 +117,20 @@ class App extends React.Component {
   render() {
     const currentScore = this.state.score / this.state.questions.length;
     const currentCard = this.state.currentCard;
+
+    let content;
+    switch(currentCard.type) {
+      case 'swipe':
+        content = <Swipe {...currentCard} />
+        break;
+      case 'multiple choice':
+        content = <MultipleChoice {...currentCard} />
+        break;
+      case 'order':
+        content = <Order {...currentCard} />
+        break;
+    }
+
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
@@ -136,7 +151,7 @@ class App extends React.Component {
           }}>
           <CardFlip ref={(card) => this.card = card} >
             <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
-              <Swipe {...currentCard} />
+              {content}
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               <View style={theme.cardStyle}>
