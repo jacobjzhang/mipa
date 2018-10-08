@@ -17,15 +17,15 @@ const questions = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
-    type: 'multiple choice',
-    question: 'The following is valid code for an inorder traversal in Javascript:\n\npreorder(node) { \n    if(node != null) \n    { \n        console.log(node.data); \n        this.preorder(node.left); \n        this.preorder(node.right); \n    } \n}',
+    type: 'fill in',
+    question: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      _______________\n   }\n}",
     solution: false,
     hint: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      inorder(node.right);\n   }\n}",
     category: 'Trees',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
-    type: 'fill in',
+    type: 'multiple choice',
     question: 'The following are advantages of a linked list data structure:\n\n- Being able to lookup and insert data on the order of O(1) independent of the size of the data structure.\n\n-If the set of key-value pairs is fixed and known ahead of time, one may reduce the average lookup cost by a careful choice of the hash function, bucket table size, and internal data structures such that keys need not be stored in the table.',
     solution: true,
     hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",

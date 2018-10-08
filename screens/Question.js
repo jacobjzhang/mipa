@@ -15,8 +15,9 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import CardFlip from 'react-native-card-flip';
 
 import questions from '../content/questions';
-import Swipe from '../components/Swipe'
-import Order from '../components/Order'
+import Swipe from '../components/Swipe';
+import Order from '../components/Order';
+import FillIn from '../components/FillIn';
 
 const theme = getTheme();
 
@@ -68,6 +69,8 @@ class App extends React.Component {
       answer = false;
     } else if (gestureName == 'SWIPE_RIGHT') {
       answer = true;
+    } else {
+      return;
     }
 
     this.handleAnswer(this.state.currentCard, answer);
@@ -132,6 +135,9 @@ class App extends React.Component {
       case 'order':
         content = <Order {...currentCard} goToNextQuestion={this.goToNextQuestion} />
         break;
+      case 'fill in':
+        content = <FillIn {...currentCard} goToNextQuestion={this.goToNextQuestion} />
+        break;        
     }
 
     const config = {
@@ -152,11 +158,11 @@ class App extends React.Component {
             flex: 1,
             backgroundColor: this.state.backgroundColor
           }}>
-          <CardFlip ref={(card) => this.card = card} >
-            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+          {/* <CardFlip ref={(card) => this.card = card} > */}
+            {/* <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} > */}
               {content}
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+            {/* </TouchableOpacity> */}
+            {/* <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               <View style={theme.cardStyle}>
                 <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
                 <Text style={theme.cardTitleStyle}>Hint</Text>
@@ -169,7 +175,7 @@ class App extends React.Component {
                 </Text>
               </View>
             </TouchableOpacity>   
-          </CardFlip>
+          </CardFlip> */}
           <Progress.Bar
             style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
             progress={0.3}
