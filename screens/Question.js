@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, Modal, TouchableHighlight} from 'react-native';
 import {
   MKButton,
   MKColor,
@@ -33,6 +33,7 @@ class App extends React.Component {
       answer: '',
       score: 0,
       currentCard: questions[0],
+      modalVisible: false
     }
 
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
@@ -52,14 +53,18 @@ class App extends React.Component {
   decrementScore() {
     this.setState({score: this.state.score--})
   }
+
+  showResult(currentResult) {
+    this.setState({currentResult: currentResult, modalVisible: true});
+  }
   
   handleAnswer(question, givenSolution) {
     console.log(question.solution, givenSolution)
     if (question.solution === givenSolution) {
-      alert("Correct!")
+      this.showResult("Correct!")
       this.incrementScore();
     } else {
-      alert("Incorrect!")
+      this.showResult("Incorrect!")
       this.decrementScore();
     }
   }  
@@ -114,7 +119,10 @@ class App extends React.Component {
           break;
       }
     }
+  }
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }  
 
   render() {
@@ -180,6 +188,26 @@ class App extends React.Component {
           />
           <Text style={styles.selection}>{this.state.answer}</Text>
         </GestureRecognizer>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+          >
+          <View style={{paddingHorizontal: 100, fontSize: 20, marginTop: 300, backgroundColor: 'yellow', alignSelf: 'center'}}>
+            <View>
+              <Text style={{fontSize: 25}}>Correct!</Text>
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Close</Text>
+              </TouchableHighlight>
+            </View>
+          </View>          
+        </Modal>
       </View>
     )
   }
