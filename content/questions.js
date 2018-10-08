@@ -21,22 +21,24 @@ const questions = [
     question: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      _______________\n   }\n}",
     solution: false,
     hint: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      inorder(node.right);\n   }\n}",
-    category: 'Trees',
+    category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
     type: 'multiple choice',
-    question: 'The following are advantages of a linked list data structure:\n\n- Being able to lookup and insert data on the order of O(1) independent of the size of the data structure.\n\n-If the set of key-value pairs is fixed and known ahead of time, one may reduce the average lookup cost by a careful choice of the hash function, bucket table size, and internal data structures such that keys need not be stored in the table.',
-    solution: true,
+    question: 'Which of the following is not an advantage of a hash map data structure?',
+    options: ['Being able to lookup data on the order of O(1) independent of the size of the data structure.', 'Being able to insert data on the order of O(1) independent of the size of the data structure.', 'Finding the maximum and minimum keys in O(1).', 'If the set of key-value pairs is fixed and known ahead of time, one may reduce the average lookup cost by a careful choice of the hash function, bucket table size, and internal data structures such that keys need not be stored in the table.'],   
+    solution: 'Finding the maximum and minimum keys in O(1).',
     hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
     category: 'Hash Tables',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
-    question: 'Is the following algorithm correct?\n\nHow would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.\n\nAs we pass through each element in the array, we check to see if S minus the current element exists in the hash table. We only need to loop through the array once, resulting in a running time of O(n) since each lookup and insertion in a hash table is O(1).',
+    type: 'swipe',
+    question: 'How would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.\n\nAs we pass through each element in the array, we check to see if S minus the current element exists in the hash table. We only need to loop through the array once, resulting in a running time of O(n) since each lookup and insertion in a hash table is O(1).',
     solution: true,
-    hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var sumMinusElement = S - arr[i];\n    if (hashTable.hasOwnProperty(sumMinusElement)) { \n      sums.push([arr[i], sumMinusElement]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
-    category: 'Trees',
+    hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
+    category: 'Two Sum',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
 ]

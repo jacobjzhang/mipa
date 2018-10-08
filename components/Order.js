@@ -6,7 +6,7 @@ import {
 
 const theme = getTheme();
 
-class Swipe extends React.Component {
+class Order extends React.Component {
   constructor(props) {
     super(props);
 
@@ -85,7 +85,7 @@ class Swipe extends React.Component {
   }
 }
 
-export default Swipe;
+export default Order;
 
 const styles = StyleSheet.create({
   cardContainer: {

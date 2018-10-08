@@ -18,6 +18,7 @@ import questions from '../content/questions';
 import Swipe from '../components/Swipe';
 import Order from '../components/Order';
 import FillIn from '../components/FillIn';
+import MultipleChoice from '../components/MultipleChoice';
 
 const theme = getTheme();
 
@@ -75,11 +76,6 @@ class App extends React.Component {
 
     this.handleAnswer(this.state.currentCard, answer);
     this.goToNextQuestion();
-    // this.props.navigation.navigate("MainCart",{},{
-    //   type: "Navigate",
-    //   routeName: "Checkout",
-    //   params: {name:"Jo"}
-    // });
   }
 
   onSwipeUp(gestureState) {
@@ -127,10 +123,10 @@ class App extends React.Component {
     let content;
     switch(currentCard.type) {
       case 'swipe':
-        content = <Swipe {...currentCard} />
+        content = <Swipe {...currentCard} goToNextQuestion={this.goToNextQuestion} />
         break;
       case 'multiple choice':
-        content = <MultipleChoice {...currentCard} />
+        content = <MultipleChoice {...currentCard} goToNextQuestion={this.goToNextQuestion} />
         break;
       case 'order':
         content = <Order {...currentCard} goToNextQuestion={this.goToNextQuestion} />
@@ -158,11 +154,11 @@ class App extends React.Component {
             flex: 1,
             backgroundColor: this.state.backgroundColor
           }}>
-          {/* <CardFlip ref={(card) => this.card = card} > */}
-            {/* <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} > */}
+          <CardFlip ref={(card) => this.card = card} >
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               {content}
-            {/* </TouchableOpacity> */}
-            {/* <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               <View style={theme.cardStyle}>
                 <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
                 <Text style={theme.cardTitleStyle}>Hint</Text>
@@ -175,7 +171,7 @@ class App extends React.Component {
                 </Text>
               </View>
             </TouchableOpacity>   
-          </CardFlip> */}
+          </CardFlip>
           <Progress.Bar
             style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
             progress={0.3}
