@@ -35,6 +35,9 @@ class Swipe extends React.Component {
         <Text style={[theme.cardContentStyle, styles.question]}>
           {this.props.question}
         </Text>
+        {this.props.code && <Text style={{fontFamily: 'Courier', padding: 20}} >
+          {this.props.code}
+        </Text>}
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
       </View>
     );

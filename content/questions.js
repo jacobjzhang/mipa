@@ -35,19 +35,22 @@ const questions = [
   },
   {
     type: 'swipe',
-    question: 'How would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.\n\nAs we pass through each element in the array, we check to see if S minus the current element exists in the hash table. We only need to loop through the array once, resulting in a running time of O(n) since each lookup and insertion in a hash table is O(1).',
+    question: 'How would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.',
+    code: 'twoSum(int[] nums, int target)\n  map = {}\n  iterate through nums\n    difference = target - nums[i]\n    if map.contains difference\n      return [map.get(complement), i];\n    }\n    map.put(nums[i], i);',
     solution: true,
     hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
     category: 'Two Sum',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
-]
-
-const cards2 = [
-  {question: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-  {question: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-  {question: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-  {question: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
+  {
+    type: 'order',
+    question: 'Given the root of a binary search tree, and a target K, return two nodes in the tree whose sum equals K. Select the order to accomplish this in O(n) time and O(n) space.',
+    options: ['Create a hash map', 'Create an auxiliary array', 'Push an inorder traversal of the BST nodes into the auxiliary array', 'Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
+    solution: ['1. Create an auxiliary array', '2. Push an inorder traversal of the BST nodes into the auxiliary array', '3. Create a hash map', '4. Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
+    hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
+    category: 'Two Sum',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
 ]
 
 export default questions;

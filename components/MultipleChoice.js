@@ -28,7 +28,7 @@ class MultipleChoice extends React.Component {
   }
 
   selectAnswer(originalIdx) {
-    if (this.props.solution === originalIdx) {
+    if (this.props.solution === this.props.options[originalIdx]) {
       alert('good!')
       console.log(true)
     } else {

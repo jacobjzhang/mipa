@@ -40,8 +40,9 @@ class App extends React.Component {
 
   goToNextQuestion() {
     let currIdx = this.state.questions.indexOf(this.state.currentCard);
-    console.log(currIdx, questions[currIdx++])
-    this.setState({currentCard: questions[currIdx++]})
+    if (this.state.questions[currIdx+1]) {
+      this.setState({currentCard: questions[currIdx+1]})
+    }
   }
 
   incrementScore() {
