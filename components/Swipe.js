@@ -30,7 +30,6 @@ class Swipe extends React.Component {
         <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
         <Text style={theme.cardActionStyle}>
           Swipe right if statement is correct, left if wrong.{"\n"}
-          Tap on this card to get hints.
         </Text>            
         <Text style={[theme.cardContentStyle, styles.question]}>
           {this.props.question}

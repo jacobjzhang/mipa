@@ -34,13 +34,7 @@ class ResultModal extends React.Component {
         }}>
         <View style={{marginTop: 300, backgroundColor: 'yellow', padding: 50}}>
           <View>
-            <Text style={{fontSize: 25}}>Correct!</Text>
-            <TouchableHighlight
-              onPress={() => {
-                this.props.setModalVisible(!this.props.modalVisible);
-              }}>
-              <Text>Close</Text>
-            </TouchableHighlight>
+            <Text style={{fontSize: 35, textAlign: 'center'}}>{this.props.currentResult}</Text>
           </View>
           <Button title="CONTINUE" onPress={() => this.props.goToNextQuestion()} style={{
               position: 'absolute',

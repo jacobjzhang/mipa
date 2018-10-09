@@ -30,6 +30,7 @@ class App extends React.Component {
       questions: questions,
       answer: '',
       score: 0,
+      currentCardIdx: 0,
       currentCard: questions[0],
       modalVisible: false,
       answeredAlready: false,
@@ -44,11 +45,11 @@ class App extends React.Component {
   }
 
   goToNextQuestion() {
-    let currIdx = this.state.questions.indexOf(this.state.currentCard);
+    let currIdx = this.state.currentCardIdx;
     if (this.state.questions[currIdx+1]) {
-      this.setState({currentCard: questions[currIdx+1], answeredAlready: false})
+      this.setState({currentCardIdx: currIdx+1, currentCard: questions[currIdx+1], answeredAlready: false});
+      this.setModalVisible(!this.state.modalVisible);
     }
-    this.setModalVisible(!this.state.modalVisible);
   }
 
   incrementScore() {
@@ -130,7 +131,7 @@ class App extends React.Component {
   }
 
   render() {
-    const currentScore = this.state.score / this.state.questions.length;
+    const currentScore = this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
 
     let content;
@@ -170,6 +171,9 @@ class App extends React.Component {
           <CardFlip ref={(card) => this.card = card} >
             <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               {content}
+              <Text style={theme.cardActionStyle}>
+                Tap on this card to get hints.
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardContainer} onPress={() => this.card.flip()} >
               <View style={theme.cardStyle}>
@@ -183,7 +187,7 @@ class App extends React.Component {
                   Tap on this card to go back to the question
                 </Text>
               </View>
-            </TouchableOpacity>   
+            </TouchableOpacity>
           </CardFlip>
           <View style={{position: 'absolute', bottom: 60, left: 25, right: 25,}} >
             <Progress.Bar

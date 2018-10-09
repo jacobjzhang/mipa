@@ -35,8 +35,6 @@ class MultipleChoice extends React.Component {
       this.props.showResult("Incorrect!");
       this.props.decrementScore();  
     }
-
-    this.props.goToNextQuestion();
   }
 
   render() {
