@@ -1,12 +1,11 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity, Modal, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, Button} from 'react-native';
 import {
+  getTheme,
   MKButton,
-  MKColor,
-  MKIconToggle,  
-  getTheme
+  MKTouchable
 } from 'react-native-material-kit';
 import * as Progress from 'react-native-progress';
 import { withNavigation } from 'react-navigation';
@@ -19,10 +18,9 @@ import Swipe from '../components/Swipe';
 import Order from '../components/Order';
 import FillIn from '../components/FillIn';
 import MultipleChoice from '../components/MultipleChoice';
+import ResultModal from '../components/ResultModal';
 
 const theme = getTheme();
-
-let COUNT = 0;
 
 class App extends React.Component {
   constructor(props) {
@@ -33,29 +31,36 @@ class App extends React.Component {
       answer: '',
       score: 0,
       currentCard: questions[0],
-      modalVisible: false
+      modalVisible: false,
+      answeredAlready: false,
+      currentResult: ''
     }
 
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
+    this.showResult = this.showResult.bind(this);
+    this.incrementScore = this.incrementScore.bind(this);
+    this.decrementScore = this.decrementScore.bind(this);
   }
 
   goToNextQuestion() {
     let currIdx = this.state.questions.indexOf(this.state.currentCard);
     if (this.state.questions[currIdx+1]) {
-      this.setState({currentCard: questions[currIdx+1]})
+      this.setState({currentCard: questions[currIdx+1], answeredAlready: false})
     }
+    this.setModalVisible(!this.state.modalVisible);
   }
 
   incrementScore() {
-    this.setState({score: this.state.score++})
+    this.setState({score: this.state.score+1})
   }
   
   decrementScore() {
-    this.setState({score: this.state.score--})
+    this.setState({score: this.state.score-1})
   }
 
   showResult(currentResult) {
-    this.setState({currentResult: currentResult, modalVisible: true});
+    this.setState({answeredAlready: true, currentResult: currentResult, modalVisible: true});
   }
   
   handleAnswer(question, givenSolution) {
@@ -81,7 +86,6 @@ class App extends React.Component {
     }
 
     this.handleAnswer(this.state.currentCard, answer);
-    this.goToNextQuestion();
   }
 
   onSwipeUp(gestureState) {
@@ -123,7 +127,7 @@ class App extends React.Component {
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
-  }  
+  }
 
   render() {
     const currentScore = this.state.score / this.state.questions.length;
@@ -132,16 +136,16 @@ class App extends React.Component {
     let content;
     switch(currentCard.type) {
       case 'swipe':
-        content = <Swipe {...currentCard} goToNextQuestion={this.goToNextQuestion} />
+        content = <Swipe {...currentCard} showResult={this.showResult} incrementScore={this.incrementScore} decrementScore={this.decrementScore} />
         break;
       case 'multiple choice':
-        content = <MultipleChoice {...currentCard} goToNextQuestion={this.goToNextQuestion} />
+        content = <MultipleChoice {...currentCard} showResult={this.showResult} incrementScore={this.incrementScore} decrementScore={this.decrementScore} />
         break;
       case 'order':
-        content = <Order {...currentCard} goToNextQuestion={this.goToNextQuestion} />
+        content = <Order {...currentCard} showResult={this.showResult} incrementScore={this.incrementScore} decrementScore={this.decrementScore} />
         break;
       case 'fill in':
-        content = <FillIn {...currentCard} goToNextQuestion={this.goToNextQuestion} />
+        content = <FillIn {...currentCard} showResult={this.showResult} incrementScore={this.incrementScore} decrementScore={this.decrementScore} />
         break;        
     }
 
@@ -181,33 +185,14 @@ class App extends React.Component {
               </View>
             </TouchableOpacity>   
           </CardFlip>
-          <Progress.Bar
-            style={{position: 'absolute', bottom: 60, left: 25, right: 25,}}
-            progress={0.3}
-            width={320}
-          />
-          <Text style={styles.selection}>{this.state.answer}</Text>
+          <View style={{position: 'absolute', bottom: 60, left: 25, right: 25,}} >
+            <Progress.Bar
+              progress={currentScore}
+              width={320}
+            />
+          </View>
         </GestureRecognizer>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}
-          >
-          <View style={{paddingHorizontal: 100, fontSize: 20, marginTop: 300, backgroundColor: 'yellow', alignSelf: 'center'}}>
-            <View>
-              <Text style={{fontSize: 25}}>Correct!</Text>
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Close</Text>
-              </TouchableHighlight>
-            </View>
-          </View>          
-        </Modal>
+        <ResultModal currentResult={this.state.currentResult} modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible} goToNextQuestion={this.goToNextQuestion} />
       </View>
     )
   }
@@ -217,7 +202,8 @@ export default withNavigation(App);
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 600
+    height: 600,
+    borderWidth: 0
   },
   question: {
     width: null,
@@ -227,9 +213,11 @@ const styles = StyleSheet.create({
   cardImageStyle: {
     alignSelf: 'stretch'
   },
-  selection: {
-    alignSelf: 'center',
+  continueButton: {
     position: 'absolute',
-    bottom: 100
+    left: 25,
+    right: 25,
+    bottom: 200,
+    zIndex: 10
   }
 })

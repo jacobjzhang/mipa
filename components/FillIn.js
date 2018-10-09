@@ -29,13 +29,12 @@ class FillIn extends React.Component {
 
   checkAnswer() {
     if (this.state.userSolution.toLowerCase() === "inorder(node.right);") {
-      alert('good!')
-      console.log(true)
+      this.props.showResult("Correct!");
+      this.props.incrementScore();      
     } else {
-      alert('nope!')
+      this.props.showResult("Incorrect!");
+      this.props.decrementScore();      
     }
-
-    this.props.goToNextQuestion();
   }
 
   render() {

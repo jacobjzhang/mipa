@@ -30,13 +30,13 @@ class Order extends React.Component {
 
   checkAnswer(actualSolution, userSolution) {
     if (JSON.stringify(actualSolution) == JSON.stringify(userSolution)) {
-      alert('good!')
+      this.props.showResult("Correct!");
+      this.props.incrementScore();
       console.log(true)
     } else {
-      alert('nope!')
+      this.props.showResult("Incorrect!");
+      this.props.decrementScore();      
     }
-
-    this.props.goToNextQuestion();
   }
 
   updateOrderView(newOptions, originalIdx, newTextWithOrderNum) {

@@ -29,10 +29,11 @@ class MultipleChoice extends React.Component {
 
   selectAnswer(originalIdx) {
     if (this.props.solution === this.props.options[originalIdx]) {
-      alert('good!')
-      console.log(true)
+      this.props.showResult("Correct!");
+      this.props.incrementScore();    
     } else {
-      alert('nope!')
+      this.props.showResult("Incorrect!");
+      this.props.decrementScore();  
     }
 
     this.props.goToNextQuestion();
