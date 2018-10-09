@@ -53,11 +53,11 @@ class App extends React.Component {
   }
 
   incrementScore() {
-    this.setState({score: this.state.score+1})
+    this.setState({score: this.state.score+100})
   }
   
   decrementScore() {
-    this.setState({score: this.state.score-1})
+    this.setState({score: this.state.score-100})
   }
 
   showResult(currentResult) {
@@ -196,7 +196,11 @@ class App extends React.Component {
             />
           </View>
         </GestureRecognizer>
-        <ResultModal currentResult={this.state.currentResult} modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible} goToNextQuestion={this.goToNextQuestion} />
+        <ResultModal currentResult={this.state.currentResult}
+          modalVisible={this.state.modalVisible}
+          setModalVisible={this.setModalVisible}
+          goToNextQuestion={this.goToNextQuestion}
+          score={this.state.score} />
       </View>
     )
   }
