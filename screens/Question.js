@@ -26,6 +26,7 @@ class App extends React.Component {
   constructor(props) {
     console.log(props)
     super(props);
+
     this.state = {
       questions: questions,
       answer: '',
@@ -37,6 +38,7 @@ class App extends React.Component {
       currentResult: ''
     }
 
+    this.fetchQuestions = this.fetchQuestions.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
     this.showResult = this.showResult.bind(this);
@@ -44,10 +46,74 @@ class App extends React.Component {
     this.decrementScore = this.decrementScore.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchQuestions();
+  }
+
+  async fetchQuestions() {
+    const self = this;
+    const projectId = 'mipa-1540168874590';
+
+    const requestBody = {
+      "query": {
+        "kind": [
+          {
+            "name": "Question"
+          }
+        ],
+        "filter": {
+          "propertyFilter": {
+            "property": {
+              "name": "challenge"
+            },
+            "op": "EQUAL",
+            "value": {
+              "integerValue": "1"
+            }
+          }
+        }
+      }
+    }
+
+    return await fetch(`https://datastore.googleapis.com/v1/projects/${projectId}:runQuery?access_token=`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson)
+        const qs = responseJson.batch.entityResults.map((e) => {
+          let obj = {};
+          const ps = e.entity.properties;
+        
+          return {
+            type: ps.type.stringValue,
+            solution: ps.solution.booleanValue,
+            category: ps.category.stringValue,
+            question: ps.question.stringValue,
+            hint: ps.hint.stringValue,
+            options: ps.options ? ps.options.arrayValue.values.map((s) => s.stringValue) : null,
+            questionImage: ps.questionImage ? ps.questionImage.stringValue : null,
+            challenge: ps.challenge.integerValue
+          }
+        })
+           
+        self.setState({ questions: qs });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   goToNextQuestion() {
     let currIdx = this.state.currentCardIdx;
+    console.log('-----STATE------')
+    console.log(this.state.questions)
     if (this.state.questions[currIdx+1]) {
-      this.setState({currentCardIdx: currIdx+1, currentCard: questions[currIdx+1], answeredAlready: false});
+      this.setState({currentCardIdx: currIdx+1, currentCard: this.state.questions[currIdx+1], answeredAlready: false});
       this.setModalVisible(!this.state.modalVisible);
     }
   }
@@ -133,6 +199,7 @@ class App extends React.Component {
   render() {
     const currentScore = this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
+    console.log('---currentCard---:', this.state.currentCard)
 
     let content;
     switch(currentCard.type) {

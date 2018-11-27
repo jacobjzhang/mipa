@@ -1,5 +1,6 @@
-const questions = [
+module.exports = [
   {
+    challenge: 1,
     type: 'swipe',
     question: 'The worst case time complexity for search, insert and delete operations in a general Binary Search Tree is O(n).',
     solution: true,
@@ -8,6 +9,7 @@ const questions = [
     questionImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/192px-Binary_tree.svg.png'
   },
   {
+    challenge: 1,
     type: 'order',
     question: 'In-order Traversal for a Binary Search Tree:',
     options: ['Visit the root.', 'Traverse the left subtree, i.e., call Inorder(left-subtree) ', 'Traverse the right subtree, i.e., call Inorder(right-subtree)'],
@@ -17,6 +19,7 @@ const questions = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    challenge: 1,
     type: 'fill in',
     question: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      _______________\n   }\n}",
     solution: false,
@@ -25,6 +28,7 @@ const questions = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    challenge: 1,
     type: 'multiple choice',
     question: 'Which of the following is not an advantage of a hash map data structure?',
     options: ['Being able to lookup data on the order of O(1) independent of the size of the data structure.', 'Being able to insert data on the order of O(1) independent of the size of the data structure.', 'Finding the maximum and minimum keys in O(1).', 'If the set of key-value pairs is fixed and known ahead of time, one may reduce the average lookup cost by a careful choice of the hash function, bucket table size, and internal data structures such that keys need not be stored in the table.'],   
@@ -34,6 +38,7 @@ const questions = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    challenge: 1,
     type: 'swipe',
     question: 'How would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.',
     code: 'twoSum(int[] nums, int target)\n  map = {}\n  iterate through nums\n    difference = target - nums[i]\n    if map.contains difference\n      return [map.get(complement), i];\n    }\n    map.put(nums[i], i);',
@@ -43,6 +48,7 @@ const questions = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    challenge: 1,
     type: 'order',
     question: 'Given the root of a binary search tree, and a target K, return two nodes in the tree whose sum equals K. Select the order to accomplish this in O(n) time and O(n) space.',
     options: ['Create a hash map', 'Create an auxiliary array', 'Push an inorder traversal of the BST nodes into the auxiliary array', 'Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
@@ -51,6 +57,4 @@ const questions = [
     category: 'Two Sum',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
-]
-
-export default questions;
+];
