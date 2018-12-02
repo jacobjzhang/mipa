@@ -1,16 +1,16 @@
 import React from 'react';
 import { createSwitchNavigator } from 'react-navigation';
 
-import Question from '../screens/Question';
+import Home from '../screens/Home';
 
-const QuestionStack = createSwitchNavigator({
-  Question: Question,
+const HomeStack = createSwitchNavigator({
+  Home: Home,
 });
 
-QuestionStack.navigationOptions = {
-  title: 'Question'
+HomeStack.navigationOptions = {
+  title: 'Home'
 };
 
 export default createSwitchNavigator({
-  QuestionStack,
+  HomeStack,
 });
