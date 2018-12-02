@@ -40,6 +40,7 @@ class Question extends React.Component {
     this.state = {
       questions: questions,
       answer: "",
+      lastScore: 0,
       score: 0,
       currentCardIdx: 0,
       currentCard: questions[0],
@@ -85,11 +86,11 @@ class Question extends React.Component {
   }
 
   incrementScore() {
-    this.setState({ score: this.state.score + 100 });
+    this.setState({ lastScore: this.state.score, score: this.state.score + 100 });
   }
 
   decrementScore() {
-    this.setState({ score: this.state.score - 100 });
+    this.setState({ lastScore: this.state.score, score: this.state.score - 100 });
   }
 
   showResult(currentResult) {
@@ -284,6 +285,7 @@ class Question extends React.Component {
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
           goToNextQuestion={this.goToNextQuestion}
+          lastScore={this.state.lastScore}
           score={this.state.score}
         />
       </View>

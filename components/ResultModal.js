@@ -3,7 +3,7 @@ import {TouchableHighlight, Text, View, Modal, Button} from 'react-native';
 import {
   getTheme
 } from 'react-native-material-kit';
-import AnimateNumber from 'react-native-animate-number'
+import Counter from 'react-native-counter';
 
 const theme = getTheme();
 
@@ -37,7 +37,13 @@ class ResultModal extends React.Component {
           <View>
             <Text style={{fontSize: 35, textAlign: 'center'}}>
               {this.props.currentResult}{"\n"}
-              <AnimateNumber value={this.props.score} countBy={5} />
+              <Counter
+                end={this.props.score}                        // REQUIRED End of the counter
+                start={this.props.lastScore}                     // Beginning of the counter
+                time={1000}                   // Duration (in ms) of the counter
+                digits={0}                    // Number of digits after the comma
+                easing="linear"               // Easing function name
+              />
             </Text>
           </View>
           <Button title="CONTINUE" onPress={() => this.props.goToNextQuestion()} style={{
