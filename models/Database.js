@@ -4,7 +4,10 @@ import auth from './auth';
 
 class Database {
   constructor() {
-    firebase.initializeApp(auth);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(auth);
+    }
+
     this.db = firebase.firestore();
 
     // Disable deprecated features
@@ -54,17 +57,18 @@ class Database {
     records.forEach(q => {
       this.db
         .collection(type)
-        .add({
-          challenge: q.challenge,
-          type: q.type,
-          question: q.question,
-          solution: q.solution,
-          hint: q.hint,
-          category: q.category,
-          options: q.options ? q.options : "",
-          questionImage: q.questionImage ? q.questionImage : "",
-          hintImage: q.hintImage ? q.hintImage : ""
-        })
+        .add({...q})
+        // .add({
+        //   challenge: q.challenge,
+        //   type: q.type,
+        //   question: q.question,
+        //   solution: q.solution,
+        //   hint: q.hint,
+        //   category: q.category,
+        //   options: q.options ? q.options : "",
+        //   questionImage: q.questionImage ? q.questionImage : "",
+        //   hintImage: q.hintImage ? q.hintImage : ""
+        // })
         .then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
         })

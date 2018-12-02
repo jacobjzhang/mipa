@@ -23,8 +23,8 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const db = new Database();
-    const challenges = await db.getChallenges();
+    this.db = new Database();
+    const challenges = await this.db.getChallenges();
     this.setState({ challenges: challenges });
   }
 

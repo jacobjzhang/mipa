@@ -72,7 +72,7 @@ module.exports = [
     question: 'What is the order of steps in Quick Sort?',
     options: ['Then, apply the quicksort algorithm to the first and the third part. (recursively)', 'Pick a pivot element.', 'Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.'],
     solution: ['1. Pick a pivot element.', '2. Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.', '3. Then, apply the quicksort algorithm to the first and the third part. (recursively)'],
-    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
+    hint: "",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
