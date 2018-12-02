@@ -13,12 +13,12 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import GridView from 'react-native-super-grid';
 import CardFlip from 'react-native-card-flip';
 
-import challenges from '../content/challenges';
 import Swipe from '../components/Swipe';
 import Order from '../components/Order';
 import FillIn from '../components/FillIn';
 import MultipleChoice from '../components/MultipleChoice';
 import ResultModal from '../components/ResultModal';
+import Database from '../models/Database';
 
 const theme = getTheme();
 
@@ -46,8 +46,11 @@ class App extends React.Component {
     // this.decrementScore = this.decrementScore.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // this.fetchQuestions();
+    const db = new Database();
+    const questions = await db.getQuestions(1);
+    console.log(`Qs`, questions);
   }
 
   async fetchQuestions() {
