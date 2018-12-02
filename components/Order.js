@@ -45,7 +45,7 @@ class Order extends React.Component {
   }
 
   updateViewAndUpdateSolution(answer, originalIdx) {
-    if (/\d/.test(answer)) {
+    if (/\d\./.test(answer)) {
       return;
     }
 
@@ -56,6 +56,7 @@ class Order extends React.Component {
 
     this.state.userSolution.push(newTextWithOrderNum);
 
+    console.log(this.state.userSolution.length, this.state.options.length)
     if (this.state.userSolution.length === this.state.options.length) {
       this.checkAnswer(this.props.solution, this.state.userSolution);
     }

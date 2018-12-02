@@ -12,8 +12,8 @@ import { withNavigation } from 'react-navigation';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 import CardFlip from 'react-native-card-flip';
-
 import questions from '../content/questions';
+
 import Swipe from '../components/Swipe';
 import Order from '../components/Order';
 import FillIn from '../components/FillIn';
@@ -27,12 +27,17 @@ class App extends React.Component {
     console.log(props)
     super(props);
 
+    const challengeId = this.props.navigation.getParam('challengeId', 1);
+    const challengeQuestions = questions.filter((q) => { return q.challenge === challengeId });
+
+    console.log(challengeId, challengeQuestions)
+
     this.state = {
-      questions: questions,
+      questions: challengeQuestions,
       answer: '',
       score: 0,
       currentCardIdx: 0,
-      currentCard: questions[0],
+      currentCard: challengeQuestions[0],
       modalVisible: false,
       answeredAlready: false,
       currentResult: ''
@@ -47,7 +52,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestions();
+    // this.fetchQuestions();
   }
 
   async fetchQuestions() {
@@ -206,7 +211,6 @@ class App extends React.Component {
   render() {
     const currentScore = this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
-    console.log('---currentCard---:', this.state.currentCard)
 
     let content;
     switch(currentCard.type) {

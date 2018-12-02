@@ -57,4 +57,42 @@ module.exports = [
     category: 'Two Sum',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
+  {
+    challenge: 2,
+    type: 'swipe',
+    question: 'Recurrence and time complexity for worst case of QuickSort is T(n-1) + O(n) and O(n^2) respectively.',
+    solution: true,
+    hint: "The worst case of QuickSort occurs when the picked pivot is always one of the corner elements in sorted array. In worst case, QuickSort recursively calls one subproblem with size 0 and other subproblem with size (n-1). So recurrence is T(n) = T(n-1) + T(0) + O(n) The above expression can be rewritten as T(n) = T(n-1) + O(n).",
+    category: 'Sorting',
+    questionImage: ''
+  },
+  {
+    challenge: 2,
+    type: 'order',
+    question: 'What is the order of steps in Quick Sort?',
+    options: ['Then, apply the quicksort algorithm to the first and the third part. (recursively)', 'Pick a pivot element.', 'Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.'],
+    solution: ['1. Pick a pivot element.', '2. Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.', '3. Then, apply the quicksort algorithm to the first and the third part. (recursively)'],
+    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
+    category: 'Depth-First Traversal',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
+  {
+    challenge: 2,
+    type: 'fill in',
+    question: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      _______________\n   }\n}",
+    solution: false,
+    hint: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      inorder(node.right);\n   }\n}",
+    category: 'Depth-First Traversal',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
+  {
+    challenge: 2,
+    type: 'multiple choice',
+    question: 'Which of the following one of these is the missing step to this algorithm:"\n\n(1) Create a low pointer at the beginning of the array and a high pointer at the end of the array.\n(2) Create a mid pointer that starts at the beginning of the array and iterates through each element.\n(3) _______________\n(4) If the element at arr[mid] is a 0, then swap arr[mid] and arr[low] and increase the low and mid pointers by 1.\n(5) If the element at arr[mid] is a 1, don\'t swap anything and just increase the mid pointer by 1.\n"',
+    options: ['If the element at arr[mid] is a 2, then swap arr[mid] and arr[high] and decrease the high pointer by 1.', 'If the element at arr[mid] is a 1, then swap arr[mid] and arr[low] and decrease the low pointer by 1.', 'If the element at arr[low] is a 2, then swap arr[low] and arr[high] and increase the high pointer by 1.'],   
+    solution: 'If the element at arr[mid] is a 2, then swap arr[mid] and arr[high] and decrease the high pointer by 1.',
+    hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
+    category: 'Sorting',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  }  
 ];
