@@ -1,10 +1,12 @@
 import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 
 import Home from '../screens/Home';
+import Settings from '../screens/Settings';
 
-const HomeStack = createSwitchNavigator({
+const HomeStack = createBottomTabNavigator({
   Home: Home,
+  Settings: Settings,
 });
 
 HomeStack.navigationOptions = {
