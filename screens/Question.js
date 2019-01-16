@@ -224,6 +224,14 @@ class Question extends React.Component {
       directionalOffsetThreshold: 80
     };
 
+    const pressLeft = () => {
+      return this.props.navigation.goBack();
+    }
+
+    const pressRight = () => {
+      return this.props.navigation.navigate("Home");
+    }
+
     return (
       <View style={{ flex: 1, paddingVertical: 0 }}>
         <GestureRecognizer
@@ -244,9 +252,9 @@ class Question extends React.Component {
               onPress={() => this.card.flip()}
             >
               <Header
-                leftComponent={{ icon: 'close', color: '#fff' }}
-                centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-                rightComponent={{ icon: 'home', color: '#fff' }}
+                leftComponent={{ icon: 'close', color: '#fff', onPress: pressLeft }}
+                centerComponent={{ text: this.state.currentCard.category, style: { color: '#fff' } }}
+                rightComponent={{ icon: 'home', color: '#fff', onPress: pressRight }}
               />
               {content}
               <Text style={theme.cardActionStyle}>

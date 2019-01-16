@@ -38,7 +38,6 @@ class FillIn extends React.Component {
 
     return (
       <View>
-        <Text>{this.props.category}</Text>
         <Text>
           Fill in the code that would make this algorithm correct:
         </Text>            
