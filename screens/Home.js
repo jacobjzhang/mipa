@@ -6,6 +6,8 @@ import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
 
+import datastore from "../models/datastore";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +28,8 @@ class App extends React.Component {
     this.db = new Database();
     const challenges = await this.db.getChallenges();
     this.setState({ challenges: challenges });
+
+    // datastore();
   }
 
   render() {

@@ -18,6 +18,7 @@ import MultipleChoice from "../components/MultipleChoice";
 import ResultModal from "../components/ResultModal";
 
 import Database from "../models/Database";
+import datastore from "../models/datastore";
 
 const theme = getTheme();
 
@@ -65,6 +66,7 @@ class Question extends React.Component {
     const challengeId = this.props.navigation.getParam("challengeId", 1);
 
     const db = new Database();
+
     const challengeQuestions = await db.getQuestions(challengeId);
     this.setState({
       questions: challengeQuestions,
@@ -76,6 +78,7 @@ class Question extends React.Component {
     let currIdx = this.state.currentCardIdx;
 
     if (this.state.questions[currIdx + 1]) {
+      console.log(currIdx, this.state.questions[currIdx + 1], '------QUESTIONS', this.state.questions);
       this.setState({
         currentCardIdx: currIdx + 1,
         currentCard: this.state.questions[currIdx + 1],
