@@ -10,6 +10,7 @@ import GestureRecognizer, {
   swipeDirections
 } from "react-native-swipe-gestures";
 import CardFlip from "react-native-card-flip";
+import { Icon, Header } from 'react-native-elements';
 
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
@@ -242,6 +243,11 @@ class Question extends React.Component {
               style={styles.cardContainer}
               onPress={() => this.card.flip()}
             >
+              <Header
+                leftComponent={{ icon: 'close', color: '#fff' }}
+                centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+                rightComponent={{ icon: 'home', color: '#fff' }}
+              />
               {content}
               <Text style={theme.cardActionStyle}>
                 Tap on this card to get hints.

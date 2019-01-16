@@ -1,10 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, Button} from 'react-native';
-import {
-  getTheme
-} from 'react-native-material-kit';
-
-const theme = getTheme();
+import { Icon, List, ListItem } from 'react-native-elements';
 
 class Order extends React.Component {
   constructor(props) {
@@ -64,22 +60,25 @@ class Order extends React.Component {
 
   render() {
     return (
-      <View style={theme.cardStyle}>
-        <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
-        <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
-        <Text style={theme.cardActionStyle}>
+      <View>
+        <Text>{this.props.category}</Text>
+        <Text>
           Select the below steps in the order they occur for the following concept:
         </Text>            
-        <Text style={[theme.cardContentStyle, styles.question]}>
+        <Text>
           {this.props.question}
         </Text>
-        {this.state.options.map((text, originalIdx) => <Button
-          onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
-          title={text}
-          color="#841584"
-          key={originalIdx}
-          accessibilityLabel="Learn more about this purple button"
-        />)}
+        <List containerStyle={{marginBottom: 20}}>
+          {
+            this.state.options.map((text, originalIdx) => (
+              <ListItem
+                onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
+                key={originalIdx}
+                title={text}
+              />
+            ))
+          }
+        </List>
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
       </View>
     );

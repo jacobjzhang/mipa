@@ -1,10 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Button, TextInput} from 'react-native';
-import {
-  getTheme
-} from 'react-native-material-kit';
-
-const theme = getTheme();
+import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
+import { Card, ListItem, Button } from 'react-native-elements'
 
 class FillIn extends React.Component {
   constructor(props) {
@@ -41,24 +37,25 @@ class FillIn extends React.Component {
     const fillInQuestion = this.props.question.split('_______________');
 
     return (
-      <View style={theme.cardStyle}>
-        <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
-        <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
-        <Text style={theme.cardActionStyle}>
+      <View>
+        <Text>{this.props.category}</Text>
+        <Text>
           Fill in the code that would make this algorithm correct:
         </Text>            
-        <Text style={[theme.cardContentStyle, styles.question]}>
-          {fillInQuestion[0]}
-        </Text>
-        <TextInput
-          style={styles.fillInInput}
-          placeholder="// enter missing line here"
-          onChangeText={(userSolution) => this.setState({userSolution})}
-          autoCapitalize = 'none'
-        />
-        <Text style={[theme.cardContentStyle, styles.question]}>
-          {fillInQuestion[1]}
-        </Text>
+        <Card>
+          <Text>
+            {fillInQuestion[0]}
+          </Text>
+          <TextInput
+            style={styles.fillInInput}
+            placeholder="// enter missing line here"
+            onChangeText={(userSolution) => this.setState({userSolution})}
+            autoCapitalize = 'none'
+          />
+          <Text>
+            {fillInQuestion[1]}
+          </Text>
+        </Card>
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
         <Button title="Check Answer" onPress={() => this.checkAnswer()} />
       </View>
