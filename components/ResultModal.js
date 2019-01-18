@@ -34,7 +34,13 @@ class ResultModal extends React.Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <View style={{marginTop: 600, backgroundColor: 'rgba(117, 125, 139, 0.9)', padding: 20}}>
+        <View style={{
+          position: 'absolute',
+          bottom:0,
+          backgroundColor: 'rgba(117, 125, 139, 0.9)',
+          paddingBottom: 20,
+          width: '100%'
+        }}>
           <View>
             <Text style={{fontSize: 25, textAlign: 'center', padding: 10}}>
               {this.props.currentResult}{"\n"}

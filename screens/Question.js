@@ -227,7 +227,7 @@ class Question extends React.Component {
     };
 
     const pressLeft = () => {
-      return this.props.navigation.goBack();
+      return this.props.navigation.navigate("Home");
     }
 
     const pressRight = () => {
@@ -255,8 +255,8 @@ class Question extends React.Component {
             >
               <Header
                 leftComponent={{ icon: 'close', color: '#fff', onPress: pressLeft }}
-                centerComponent={{ text: this.state.currentCard.category, style: { color: '#fff' } }}
-                rightComponent={{ icon: 'home', color: '#fff', onPress: pressRight }}
+                centerComponent={{ text: this.state.currentCard.category, style: { color: '#fff', fontSize: 18 } }}
+                rightComponent={{ icon: 'thumb-up', color: '#fff', onPress: pressRight }}
               />
                 <Card>
                   {content}

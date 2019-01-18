@@ -1,12 +1,13 @@
 "use strict";
 
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
 
 import datastore from "../models/datastore";
+import Markdown from "react-native-simple-markdown";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +37,20 @@ class App extends React.Component {
     const challenges = this.state.challenges || [];
 
     return (
-      <View style={{ flex: 1, paddingVertical: 0 }}>
+      <View style={{ flex: 1, paddingTop: 0 }}>
+        <View
+          style={{
+            height: 100,
+            backgroundColor: 'black',
+            marginTop: 0,
+            paddingTop: 40,
+            paddingLeft: 20
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 30 }}>
+            # MIPA
+          </Text>
+        </View>
         <GridView
           itemDimension={130}
           items={challenges}
