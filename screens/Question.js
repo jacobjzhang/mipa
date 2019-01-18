@@ -11,6 +11,8 @@ import GestureRecognizer, {
 } from "react-native-swipe-gestures";
 import CardFlip from "react-native-card-flip";
 import { Icon, Header } from 'react-native-elements';
+import Markdown from 'react-native-simple-markdown'
+import { Card } from 'react-native-elements';
 
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
@@ -256,7 +258,9 @@ class Question extends React.Component {
                 centerComponent={{ text: this.state.currentCard.category, style: { color: '#fff' } }}
                 rightComponent={{ icon: 'home', color: '#fff', onPress: pressRight }}
               />
-              {content}
+                <Card>
+                  {content}
+                </Card>
               <Text style={theme.cardActionStyle}>
                 Tap on this card to get hints.
               </Text>
@@ -271,7 +275,25 @@ class Question extends React.Component {
                   style={theme.cardImageStyle}
                 />
                 <Text style={theme.cardTitleStyle}>Hint</Text>
-                <Text style={[theme.cardContentStyle, styles.question]}>
+
+                <Markdown>
+                      #Markdown in react-native is so cool! {'\n\n'}
+
+                      You can **emphasize** what you want, or just _suggest it_ 😏…{'\n'}
+
+                      You can even [**link your website**](https://twitter.com/Charles_Mangwa) or if you prefer: [email somebody](mailto:email@somebody.com){'\n'}
+
+                      Spice it up with some GIFs 💃:
+
+                      ![Some GIF](https://media.giphy.com/media/dkGhBWE3SyzXW/giphy.gif){'\n'}
+
+                      And even add a cool video 😎!{'\n'}
+
+                      [![A cool video from YT](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](http://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+                      [![Another one from Vimeo](https://i.vimeocdn.com/video/399486266_640.jpg)](https://vimeo.com/57580368)
+                    </Markdown>
+                  <Text style={[theme.cardContentStyle, styles.question]}>
                   {currentCard.hint}
                 </Text>
                 {currentCard.hintImage && (

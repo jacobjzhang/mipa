@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Button} from 'react-native';
-import { Icon, List, ListItem } from 'react-native-elements';
+import {StyleSheet, Text, View, Image } from 'react-native';
+import { Button, Divider } from 'react-native-elements';
+import Markdown from 'react-native-simple-markdown'
 
 class Order extends React.Component {
   constructor(props) {
@@ -62,23 +63,29 @@ class Order extends React.Component {
     return (
       <View>
         <Text>{this.props.category}</Text>
-        <Text>
-          Select the below steps in the order they occur for the following concept:
-        </Text>            
-        <Text>
-          {this.props.question}
-        </Text>
-        <List containerStyle={{marginBottom: 20}}>
-          {
-            this.state.options.map((text, originalIdx) => (
-              <ListItem
+        <View  style={{marginBottom: 20}}>
+          <Markdown>
+            ## Select the below steps in the order they occur for the following concept:
+          </Markdown>
+          <Divider style={{ backgroundColor: 'blue' }} />
+          </View>   
+        <View  style={{marginBottom: 20}}>       
+          <Markdown>
+            ### {this.props.question}
+          </Markdown>
+        </View>
+        {
+          this.state.options.map((text, originalIdx) => (
+            <View style={{marginBottom: 20}}>
+              <Button
+                small
+                raised
                 onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
-                key={originalIdx}
-                title={text}
-              />
-            ))
-          }
-        </List>
+                backgroundColor='#FEC108'
+                title={text} />              
+            </View>
+          ))
+        }
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
       </View>
     );

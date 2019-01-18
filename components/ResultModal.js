@@ -1,9 +1,10 @@
 import React from 'react';
-import {TouchableHighlight, Text, View, Modal, Button} from 'react-native';
+import {TouchableHighlight, Text, View, Modal} from 'react-native';
 import {
   getTheme
 } from 'react-native-material-kit';
 import Counter from 'react-native-counter';
+import { Card, Button } from 'react-native-elements';
 
 const theme = getTheme();
 
@@ -33,26 +34,23 @@ class ResultModal extends React.Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <View style={{marginTop: 300, backgroundColor: 'yellow', padding: 50}}>
+        <View style={{marginTop: 600, backgroundColor: 'rgba(117, 125, 139, 0.9)', padding: 20}}>
           <View>
-            <Text style={{fontSize: 35, textAlign: 'center'}}>
+            <Text style={{fontSize: 20, textAlign: 'center'}}>
               {this.props.currentResult}{"\n"}
-              <Counter
-                end={this.props.score}                        // REQUIRED End of the counter
-                start={this.props.lastScore}                     // Beginning of the counter
-                time={1000}                   // Duration (in ms) of the counter
-                digits={0}                    // Number of digits after the comma
-                easing="linear"               // Easing function name
-              />
+              <Text style={{fontSize: 35, textAlign: 'center'}}>
+                Score: <Counter
+                  end={this.props.score}                        // REQUIRED End of the counter
+                  start={this.props.lastScore}                     // Beginning of the counter
+                  time={1000}                   // Duration (in ms) of the counter
+                  digits={0}                    // Number of digits after the comma
+                  easing="linear"               // Easing function name
+                />
+              </Text>
             </Text>
+            <Button title="CONTINUE" onPress={() => this.props.goToNextQuestion()} style={{
+            }} />            
           </View>
-          <Button title="CONTINUE" onPress={() => this.props.goToNextQuestion()} style={{
-              position: 'absolute',
-              left: 25,
-              right: 25,
-              bottom: 200,
-              zIndex: 10
-            }} />
         </View>          
       </Modal>
     );
