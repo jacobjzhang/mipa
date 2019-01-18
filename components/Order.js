@@ -76,7 +76,7 @@ class Order extends React.Component {
         </View>
         {
           this.state.options.map((text, originalIdx) => (
-            <View style={{marginBottom: 20}}>
+            <View key={originalIdx} style={{marginBottom: 20}}>
               <Button
                 small
                 raised

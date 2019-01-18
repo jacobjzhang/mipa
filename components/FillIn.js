@@ -56,7 +56,11 @@ class FillIn extends React.Component {
           </Text>
         </Card>
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
-        <Button title="Check Answer" onPress={() => this.checkAnswer()} />
+        <Button
+          title="Check Answer"
+          onPress={() => this.checkAnswer()}
+          backgroundColor='#8BC24A'
+        />
       </View>
     );
   }
