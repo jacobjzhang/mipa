@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {
   getTheme
 } from 'react-native-material-kit';
+import Markdown from 'react-native-simple-markdown';
 
 const theme = getTheme();
 
@@ -25,15 +26,18 @@ class Swipe extends React.Component {
   render() {
 
     return (
-      <View style={theme.cardStyle}>
-        <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
-        <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
-        <Text style={theme.cardActionStyle}>
-          Swipe right if statement is correct, left if wrong.{"\n"}
-        </Text>            
-        <Text style={[theme.cardContentStyle, styles.question]}>
-          {this.props.question}
-        </Text>
+      <View>
+        <Text>Category: {this.props.category}</Text>
+        <View  style={{marginBottom: 20}}>
+          <Markdown>
+            ### Swipe RIGHT if statement is correct, LEFT if wrong.
+          </Markdown>
+        </View>
+        <View  style={{marginBottom: 20}}>
+          <Markdown>
+            ## {this.props.question}
+          </Markdown>
+        </View>
         {this.props.code && <Text style={{fontFamily: 'Courier', padding: 20}} >
           {this.props.code}
         </Text>}
@@ -49,13 +53,5 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 600,
     borderRadius: 0,
-  },
-  question: {
-    width: null,
-    height: null,
-    fontSize: 16,
-  },
-  cardImageStyle: {
-    alignSelf: 'stretch'
   }
 })
