@@ -61,7 +61,7 @@ class Database {
         });
     } else {
       console.log('Using local data for questions.')
-      questions = require('../content/challenges');      
+      questions = require('../content/questions');      
     }
     return questions;
   }

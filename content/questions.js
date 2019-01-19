@@ -3,8 +3,8 @@ module.exports = [
     challenge: 1,
     type: 'multiple choice',
     question: 'Which of the following is not a property of the Binary Search Tree data structure?',
-    options: ['The left subtree of a node contains only nodes with keys less than the node’s key.', 'The left subtree of a node contains only nodes with keys greater than the node’s key.', 'The right subtree of a node contains only nodes with keys greater than the node’s key.', 'Both the left and right subtrees must also be binary search trees.'],   
-    solution: 'The left subtree of a node contains only nodes with keys greater than the node’s key.',
+    options: ['The LEFT subtree of a node contains only nodes with keys LESS than the node’s key.', 'The LEFT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'The RIGHT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'Both the LEFT and RIGHT subtrees must also be binary search trees.'],   
+    solution: 1,
     hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
     category: 'Binary Trees',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'

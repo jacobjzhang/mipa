@@ -1,10 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Button} from 'react-native';
-import {
-  getTheme
-} from 'react-native-material-kit';
-
-const theme = getTheme();
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import Colors from '../constants/Colors';
+import Markdown from 'react-native-simple-markdown';
+import GridView from 'react-native-super-grid';
 
 class MultipleChoice extends React.Component {
   constructor(props) {
@@ -39,21 +37,29 @@ class MultipleChoice extends React.Component {
 
   render() {
     return (
-      <View style={theme.cardStyle}>
-        <Image source={require('../assets/images/background.png')} style={theme.cardImageStyle} />
-        <Text style={theme.cardTitleStyle}>{this.props.category}</Text>
-        <Text style={theme.cardActionStyle}>
-          Select the correct multiple choice answer:
-        </Text>            
-        <Text style={[theme.cardContentStyle, styles.question]}>
-          {this.props.question}
-        </Text>
-        {this.state.options.map((text, originalIdx) => <Button
-          onPress={() => this.selectAnswer(originalIdx)}
-          title={text}
-          color="#841584"
-          key={originalIdx}
-        />)}
+      <View style={styles.cardContainer}>
+        <Text style={{marginBottom: 20}}>Category: {this.props.category}</Text>
+        <View style={{marginBottom: 20}}>
+          <Markdown>
+            ### Press the correct multiple choice answer.
+          </Markdown>
+          <Markdown>
+            ### {this.props.question}
+          </Markdown>          
+        </View>
+        <GridView
+          itemDimension={130}
+          items={this.state.options}
+          style={styles.gridView}
+          renderItem={(item, idx) => (
+            <TouchableOpacity
+              style={[styles.itemContainer, { backgroundColor: Colors.multipleChoice[idx] }]}
+              onPress={() => this.selectAnswer(idx)}
+            >
+              <Text style={styles.itemName}>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
       </View>
     );
@@ -66,12 +72,24 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 600
   },
-  question: {
-    width: null,
-    height: null,
-    fontSize: 16,
+  gridView: {
+    paddingTop: 25,
+    flex: 1
   },
-  cardImageStyle: {
-    alignSelf: 'stretch'
+  itemContainer: {
+    justifyContent: "flex-end",
+    borderRadius: 5,
+    padding: 10,
+    height: 150
+  },
+  itemName: {
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: "600"
+  },
+  itemCategory: {
+    fontWeight: "600",
+    fontSize: 12,
+    color: "#fff"
   }
-})
+});
