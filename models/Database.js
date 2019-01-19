@@ -2,6 +2,8 @@ import firebase from 'firebase';
 import firestore from 'firebase/firestore';
 import auth from './auth';
 
+const CONNECT_TO_DB = false;
+
 class Database {
   constructor() {
     if (!firebase.apps.length) {
@@ -17,39 +19,50 @@ class Database {
   }
 
   async getChallenges() {
-    const challengesQuery = this.db.collection("Challenges");
     let challenges = [];
+      
+    if (CONNECT_TO_DB) {
+      const challengesQuery = this.db.collection("Challenges");
 
-    await challengesQuery
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(doc => {
-          challenges.push(doc.data());
+      await challengesQuery
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(doc => {
+            challenges.push(doc.data());
+          });
+        })
+        .catch(function(error) {
+          console.log("Error getting documents:", error);
         });
-      })
-      .catch(function(error) {
-        console.log("Error getting documents:", error);
-      });
+    } else {
+      console.log('Using local data for challenges.')
+      challenges = require('../content/challenges');
+    }
 
     return challenges;
   }
 
   async getQuestions(challengeId) {
-    const questionQuery = this.db.collection("Questions");
-    const query = questionQuery.where("challenge", "==", challengeId);
-
     let questions = [];
-    await query
-      .get()
-      .then(function(querySnap) {
-        querySnap.forEach(doc => {
-          questions.push(doc.data());
-        });
-      })
-      .catch(function(error) {
-        console.log("Error getting documents:", error);
-      });
 
+    if (CONNECT_TO_DB) {
+      const questionQuery = this.db.collection("Questions");
+      const query = questionQuery.where("challenge", "==", challengeId);
+  
+      await query
+        .get()
+        .then(function(querySnap) {
+          querySnap.forEach(doc => {
+            questions.push(doc.data());
+          });
+        })
+        .catch(function(error) {
+          console.log("Error getting documents:", error);
+        });
+    } else {
+      console.log('Using local data for questions.')
+      questions = require('../content/challenges');      
+    }
     return questions;
   }
 
