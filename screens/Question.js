@@ -173,8 +173,8 @@ class Question extends React.Component {
   }
 
   render() {
-    const currentScore =
-      this.state.currentCardIdx / this.state.questions.length;
+    console.log(this.state.currentCardIdx, this.state.questions.length)
+    const currentScore = this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
 
     let content;
@@ -260,7 +260,7 @@ class Question extends React.Component {
                 rightComponent={{ icon: 'thumb-up', color: '#000', onPress: pressRight }}
               />
               <View style={{padding: 20}}>
-                <Progress.Bar progress={currentScore} style={{ width: 320, alignSelf: 'center', margin: 10}} />
+                <Progress.Bar width={320} progress={currentScore} style={{ alignSelf: 'center', margin: 10}} />
               </View>
               <View style={{padding: 20}}>
                 {content}

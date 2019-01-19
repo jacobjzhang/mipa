@@ -61,7 +61,8 @@ class Database {
         });
     } else {
       console.log('Using local data for questions.')
-      questions = require('../content/questions');      
+      const allQuestions = require('../content/questions');      
+      questions = allQuestions.filter((q) => { return q.challenge == challengeId; })
     }
     return questions;
   }

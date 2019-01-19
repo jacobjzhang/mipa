@@ -31,10 +31,10 @@ module.exports = [
   {
     challenge: 3,
     type: 'order',
-    question: 'An In-order Traversal for a Binary Search Tree.',
-    options: ['Visit the root.', 'Traverse the left subtree, i.e., call Inorder(left-subtree) ', 'Traverse the right subtree, i.e., call Inorder(right-subtree)'],
-    solution: ['1. Traverse the left subtree, i.e., call Inorder(left-subtree) ', '2. Visit the root.', '3. Traverse the right subtree, i.e., call Inorder(right-subtree)'],
-    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
+    question: 'An In-order Traversal for a Binary Search Tree with function inOrder()',
+    options: ['Visit the root.', 'Traverse the left subtree, i.e., call inOrder(left-subtree) ', 'Traverse the right subtree, i.e., call inOrder(right-subtree)'],
+    solution: ['1. Traverse the left subtree, i.e., call inOrder(left-subtree) ', '2. Visit the root.', '3. Traverse the right subtree, i.e., call inOrder(right-subtree)'],
+    hint: "Depth First Traversals:\n(a) inOrder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },

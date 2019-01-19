@@ -37,7 +37,6 @@ class ResultModal extends React.Component {
         <View style={{
           position: 'absolute',
           bottom: 0,
-          color: '#fff',
           backgroundColor: '#303952',
           paddingBottom: 20,
           width: '100%'
