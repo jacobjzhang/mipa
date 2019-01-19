@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
+import Result from '../screens/Result';
 
 const HomeStack = createBottomTabNavigator({
   Home: {
@@ -19,6 +20,7 @@ const HomeStack = createBottomTabNavigator({
       )
     })
   },
+  Result: Result,
   Settings: {
     screen: Settings,
     navigationOptions: () => ({

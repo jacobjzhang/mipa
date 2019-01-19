@@ -88,6 +88,11 @@ class Question extends React.Component {
         answeredAlready: false
       });
       this.setModalVisible(!this.state.modalVisible);
+    } else {
+      console.log('trying to bounce')
+      return this.props.navigation.navigate("Result", {
+        score: this.state.score
+      });
     }
   }
 
