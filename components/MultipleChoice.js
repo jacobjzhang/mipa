@@ -26,7 +26,7 @@ class MultipleChoice extends React.Component {
   }
 
   selectAnswer(originalIdx) {
-    if (this.props.solution === this.props.options[originalIdx]) {
+    if (this.props.solution === originalIdx) {
       this.props.showResult("Correct!");
       this.props.incrementScore();    
     } else {
@@ -39,12 +39,14 @@ class MultipleChoice extends React.Component {
     return (
       <View style={styles.cardContainer}>
         <Text style={{marginBottom: 20}}>Category: {this.props.category}</Text>
-        <View style={{marginBottom: 20}}>
+        <View style={{marginBottom: 10}}>
           <Markdown>
             ### Press the correct multiple choice answer.
           </Markdown>
+        </View>
+        <View style={{marginBottom: 20}}>
           <Markdown>
-            ### {this.props.question}
+            ### *{this.props.question}*
           </Markdown>          
         </View>
         <GridView

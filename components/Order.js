@@ -26,6 +26,7 @@ class Order extends React.Component {
   }
 
   checkAnswer(actualSolution, userSolution) {
+    console.log(JSON.stringify(actualSolution) == JSON.stringify(userSolution));
     if (JSON.stringify(actualSolution) == JSON.stringify(userSolution)) {
       this.props.showResult("Correct!");
       this.props.incrementScore();
@@ -75,7 +76,7 @@ class Order extends React.Component {
                 small
                 raised
                 onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
-                backgroundColor='#fab1a0'
+                backgroundColor='#303952'
                 title={text} />  
             </View>
           ))

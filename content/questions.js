@@ -2,7 +2,7 @@ module.exports = [
   {
     challenge: 1,
     type: 'multiple choice',
-    question: 'Which of the following is not a property of the Binary Search Tree data structure?',
+    question: 'Which of the following is NOT a property of the Binary Search Tree data structure?',
     options: ['The LEFT subtree of a node contains only nodes with keys LESS than the node’s key.', 'The LEFT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'The RIGHT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'Both the LEFT and RIGHT subtrees must also be binary search trees.'],   
     solution: 1,
     hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
@@ -12,9 +12,9 @@ module.exports = [
   {
     challenge: 1,
     type: 'order',
-    question: 'Pre-order Traversal for a Binary Search Tree:',
-    options: ['Visit the root.', 'Traverse the left subtree, i.e., call Inorder(left-subtree) ', 'Traverse the right subtree, i.e., call Inorder(right-subtree)'],
-    solution: ['1. Visit the root.', '2. Traverse the left subtree, i.e., call Inorder(left-subtree)', '3. Traverse the right subtree, i.e., call Inorder(right-subtree)'],
+    question: 'A Pre-order Traversal for a Binary Search Tree called with function preOrder()',
+    options: ['Visit the root.', 'Traverse the left subtree, i.e., call preOrder(left-subtree)', 'Traverse the right subtree, i.e., call preOrder(right-subtree)'],
+    solution: ['1. Visit the root.', '2. Traverse the left subtree, i.e., call preOrder(left-subtree)', '3. Traverse the right subtree, i.e., call preOrder(right-subtree)'],
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'

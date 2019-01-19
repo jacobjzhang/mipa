@@ -36,15 +36,15 @@ class ResultModal extends React.Component {
         }}>
         <View style={{
           position: 'absolute',
-          bottom:0,
-          backgroundColor: 'rgba(117, 125, 139, 0.9)',
+          bottom: 0,
+          color: '#fff',
+          backgroundColor: '#303952',
           paddingBottom: 20,
           width: '100%'
         }}>
           <View>
-            <Text style={{fontSize: 25, textAlign: 'center', padding: 10}}>
-              {this.props.currentResult}{"\n"}
-              <Text style={{fontSize: 35, textAlign: 'center'}}>
+            <Text style={{color: '#fff', fontSize: 20, textAlign: 'center', padding: 10}}>
+              <Text style={{color: '#fff', fontSize: 30, textAlign: 'center'}}>
                 Score: <Counter
                   end={this.props.score}                        // REQUIRED End of the counter
                   start={this.props.lastScore}                     // Beginning of the counter
@@ -52,7 +52,8 @@ class ResultModal extends React.Component {
                   digits={0}                    // Number of digits after the comma
                   easing="linear"               // Easing function name
                 />
-              </Text>
+              </Text>{"\n"}
+              {this.props.currentResult}
             </Text>
             <Button
               title="CONTINUE"
