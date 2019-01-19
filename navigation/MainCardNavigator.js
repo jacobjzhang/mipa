@@ -1,12 +1,41 @@
 import React from 'react';
+import { View, Image } from 'react-native';
 import { createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
 
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
 
 const HomeStack = createBottomTabNavigator({
-  Home: Home,
-  Settings: Settings,
+  Home: {
+    screen: Home,
+    navigationOptions: () => ({
+      tabBarIcon: ({tintColor}) => (
+          <Icon
+              name="home"
+              color={'black'}
+              size={25}
+          />
+      )
+    })
+  },
+  Settings: {
+    screen: Settings,
+    navigationOptions: () => ({
+      tabBarIcon: ({tintColor}) => (
+          <Icon
+              name="settings"
+              color={'black'}
+              size={25}
+          />
+      )
+    })
+  }
+}, {
+  tabBarOptions: {
+    showIcon: true,
+    showLabel: false
+  }
 });
 
 HomeStack.navigationOptions = {

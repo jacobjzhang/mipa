@@ -62,16 +62,10 @@ class Order extends React.Component {
   render() {
     return (
       <View>
-        <Text>{this.props.category}</Text>
+        <Text>Category: {this.props.category}</Text>
         <View  style={{marginBottom: 20}}>
           <Markdown>
-            ## Select the below steps in the order they occur for the following concept:
-          </Markdown>
-          <Divider style={{ backgroundColor: 'blue' }} />
-          </View>   
-        <View  style={{marginBottom: 20}}>       
-          <Markdown>
-            ### {this.props.question}
+            ### Tap on the below steps in the order they occur for *{this.props.question}*
           </Markdown>
         </View>
         {
@@ -81,8 +75,8 @@ class Order extends React.Component {
                 small
                 raised
                 onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
-                backgroundColor='#FEC108'
-                title={text} />              
+                backgroundColor='#fab1a0'
+                title={text} />  
             </View>
           ))
         }

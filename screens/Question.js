@@ -235,7 +235,7 @@ class Question extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, paddingVertical: 0 }}>
+      <View style={{ flex: 1, paddingVertical: 0, backgroundColor: '#fff' }}>
         <GestureRecognizer
           onSwipe={(direction, state) => this.onSwipe(direction, state)}
           onSwipeUp={state => this.onSwipeUp(state)}
@@ -254,13 +254,17 @@ class Question extends React.Component {
               onPress={() => this.card.flip()}
             >
               <Header
-                leftComponent={{ icon: 'close', color: '#fff', onPress: pressLeft }}
-                centerComponent={{ text: this.state.currentCard.category, style: { color: '#fff', fontSize: 18 } }}
-                rightComponent={{ icon: 'thumb-up', color: '#fff', onPress: pressRight }}
+                backgroundColor='#74b9ff'
+                leftComponent={{ icon: 'close', color: '#000', onPress: pressLeft }}
+                centerComponent={{ text: this.state.currentCard.category, style: { color: '#000', fontSize: 18 } }}
+                rightComponent={{ icon: 'thumb-up', color: '#000', onPress: pressRight }}
               />
-                <Card>
-                  {content}
-                </Card>
+              <View style={{padding: 20}}>
+                <Progress.Bar progress={currentScore} style={{ width: 320, alignSelf: 'center', margin: 10}} />
+              </View>
+              <View style={{padding: 20}}>
+                {content}
+              </View>
               <Text style={theme.cardActionStyle}>
                 Tap on this card to get hints.
               </Text>
@@ -313,11 +317,6 @@ class Question extends React.Component {
               </View>
             </TouchableOpacity>
           </CardFlip>
-          <View
-            style={{ position: "absolute", bottom: 60, left: 25, right: 25 }}
-          >
-            <Progress.Bar progress={currentScore} width={320} />
-          </View>
         </GestureRecognizer>
         <ResultModal
           currentResult={this.state.currentResult}
