@@ -7,6 +7,27 @@ module.exports = [
     parentCategory: 'trees'
   },
   {
+    id: 2,
+    name: 'Reverse a String in Place',
+    category: 'Strings',
+    difficulty: 2,
+    parentCategory: 'strings'
+  },  
+  {
+    id: 3,
+    name: 'Generate All String Permutations',
+    category: 'Strings',
+    difficulty: 6,
+    parentCategory: 'strings'
+  },
+  {
+    id: 3,
+    name: 'Stock Buy and Sell Optimization',
+    category: 'Arrays',
+    difficulty: 5,
+    parentCategory: 'arrays'
+  },  
+  {
     id: 5,
     name: 'Contiguous Subarray Sum',
     category: 'Subarrays',

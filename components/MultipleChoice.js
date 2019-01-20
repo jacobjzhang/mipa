@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Colors from '../constants/Colors';
 import Markdown from 'react-native-simple-markdown';
 import GridView from 'react-native-super-grid';
+import SyntaxHighlighter from 'react-native-syntax-highlighter';
 
 class MultipleChoice extends React.Component {
   constructor(props) {
@@ -41,17 +42,16 @@ class MultipleChoice extends React.Component {
         <Text style={{marginBottom: 20}}>Category: {this.props.category}</Text>
         <View style={{marginBottom: 10}}>
           <Markdown>
-            #### Press the correct multiple choice answer.
+            #### Press the correct multiple choice answer. {this.props.question}
           </Markdown>
         </View>
-        <View style={{marginBottom: 20}}>
-          {this.props.question.split('\n').map(function(item, key) {
-            return (
-              <Text key={key} style={{fontSize: 16}}>
-                {item}
-              </Text>
-            )
-          })}
+        <View style={{marginBottom: 10}}>
+          {this.props.code && <SyntaxHighlighter 
+            language='python' 
+            highlighter={"prism" || "hljs"}
+          >
+            {this.props.code}
+          </SyntaxHighlighter>}
         </View>
         <GridView
           itemDimension={130}

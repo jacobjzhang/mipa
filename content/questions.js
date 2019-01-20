@@ -1,16 +1,6 @@
 module.exports = [
   {
     challenge: 1,
-    type: 'fill in',
-    question: "The following is working code validating a Binary Search Tree in Python:\n\nclass Solution:\n    # @param root, a tree node\n    # @return a boolean\n    # 7:38\n    def isValidBST(self, root):\n        output = []\n        self.inOrder(root, output)\n        \n        for i in range(1, len(output)):\n            if output[i-1] >= output[i]:\n                return False\n\n        return True\n\n    def inOrder(self, root, output):\n        if root is None:\n            return_______________        output.append(root.val)\n        self.inOrder(root.right, output) ",
-    options: null,
-    solution: "self.inOrder(root.left, output)",
-    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
-    category: 'Depth-First Traversal',
-    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },    
-  {
-    challenge: 1,
     type: 'multiple choice',
     question: 'Which of the following is NOT a property of the Binary Search Tree data structure?',
     options: ['The LEFT subtree of a node contains only nodes with keys LESS than the node’s key.', 'The LEFT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'The RIGHT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'Both the LEFT and RIGHT subtrees must also be binary search trees.'],   
@@ -28,17 +18,29 @@ module.exports = [
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },
+  },  
   {
     challenge: 1,
     type: 'multiple choice',
-    question: 'What would be the result of the following recursive function?\n\ndef func(num):\n    if n == 4:\n       return n\n    else:\nreturn 2*fun(n+1);\n',
+    question: 'What would be the result of the following recursive function?',
+    code: "def func(num):\n    if n == 4:\n       return n\n    else:\n       return 2 * func(n+1);",
     options: ['4', '3', '16', 'infinity'],
     solution: 2,
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  }, 
+  },  
+  {
+    challenge: 1,
+    type: 'fill in',
+    question: "The following is working code validating a Binary Search Tree in Python.",
+    code: "class Solution:\n  # @param root, a tree node\n  # @return a boolean\n  # 7:38\n  def isValidBST(self, root):\n    output = []\n    self.inOrder(root, output)\n    \n    for i in range(1, len(output)):\n      if output[i-1] >= output[i]:\n        return False\n\n    return True\n\n  def inOrder(self, root, output):\n    if root is None:\n      return\n    ____________________________________\n    output.append(root.val)\n    self.inOrder(root.right, output) ",
+    options: null,
+    solution: "self.inOrder(root.left, output)",
+    hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
+    category: 'Depth-First Traversal',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
   {
     challenge: 3,
     type: 'swipe',
