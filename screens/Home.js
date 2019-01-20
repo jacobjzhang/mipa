@@ -106,7 +106,7 @@ class App extends React.Component {
 
     const user = {
       name: 'Jake Zhang',
-      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
+      avatar: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4',
       value: '- 164',
     }
 

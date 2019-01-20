@@ -41,13 +41,17 @@ class MultipleChoice extends React.Component {
         <Text style={{marginBottom: 20}}>Category: {this.props.category}</Text>
         <View style={{marginBottom: 10}}>
           <Markdown>
-            ### Press the correct multiple choice answer.
+            #### Press the correct multiple choice answer.
           </Markdown>
         </View>
         <View style={{marginBottom: 20}}>
-          <Markdown>
-            ### *{this.props.question}*
-          </Markdown>          
+          {this.props.question.split('\n').map(function(item, key) {
+            return (
+              <Text key={key} style={{fontSize: 16}}>
+                {item}
+              </Text>
+            )
+          })}
         </View>
         <GridView
           itemDimension={130}
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   itemContainer: {
-    justifyContent: "flex-end",
+    justifyContent: "center",
     borderRadius: 5,
     padding: 10,
     height: 150

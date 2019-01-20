@@ -43,18 +43,19 @@ class Order extends React.Component {
   }
 
   updateViewAndUpdateSolution(answer, originalIdx) {
-    if (/\d\./.test(answer)) {
-      return;
+    let newText = '';
+    const match = /\d\.\s/.exec(answer);
+    if (match) {
+      const removal = answer.slice(match.index, match[0].length);
+      newText = removal;
+    } else {
+      newText = `${this.state.orderIdx}. ${answer}`;
     }
 
-    let newOptions = this.state.options;
-    const newTextWithOrderNum = `${this.state.orderIdx}. ${answer}`;
+    this.updateOrderView(this.state.options, originalIdx, newText);
 
-    this.updateOrderView(newOptions, originalIdx, newTextWithOrderNum);
+    this.state.userSolution.push(newText);
 
-    this.state.userSolution.push(newTextWithOrderNum);
-
-    console.log(this.state.userSolution.length, this.state.options.length)
     if (this.state.userSolution.length === this.state.options.length) {
       this.checkAnswer(this.props.solution, this.state.userSolution);
     }
@@ -77,7 +78,7 @@ class Order extends React.Component {
                 raised
                 onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
                 backgroundColor='#303952'
-                title={text} />  
+                title={text} />
             </View>
           ))
         }

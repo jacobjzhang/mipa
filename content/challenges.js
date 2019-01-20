@@ -2,43 +2,43 @@ module.exports = [
   {
     id: 1,
     name: 'Validate a BST',
-    category: 'Binary Search Tree',
-    difficulty: 1,
-    parentCategory: 'graphs'
+    category: 'Binary Search Trees',
+    difficulty: 4,
+    parentCategory: 'trees'
   },
   {
-    id: 2,
+    id: 5,
     name: 'Contiguous Subarray Sum',
-    category: 'Binary Search Tree',
+    category: 'Subarrays',
     difficulty: 1,
-    parentCategory: 'graphs'
+    parentCategory: 'arrays'
   },
   {
-    id: 3,
+    id: 7,
     name: 'Two Sum from BST',
-    category: 'Binary Search Tree',
+    category: 'Binary Search Trees',
     difficulty: 1,
-    parentCategory: 'graphs'
+    parentCategory: 'trees'
   },
   {
-    id: 4,
+    id: 6,
     name: 'Flood Fill/Paintbucket',
-    category: 'Binary Search Tree',
-    difficulty: 1,
+    category: 'Graph Traversal',
+    difficulty: 7,
     parentCategory: 'graphs'
   },
   {
     id: 5,
     name: 'Lowest Common Ancestor',
-    category: 'Binary Search Tree',
-    difficulty: 1,
-    parentCategory: 'graphs'
+    category: 'Binary Search Trees',
+    difficulty: 5,
+    parentCategory: 'trees'
   },      
   {
     id: 6,
     name: 'Dutch national flag sorting problem',
     category: 'Sorting',
-    difficulty: 1,
-    parentCategory: 'graphs'
+    difficulty: 8,
+    parentCategory: 'arrays'
   }
 ];

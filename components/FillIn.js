@@ -40,21 +40,19 @@ class FillIn extends React.Component {
       <View>
         <Text>
           Fill in the code that would make this algorithm correct:
-        </Text>            
-        <Card>
-          <Text>
-            {fillInQuestion[0]}
-          </Text>
-          <TextInput
-            style={styles.fillInInput}
-            placeholder="// enter missing line here"
-            onChangeText={(userSolution) => this.setState({userSolution})}
-            autoCapitalize = 'none'
-          />
-          <Text>
-            {fillInQuestion[1]}
-          </Text>
-        </Card>
+        </Text>
+        <Text style={{margin: 0, padding: 0}}>
+          {fillInQuestion[0]}
+        </Text>
+        <TextInput
+          style={styles.fillInInput}
+          placeholder="// enter missing line here"
+          onChangeText={(userSolution) => this.setState({userSolution})}
+          autoCapitalize = 'none'
+        />
+        <Text style={{margin: 0, padding: 0}}>
+          {fillInQuestion[1]}
+        </Text>
         {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
         <Button
           title="Check Answer"
@@ -82,8 +80,9 @@ const styles = StyleSheet.create({
   },
   fillInInput: {
     height: 20,
-    marginHorizontal: 40,
+    marginHorizontal: 30,
     paddingVertical: 0,
+    padding: 0,
     margin: 0,
     borderBottomWidth: 1
   },
