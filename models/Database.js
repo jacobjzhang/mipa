@@ -67,6 +67,31 @@ class Database {
     return questions;
   }
 
+  changeScore(newScore) {
+    var form = new FormData();
+    form.append("user", "1");
+    form.append("current_score", String(newScore));
+    
+    return fetch('http://127.0.0.1:8000/profiles/1/', {
+      method: 'PUT',
+      body: form
+    })
+    .then(response => response.json())
+  }
+
+  async getUser(userId) {
+    let user = {};
+    await fetch(`http://127.0.0.1:8000/profiles/${userId}/`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        user = JSON.stringify(myJson);
+      });
+    console.log(user, 'in db call');
+    return JSON.parse(user);
+  }
+
   insert(type, records) {
     records.forEach(q => {
       this.db

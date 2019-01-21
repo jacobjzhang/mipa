@@ -6,6 +6,7 @@ import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
 import { Avatar, Icon } from 'react-native-elements';
+import {NavigationEvents} from 'react-navigation';
 
 import datastore from "../models/datastore";
 import Markdown from "react-native-simple-markdown";
@@ -28,15 +29,26 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  async fetchNewInfo() {
     this.db = new Database();
     const challenges = await this.db.getChallenges();
-    this.setState({ challenges: challenges });
-
+    const fetchedUser = await this.db.getUser(1);
+    
+    console.log(fetchedUser, 'fetched User')
     // datastore();
+    const user = {
+      name: 'Jake Zhang',
+      avatar: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4',
+      value: String(fetchedUser.current_score),
+      positive: fetchedUser.current_score > 0 ? true : false
+    }
+
+    console.log('setting state', user)
+    this.setState({ challenges: challenges, user: user });
   }
 
   renderValue(user) {
+    console.log('rendering value', user)
     const { value, positive } = user;
 
     if (positive) {
@@ -53,7 +65,7 @@ class App extends React.Component {
             marginLeft: 10,
           }}
         >
-          <Icon name="md-arrow-dropup" color="green" size={25} />
+          <Icon name="arrow-drop-up" color="green" size={25} />
           <Text
             style={{
               color: 'green',
@@ -108,13 +120,19 @@ class App extends React.Component {
       name: 'Jake Zhang',
       avatar: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4',
       value: '- 164',
+      positive: true
     }
 
-    const { name, avatar, value } = user;
+    console.log(this.state.user, 'state user')
+    const currentUser = this.state.user ? this.state.user : user;
+    
+    const { name, avatar, value } = currentUser;
+    console.log(name, avatar, value, 'CURRENT USER')
 
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: 'white' }}>
-              <View
+        <NavigationEvents onDidFocus={() => this.fetchNewInfo()} />
+        <View
           style={{
             height: 100,
             marginTop: 0,
@@ -168,7 +186,7 @@ class App extends React.Component {
           }}
         >
           Black
-          {this.renderValue(user)}
+          {this.renderValue(currentUser)}
           <View
             style={{
               backgroundColor: 'rgba(222,222,222,1)',
@@ -193,6 +211,7 @@ class App extends React.Component {
               style={[styles.itemContainer, { backgroundColor: item.code }]}
               onPress={() => {
                 return this.props.navigation.navigate("Question", {
+                  user: this.state.user,
                   challengeId: item.id
                 });
               }}

@@ -29,6 +29,12 @@ class App extends React.Component {
     };
   }
 
+  async componentDidMount() {
+    this.db = new Database();
+    const newScore = this.props.navigation.getParam("oldScore", 100) - this.props.navigation.getParam("score", 100);
+    await this.db.changeScore(newScore);
+  }
+
   render() {
     const challenges = this.state.challenges || [];
 

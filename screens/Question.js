@@ -63,6 +63,15 @@ class Question extends React.Component {
 
   componentDidMount() {
     this.fetchQuestions();
+    this.startClock();
+  }
+
+  startClock() {
+    this.setState({time: Date.now()});
+  }
+
+  endClock() {
+    this.setState({time: Date.now() - this.state.time});
   }
 
   async fetchQuestions() {
@@ -91,17 +100,40 @@ class Question extends React.Component {
     } else {
       console.log('trying to bounce')
       return this.props.navigation.navigate("Result", {
-        score: this.state.score
+        score: this.state.score,
+        oldScore: this.props.navigation.getParam('user').value
       });
     }
   }
 
   incrementScore() {
-    this.setState({ lastScore: this.state.score, score: this.state.score + 100 });
+    const changeVar = this.state.time;
+    const newChange = this.calculateScoreChange(changeVar);
+    this.setState({ lastScore: this.state.score, score: this.state.score + newChange });
   }
 
   decrementScore() {
-    this.setState({ lastScore: this.state.score, score: this.state.score - 100 });
+    const changeVar = this.state.time;
+    const newChange = this.calculateScoreChange(changeVar);    
+    this.setState({ lastScore: this.state.score, score: this.state.score - newChange });
+  }
+
+  calculateScoreChange(changeVar) {
+    // Variable Rewards
+
+    let factor = 0;
+
+    if (changeVar < 6000) {
+      factor = Math.random() * 3 + 7;
+    } else if (changeVar < 15000) {
+      factor = Math.random() * 3 + 5;
+    } else if (changeVar < 30000) {
+      factor = Math.random() * 3 + 3;
+    } else {
+      factor = Math.random() * 4;
+    }
+
+    return parseInt(factor * 50);
   }
 
   showResult(currentResult) {
@@ -113,6 +145,8 @@ class Question extends React.Component {
   }
 
   handleAnswer(question, givenSolution) {
+    this.state.endClock();
+
     if (question.solution === givenSolution) {
       this.showResult("Correct!");
       this.incrementScore();
