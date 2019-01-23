@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 import { withNavigation } from "react-navigation";
 
 import { getTheme } from "react-native-material-kit";
@@ -9,10 +9,7 @@ import * as Progress from "react-native-progress";
 import GestureRecognizer, {
   swipeDirections
 } from "react-native-swipe-gestures";
-import CardFlip from "react-native-card-flip";
-import { Icon, Header } from 'react-native-elements';
-import Markdown from 'react-native-simple-markdown'
-import { Card } from 'react-native-elements';
+import { Header } from "react-native-elements";
 
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
@@ -21,7 +18,7 @@ import MultipleChoice from "../components/MultipleChoice";
 import ResultModal from "../components/ResultModal";
 
 import Database from "../models/Database";
-import datastore from "../models/datastore";
+import ScoreCalculator from "../models/ScoreCalculator";
 
 const theme = getTheme();
 
@@ -45,33 +42,25 @@ class Question extends React.Component {
       questions: questions,
       answer: "",
       lastScore: 0,
-      score: 0,
+      latestScore: 0,
       currentCardIdx: 0,
       currentCard: questions[0],
-      modalVisible: false,
+      resultModalVisible: false,
       answeredAlready: false,
       currentResult: ""
     };
+
+    this.ScoreCalculator = new ScoreCalculator();
 
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
     this.showResult = this.showResult.bind(this);
-    this.incrementScore = this.incrementScore.bind(this);
-    this.decrementScore = this.decrementScore.bind(this);
+    this.changeScore = this.changeScore.bind(this);
   }
 
   componentDidMount() {
     this.fetchQuestions();
-    this.startClock();
-  }
-
-  startClock() {
-    this.setState({time: Date.now()});
-  }
-
-  endClock() {
-    this.setState({time: Date.now() - this.state.time});
   }
 
   async fetchQuestions() {
@@ -90,57 +79,32 @@ class Question extends React.Component {
     let currIdx = this.state.currentCardIdx;
 
     if (this.state.questions[currIdx + 1]) {
-      console.log(currIdx, this.state.questions[currIdx + 1], '------QUESTIONS', this.state.questions);
       this.setState({
         currentCardIdx: currIdx + 1,
         currentCard: this.state.questions[currIdx + 1],
         answeredAlready: false
       });
-      this.setModalVisible(!this.state.modalVisible);
+      this.setModalVisible(!this.state.resultModalVisible);
     } else {
-      console.log('trying to bounce')
       return this.props.navigation.navigate("Result", {
-        score: this.state.score,
-        oldScore: this.props.navigation.getParam('user').value
+        latestScore: this.state.latestScore,
+        oldScore: this.props.navigation.getParam("user").value
       });
     }
   }
 
-  incrementScore() {
-    const changeVar = this.state.time;
-    const newChange = this.calculateScoreChange(changeVar);
-    this.setState({ lastScore: this.state.score, score: this.state.score + newChange });
-  }
-
-  decrementScore() {
-    const changeVar = this.state.time;
-    const newChange = this.calculateScoreChange(changeVar);    
-    this.setState({ lastScore: this.state.score, score: this.state.score - newChange });
-  }
-
-  calculateScoreChange(changeVar) {
-    // Variable Rewards
-
-    let factor = 0;
-
-    if (changeVar < 6000) {
-      factor = Math.random() * 3 + 7;
-    } else if (changeVar < 15000) {
-      factor = Math.random() * 3 + 5;
-    } else if (changeVar < 30000) {
-      factor = Math.random() * 3 + 3;
-    } else {
-      factor = Math.random() * 4;
-    }
-
-    return parseInt(factor * 50);
+  changeScore() {
+    this.setState({
+      lastScore: this.state.latestScore,
+      latestScore: this.state.latestScore + this.ScoreCalculator.calculatedChange()
+    });
   }
 
   showResult(currentResult) {
     this.setState({
       answeredAlready: true,
       currentResult: currentResult,
-      modalVisible: true
+      resultModalVisible: true
     });
   }
 
@@ -149,11 +113,11 @@ class Question extends React.Component {
 
     if (question.solution === givenSolution) {
       this.showResult("Correct!");
-      this.incrementScore();
     } else {
       this.showResult("Incorrect!");
-      this.decrementScore();
     }
+
+    this.changeScore();
   }
 
   checkAnswer(gestureName) {
@@ -168,22 +132,6 @@ class Question extends React.Component {
     }
 
     this.handleAnswer(this.state.currentCard, answer);
-  }
-
-  onSwipeUp(gestureState) {
-    this.setState({ mySelection: "You swiped up!" });
-  }
-
-  onSwipeDown(gestureState) {
-    this.setState({ mySelection: "You swiped down!" });
-  }
-
-  onSwipeLeft(gestureState) {
-    this.setState({ mySelection: "You swiped left!" });
-  }
-
-  onSwipeRight(gestureState) {
-    this.setState({ mySelection: "You swiped right!" });
   }
 
   onSwipe(gestureName, gestureState) {
@@ -208,12 +156,13 @@ class Question extends React.Component {
   }
 
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.setState({ resultModalVisible: visible });
   }
 
   render() {
-    console.log(this.state.currentCardIdx, this.state.questions.length)
-    const currentScore = this.state.currentCardIdx / this.state.questions.length;
+    console.log(this.state.currentCardIdx, this.state.questions.length);
+    const currentScore =
+      this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
 
     let content;
@@ -223,8 +172,7 @@ class Question extends React.Component {
           <Swipe
             {...currentCard}
             showResult={this.showResult}
-            incrementScore={this.incrementScore}
-            decrementScore={this.decrementScore}
+            changeScore={this.changeScore}
           />
         );
         break;
@@ -233,8 +181,7 @@ class Question extends React.Component {
           <MultipleChoice
             {...currentCard}
             showResult={this.showResult}
-            incrementScore={this.incrementScore}
-            decrementScore={this.decrementScore}
+            changeScore={this.changeScore}
           />
         );
         break;
@@ -243,8 +190,7 @@ class Question extends React.Component {
           <Order
             {...currentCard}
             showResult={this.showResult}
-            incrementScore={this.incrementScore}
-            decrementScore={this.decrementScore}
+            changeScore={this.changeScore}
           />
         );
         break;
@@ -253,8 +199,7 @@ class Question extends React.Component {
           <FillIn
             {...currentCard}
             showResult={this.showResult}
-            incrementScore={this.incrementScore}
-            decrementScore={this.decrementScore}
+            changeScore={this.changeScore}
           />
         );
         break;
@@ -267,103 +212,54 @@ class Question extends React.Component {
 
     const pressLeft = () => {
       return this.props.navigation.navigate("Home");
-    }
+    };
 
     const pressRight = () => {
       return this.props.navigation.navigate("Home");
-    }
+    };
 
     return (
-      <View style={{ flex: 1, paddingVertical: 0, backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <GestureRecognizer
           onSwipe={(direction, state) => this.onSwipe(direction, state)}
-          onSwipeUp={state => this.onSwipeUp(state)}
-          onSwipeDown={state => this.onSwipeDown(state)}
-          onSwipeLeft={state => this.onSwipeLeft(state)}
-          onSwipeRight={state => this.onSwipeRight(state)}
           config={config}
           style={{
             flex: 1,
             backgroundColor: this.state.backgroundColor
           }}
         >
-          <CardFlip ref={card => (this.card = card)}>
-            <TouchableOpacity
-              style={styles.cardContainer}
-              onPress={() => this.card.flip()}
-            >
-              <Header
-                backgroundColor='#74b9ff'
-                leftComponent={{ icon: 'close', color: '#000', onPress: pressLeft }}
-                centerComponent={{ text: this.state.currentCard.category, style: { color: '#000', fontSize: 18 } }}
-                rightComponent={{ icon: 'thumb-up', color: '#000', onPress: pressRight }}
-              />
-              <View style={{padding: 20}}>
-                <Progress.Bar width={320} progress={currentScore} style={{ alignSelf: 'center', margin: 10}} />
-              </View>
-              <View style={{padding: 20}}>
-                {content}
-              </View>
-              <Text style={theme.cardActionStyle}>
-                Tap on this card to get hints.
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.cardContainer}
-              onPress={() => this.card.flip()}
-            >
-              <View style={theme.cardStyle}>
-                <Image
-                  source={require("../assets/images/background.png")}
-                  style={theme.cardImageStyle}
-                />
-                <Text style={theme.cardTitleStyle}>Hint</Text>
-
-                <Markdown>
-                      #Markdown in react-native is so cool! {'\n\n'}
-
-                      You can **emphasize** what you want, or just _suggest it_ 😏…{'\n'}
-
-                      You can even [**link your website**](https://twitter.com/Charles_Mangwa) or if you prefer: [email somebody](mailto:email@somebody.com){'\n'}
-
-                      Spice it up with some GIFs 💃:
-
-                      ![Some GIF](https://media.giphy.com/media/dkGhBWE3SyzXW/giphy.gif){'\n'}
-
-                      And even add a cool video 😎!{'\n'}
-
-                      [![A cool video from YT](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](http://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-                      [![Another one from Vimeo](https://i.vimeocdn.com/video/399486266_640.jpg)](https://vimeo.com/57580368)
-                    </Markdown>
-                  <Text style={[theme.cardContentStyle, styles.question]}>
-                  {currentCard.hint}
-                </Text>
-                {currentCard.hintImage && (
-                  <Image
-                    source={{ uri: currentCard.hintImage }}
-                    style={{
-                      width: 200,
-                      height: 200,
-                      resizeMode: "contain",
-                      alignSelf: "center"
-                    }}
-                  />
-                )}
-                <Text style={theme.cardActionStyle}>
-                  Tap on this card to go back to the question
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </CardFlip>
+          <Header
+            backgroundColor="#74b9ff"
+            leftComponent={{ icon: "close", color: "#000", onPress: pressLeft }}
+            centerComponent={{
+              text: this.state.currentCard.category,
+              style: { color: "#000", fontSize: 18 }
+            }}
+            rightComponent={{
+              icon: "thumb-up",
+              color: "#000",
+              onPress: pressRight
+            }}
+          />
+          <View style={{ padding: 20 }}>
+            <Progress.Bar
+              width={320}
+              progress={currentScore}
+              style={{ alignSelf: "center", margin: 10 }}
+            />
+          </View>
+          <View style={{ padding: 20 }}>{content}</View>
+          <Text style={theme.cardActionStyle}>
+            Tap on this card to get hints.
+          </Text>
         </GestureRecognizer>
         <ResultModal
           currentResult={this.state.currentResult}
-          modalVisible={this.state.modalVisible}
+          resultModalVisible={this.state.resultModalVisible}
           setModalVisible={this.setModalVisible}
           goToNextQuestion={this.goToNextQuestion}
           lastScore={this.state.lastScore}
-          score={this.state.score}
+          latestScore={this.state.latestScore}
         />
       </View>
     );
@@ -371,25 +267,3 @@ class Question extends React.Component {
 }
 
 export default withNavigation(Question);
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    height: 600,
-    borderWidth: 0
-  },
-  question: {
-    width: null,
-    height: null,
-    fontSize: 16
-  },
-  cardImageStyle: {
-    alignSelf: "stretch"
-  },
-  continueButton: {
-    position: "absolute",
-    left: 25,
-    right: 25,
-    bottom: 200,
-    zIndex: 10
-  }
-});

@@ -1,16 +1,19 @@
 "use strict";
 
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
-import { Avatar, Icon } from 'react-native-elements';
-import {NavigationEvents} from 'react-navigation';
+import { Avatar, Icon } from "react-native-elements";
+import { NavigationEvents } from "react-navigation";
 
-import datastore from "../models/datastore";
-import Markdown from "react-native-simple-markdown";
-import Colors from '../constants/Colors';
+import Colors from "../constants/Colors";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +26,7 @@ class App extends React.Component {
           name: "Loading",
           category: "Loading",
           difficulty: 1,
-          parentCategory: 'arrays'
+          parentCategory: "arrays"
         }
       ]
     };
@@ -33,45 +36,46 @@ class App extends React.Component {
     this.db = new Database();
     const challenges = await this.db.getChallenges();
     const fetchedUser = await this.db.getUser(1);
-    
-    console.log(fetchedUser, 'fetched User')
+
+    console.log(fetchedUser, "fetched User");
     // datastore();
     const user = {
-      name: 'Jake Zhang',
-      avatar: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4',
+      name: "Jake Zhang",
+      avatar:
+        "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
       value: String(fetchedUser.current_score),
       positive: fetchedUser.current_score > 0 ? true : false
-    }
+    };
 
-    console.log('setting state', user)
+    console.log("setting state", user);
     this.setState({ challenges: challenges, user: user });
   }
 
   renderValue(user) {
-    console.log('rendering value', user)
+    console.log("rendering value", user);
     const { value, positive } = user;
 
     if (positive) {
       return (
         <View
           style={{
-            backgroundColor: 'rgba(220,230,218,1)',
+            backgroundColor: "rgba(220,230,218,1)",
             width: 70,
             height: 28,
             borderRadius: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            marginLeft: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            marginLeft: 10
           }}
         >
           <Icon name="arrow-drop-up" color="green" size={25} />
           <Text
             style={{
-              color: 'green',
+              color: "green",
               // fontFamily: 'regular',
               fontSize: 13,
-              marginLeft: 5,
+              marginLeft: 5
             }}
           >
             {value}
@@ -82,23 +86,23 @@ class App extends React.Component {
       return (
         <View
           style={{
-            backgroundColor: 'rgba(244,230,224,1)',
+            backgroundColor: "rgba(244,230,224,1)",
             width: 70,
             height: 28,
             borderRadius: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            marginLeft: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            marginLeft: 10
           }}
         >
           <Icon name="arrow-drop-down" color="red" size={25} />
           <Text
             style={{
-              color: 'red',
+              color: "red",
               // fontFamily: 'regular',
               fontSize: 13,
-              marginLeft: 5,
+              marginLeft: 5
             }}
           >
             {value}
@@ -111,26 +115,29 @@ class App extends React.Component {
   render() {
     const challenges = this.state.challenges || [];
 
-    challenges.forEach((chal) => {
-      const colorId = Math.floor(Math.random() * (Colors[chal.parentCategory].length-1));
-      chal['code'] = Colors[chal.parentCategory][colorId];
-    })
+    challenges.forEach(chal => {
+      const colorId = Math.floor(
+        Math.random() * (Colors[chal.parentCategory].length - 1)
+      );
+      chal["code"] = Colors[chal.parentCategory][colorId];
+    });
 
     const user = {
-      name: 'Jake Zhang',
-      avatar: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4',
-      value: '- 164',
+      name: "Jake Zhang",
+      avatar:
+        "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
+      value: "- 164",
       positive: true
-    }
+    };
 
-    console.log(this.state.user, 'state user')
+    console.log(this.state.user, "state user");
     const currentUser = this.state.user ? this.state.user : user;
-    
+
     const { name, avatar, value } = currentUser;
-    console.log(name, avatar, value, 'CURRENT USER')
+    console.log(name, avatar, value, "CURRENT USER");
 
     return (
-      <View style={{ flex: 1, paddingTop: 0, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
         <NavigationEvents onDidFocus={() => this.fetchNewInfo()} />
         <View
           style={{
@@ -140,68 +147,68 @@ class App extends React.Component {
             paddingLeft: 20
           }}
         >
-          <Text style={{ color: 'black', fontSize: 35, fontFamily: 'Arial' }}>
+          <Text style={{ color: "black", fontSize: 35, fontFamily: "Arial" }}>
             # MIPA
           </Text>
         </View>
-            <View
-        key={1}
-        style={{
-          height: 60,
-          marginHorizontal: 10,
-          marginTop: 10,
-          backgroundColor: 'white',
-          borderRadius: 5,
-          alignItems: 'center',
-          flexDirection: 'row',
-        }}
-      >
-        <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
-          <View style={{ marginLeft: 15 }}>
-            <Avatar
-              small
-              rounded
-              source={{
-                uri: avatar,
-              }}
-              activeOpacity={0.7}
-            />
-          </View>
-          <Text
-            style={{
-              // fontFamily: 'regular',
-              fontSize: 15,
-              marginLeft: 10,
-              color: 'gray',
-            }}
-          >
-            {name}
-          </Text>
-        </View>
         <View
+          key={1}
           style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginRight: 10,
+            height: 60,
+            marginHorizontal: 10,
+            marginTop: 10,
+            backgroundColor: "white",
+            borderRadius: 5,
+            alignItems: "center",
+            flexDirection: "row"
           }}
         >
-          Black
-          {this.renderValue(currentUser)}
+          <View style={{ flex: 2, flexDirection: "row", alignItems: "center" }}>
+            <View style={{ marginLeft: 15 }}>
+              <Avatar
+                small
+                rounded
+                source={{
+                  uri: avatar
+                }}
+                activeOpacity={0.7}
+              />
+            </View>
+            <Text
+              style={{
+                // fontFamily: 'regular',
+                fontSize: 15,
+                marginLeft: 10,
+                color: "gray"
+              }}
+            >
+              {name}
+            </Text>
+          </View>
           <View
             style={{
-              backgroundColor: 'rgba(222,222,222,1)',
-              width: 35,
-              height: 28,
-              borderRadius: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginHorizontal: 10,
+              flexDirection: "row",
+              justifyContent: "center",
+              marginRight: 10
             }}
           >
-            <Icon name="person-add" color="gray" size={20} />
+            Black
+            {this.renderValue(currentUser)}
+            <View
+              style={{
+                backgroundColor: "rgba(222,222,222,1)",
+                width: 35,
+                height: 28,
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+                marginHorizontal: 10
+              }}
+            >
+              <Icon name="person-add" color="gray" size={20} />
+            </View>
           </View>
         </View>
-      </View>
         <GridView
           itemDimension={130}
           items={challenges}

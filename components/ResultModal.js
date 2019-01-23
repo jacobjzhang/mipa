@@ -1,12 +1,7 @@
 import React from 'react';
-import {TouchableHighlight, Text, View, Modal} from 'react-native';
-import {
-  getTheme
-} from 'react-native-material-kit';
+import { Text, View, Modal } from 'react-native';
 import Counter from 'react-native-counter';
-import { Card, Button, ListItem } from 'react-native-elements';
-
-const theme = getTheme();
+import { Button, ListItem } from 'react-native-elements';
 
 class ResultModal extends React.Component {
   constructor(props) {
@@ -18,18 +13,18 @@ class ResultModal extends React.Component {
       ...this.props,
       ...this.getNavigationParams
     }
-  }  
+  }
 
   getNavigationParams() {
     return this.props.navigation.state.params || {}
-  }  
+  }
 
   render() {
     return (
       <Modal
         animationType="slide"
         transparent={true}
-        visible={this.props.modalVisible}
+        visible={this.props.resultModalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
@@ -41,15 +36,15 @@ class ResultModal extends React.Component {
           width: '100%'
         }}>
           <View>
-            <View style={{padding: 10}}>
+            <View style={{ padding: 10 }}>
               <ListItem
                 key={this.props.currentResult}
                 title={this.props.currentResult}
-                leftIcon={{name: 'check', color: '#fff'}}
+                leftIcon={{ name: 'check', color: '#fff' }}
               />{"\n"}
-              <Text style={{padding: 10, fontSize: 16}}>
+              <Text style={{ padding: 10, fontSize: 16 }}>
                 SCORE: <Counter
-                  end={this.props.score}                        // REQUIRED End of the counter
+                  end={this.props.latestScore}                        // REQUIRED End of the counter
                   start={this.props.lastScore}                     // Beginning of the counter
                   time={1000}                   // Duration (in ms) of the counter
                   digits={0}                    // Number of digits after the comma
@@ -64,7 +59,7 @@ class ResultModal extends React.Component {
               backgroundColor='#9D27B0'
             />
           </View>
-        </View>          
+        </View>
       </Modal>
     );
   }

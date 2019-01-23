@@ -26,12 +26,12 @@ class FillIn extends React.Component {
 
   checkAnswer() {
     if (this.state.userSolution.toLowerCase() === this.props.solution.toLowerCase()) {
-      this.props.showResult("Correct!");
-      this.props.incrementScore();      
+      this.props.showResult("Correct!");     
     } else {
       this.props.showResult("Incorrect!");
-      this.props.decrementScore();      
     }
+
+    this.props.changeScore(); 
   }
 
   render() {

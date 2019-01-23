@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image } from 'react-native';
-import { Button, Divider } from 'react-native-elements';
+import { Text, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import Markdown from 'react-native-simple-markdown'
 
 class Order extends React.Component {
@@ -26,15 +26,13 @@ class Order extends React.Component {
   }
 
   checkAnswer(actualSolution, userSolution) {
-    console.log(JSON.stringify(actualSolution) == JSON.stringify(userSolution));
     if (JSON.stringify(actualSolution) == JSON.stringify(userSolution)) {
       this.props.showResult("Correct!");
-      this.props.incrementScore();
-      console.log(true)
     } else {
       this.props.showResult("Incorrect!");
-      this.props.decrementScore();      
     }
+
+    this.props.changeScore();    
   }
 
   updateOrderView(newOptions, originalIdx, newTextWithOrderNum) {
@@ -89,17 +87,3 @@ class Order extends React.Component {
 }
 
 export default Order;
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    height: 600
-  },
-  question: {
-    width: null,
-    height: null,
-    fontSize: 16,
-  },
-  cardImageStyle: {
-    alignSelf: 'stretch'
-  }
-})

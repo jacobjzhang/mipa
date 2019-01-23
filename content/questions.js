@@ -34,7 +34,7 @@ module.exports = [
     challenge: 1,
     type: 'fill in',
     question: "The following is working code validating a Binary Search Tree in Python.",
-    code: "class Solution:\n  # @param root, a tree node\n  # @return a boolean\n  # 7:38\n  def isValidBST(self, root):\n    output = []\n    self.inOrder(root, output)\n    \n    for i in range(1, len(output)):\n      if output[i-1] >= output[i]:\n        return False\n\n    return True\n\n  def inOrder(self, root, output):\n    if root is None:\n      return\n    ____________________________________\n    output.append(root.val)\n    self.inOrder(root.right, output) ",
+    code: "class Solution:\n  def isValidBST(self, root):\n    output = []\n    self.inOrder(root, output)\n    \n    for i in range(1, len(output)):\n      if output[i-1] >= output[i]:\n        return False\n\n    return True\n\n  def inOrder(self, root, output):\n    if root is None:\n      return\n    ____________________________________\n    output.append(root.val)\n    self.inOrder(root.right, output) ",
     options: null,
     solution: "self.inOrder(root.left, output)",
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",

@@ -72,7 +72,7 @@ class Database {
     form.append("user", "1");
     form.append("current_score", String(newScore));
     
-    return fetch('http://127.0.0.1:8000/profiles/1/', {
+    return fetch('http://mipa.pythonanywhere.com/profiles/1/', {
       method: 'PUT',
       body: form
     })
@@ -81,7 +81,7 @@ class Database {
 
   async getUser(userId) {
     let user = {};
-    await fetch(`http://127.0.0.1:8000/profiles/${userId}/`)
+    await fetch(`http://mipa.pythonanywhere.com/profiles/${userId}/`)
       .then(function(response) {
         return response.json();
       })
@@ -97,17 +97,6 @@ class Database {
       this.db
         .collection(type)
         .add({...q})
-        // .add({
-        //   challenge: q.challenge,
-        //   type: q.type,
-        //   question: q.question,
-        //   solution: q.solution,
-        //   hint: q.hint,
-        //   category: q.category,
-        //   options: q.options ? q.options : "",
-        //   questionImage: q.questionImage ? q.questionImage : "",
-        //   hintImage: q.hintImage ? q.hintImage : ""
-        // })
         .then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
         })
