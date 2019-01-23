@@ -28,26 +28,23 @@ class MultipleChoice extends React.Component {
 
   selectAnswer(originalIdx) {
     if (this.props.solution === originalIdx) {
-      this.props.showResult({correct: true, message: 'Great selection!'});
+      this.props.showResult({ correct: true, message: "Great selection!" });
+      this.props.changeScore(true);      
     } else {
-      this.props.showResult({correct: false, message: `The answer was choice #${this.props.solution+1}.`}
-      );
+      this.props.showResult({
+        correct: false,
+        message: `The answer was choice #${this.props.solution + 1}.`
+      });
+      this.props.changeScore(false);
     }
-
-    this.props.changeScore();
   }
 
   render() {
     return (
       <View style={styles.cardContainer}>
-        <Text style={{ marginBottom: 20 }}>
-          Category: {this.props.category}
-        </Text>
-        <View style={{ marginBottom: 10 }}>
-          <Markdown>
-            #### Press the correct multiple choice answer. {this.props.question}
-          </Markdown>
-        </View>
+        <Markdown>
+          #### Press the correct multiple choice answer. {this.props.question}
+        </Markdown>
         <View style={{ marginBottom: 10 }}>
           {this.props.code && (
             <SyntaxHighlighter
@@ -70,7 +67,7 @@ class MultipleChoice extends React.Component {
               ]}
               onPress={() => this.selectAnswer(idx)}
             >
-              <Text style={styles.itemName}>{`${idx+1}. ${item}`}</Text>
+              <Text style={styles.itemName}>{`${idx + 1}. ${item}`}</Text>
             </TouchableOpacity>
           )}
         />

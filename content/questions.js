@@ -23,13 +23,13 @@ module.exports = [
     challenge: 1,
     type: 'multiple choice',
     question: 'What would be the result of the following recursive function?',
-    code: "def func(num):\n    if n == 4:\n       return n\n    else:\n       return 2 * func(n+1);",
+    code: "def func(num):\n    if n == 4:\n       return n\n    else:\n       return 2 * func(n+1);\n\nfunc(2)",
     options: ['4', '3', '16', 'infinity'],
     solution: 2,
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },  
+  },
   {
     challenge: 1,
     type: 'fill in',
@@ -40,7 +40,7 @@ module.exports = [
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },
+  },  
   {
     challenge: 3,
     type: 'swipe',

@@ -93,10 +93,10 @@ class Question extends React.Component {
     }
   }
 
-  changeScore() {
+  changeScore(correct) {
     this.setState({
       lastScore: this.state.latestScore,
-      latestScore: this.state.latestScore + this.ScoreCalculator.calculatedChange()
+      latestScore: this.state.latestScore + this.ScoreCalculator.calculatedChange(correct)
     });
   }
 
@@ -113,11 +113,11 @@ class Question extends React.Component {
 
     if (question.solution === givenSolution) {
       this.showResult({correct: true, message: 'Nice job, it is true.'});
+      this.props.changeScore(true);
     } else {
       this.showResult({correct: false, message: 'The statement was false.'});
+      this.props.changeScore(false);
     }
-
-    this.changeScore();
   }
 
   checkAnswer(gestureName) {
@@ -160,7 +160,6 @@ class Question extends React.Component {
   }
 
   render() {
-    console.log(this.state.currentCardIdx, this.state.questions.length);
     const currentScore =
       this.state.currentCardIdx / this.state.questions.length;
     const currentCard = this.state.currentCard;
@@ -248,7 +247,7 @@ class Question extends React.Component {
               style={{ alignSelf: "center", margin: 10 }}
             />
           </View>
-          <View style={{ padding: 20 }}>{content}</View>
+          <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
           <Text style={theme.cardActionStyle}>
             Tap on this card to get hints.
           </Text>

@@ -39,7 +39,7 @@ class Order extends React.Component {
     if (this.state.selectedOrder[originalIdx]) {
       // can only select the last one
       // originalIdx starts at 0, currentPointer is 1 ahead
-      if (originalIdx+1 !== this.state.currentPointer-1) {
+      if (this.state.selectedOrder[originalIdx] !== this.state.currentPointer-1) {
         return;
       }
 

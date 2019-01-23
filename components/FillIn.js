@@ -26,12 +26,12 @@ class FillIn extends React.Component {
 
   checkAnswer() {
     if (this.state.userSolution.toLowerCase() === this.props.solution.toLowerCase()) {
-      this.props.showResult("Correct!");     
+      this.props.showResult({ correct: true, message: 'Amazing answer, you\'re right!' });
+      this.props.changeScore(true);
     } else {
-      this.props.showResult("Incorrect!");
+      this.props.showResult({ correct: false, message: this.props.solution });
+      this.props.changeScore(false);
     }
-
-    this.props.changeScore(); 
   }
 
   render() {
@@ -48,21 +48,23 @@ class FillIn extends React.Component {
         <SyntaxHighlighter 
           language='python' 
           highlighter={"prism" || "hljs"}
+          fontSize={13}          
           customStyle={{paddingBottom: 0, marginBottom: 0}}
         >
           {fillInQuestion[0]}
         </SyntaxHighlighter>
         <View style={{backgroundColor: '#F0F0F0', marginHorizontal: 8, padding: 0, marginVertical: 0}}>
           <TextInput
-              style={[styles.fillInInput, { marginLeft: spaceLen, width: 200 }]}
+              style={[styles.fillInInput, { marginLeft: spaceLen, width: 200, marginHorizontal: 0, paddingHorizontal: 0 }]}
               placeholder="# enter missing line here"
               onChangeText={(userSolution) => this.setState({userSolution})}
-              autoCapitalize = 'none'
+              autoCapitalize='none'
             />
         </View>
         <SyntaxHighlighter 
           language='python' 
           highlighter={"prism" || "hljs"}
+          fontSize={13}
           customStyle={{paddingTop: 0, marginTop: 0}}          
         >
           {fillInQuestion[1]}
