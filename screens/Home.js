@@ -192,7 +192,6 @@ class App extends React.Component {
               marginRight: 10
             }}
           >
-            Black
             {this.renderValue(currentUser)}
             <View
               style={{
@@ -223,7 +222,7 @@ class App extends React.Component {
                 });
               }}
             >
-              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemName}>{item.title}</Text>
               <Text style={styles.itemCategory}>{item.category}</Text>
             </TouchableOpacity>
           )}

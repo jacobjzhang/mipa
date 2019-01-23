@@ -14,7 +14,7 @@ module.exports = [
     type: 'order',
     question: 'A Pre-order Traversal for a Binary Search Tree called with function preOrder()',
     options: ['Visit the root.', 'Traverse the left subtree, i.e., call preOrder(left-subtree)', 'Traverse the right subtree, i.e., call preOrder(right-subtree)'],
-    solution: ['1. Visit the root.', '2. Traverse the left subtree, i.e., call preOrder(left-subtree)', '3. Traverse the right subtree, i.e., call preOrder(right-subtree)'],
+    solution: [1, 2, 3],
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
@@ -55,7 +55,7 @@ module.exports = [
     type: 'order',
     question: 'An In-order Traversal for a Binary Search Tree with function inOrder()',
     options: ['Visit the root.', 'Traverse the left subtree, i.e., call inOrder(left-subtree) ', 'Traverse the right subtree, i.e., call inOrder(right-subtree)'],
-    solution: ['1. Traverse the left subtree, i.e., call inOrder(left-subtree) ', '2. Visit the root.', '3. Traverse the right subtree, i.e., call inOrder(right-subtree)'],
+    solution: [2, 1, 3],
     hint: "Depth First Traversals:\n(a) inOrder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
@@ -94,7 +94,7 @@ module.exports = [
     type: 'order',
     question: 'Given the root of a binary search tree, and a target K, return two nodes in the tree whose sum equals K. Select the order to accomplish this in O(n) time and O(n) space.',
     options: ['Create a hash map', 'Create an auxiliary array', 'Push an inorder traversal of the BST nodes into the auxiliary array', 'Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
-    solution: ['1. Create an auxiliary array', '2. Push an inorder traversal of the BST nodes into the auxiliary array', '3. Create a hash map', '4. Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
+    solution: [3, 1, 2, 4],
     hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
     category: 'Two Sum',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
@@ -113,7 +113,7 @@ module.exports = [
     type: 'order',
     question: 'What is the order of steps in Quick Sort?',
     options: ['Then, apply the quicksort algorithm to the first and the third part. (recursively)', 'Pick a pivot element.', 'Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.'],
-    solution: ['1. Pick a pivot element.', '2. Partition the array into 3 parts: all elements in this part is less than the pivot, the pivot, and all elements greater.', '3. Then, apply the quicksort algorithm to the first and the third part. (recursively)'],
+    solution: [3, 1, 2],
     hint: "",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'

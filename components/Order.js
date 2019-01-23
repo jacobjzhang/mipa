@@ -1,7 +1,7 @@
-import React from 'react';
-import { Text, View, Image } from 'react-native';
-import { Button } from 'react-native-elements';
-import Markdown from 'react-native-simple-markdown'
+import React from "react";
+import { Text, View, Image } from "react-native";
+import { Button } from "react-native-elements";
+import Markdown from "react-native-simple-markdown";
 
 class Order extends React.Component {
   constructor(props) {
@@ -9,78 +9,88 @@ class Order extends React.Component {
 
     this.state = {
       options: this.props.options,
-      userSolution: [],
-      orderIdx: 1
-    }
+      selectedOrder: [],
+      currentPointer: 1
+    };
   }
 
   componentWillMount() {
     this.props = {
       ...this.props,
       ...this.getNavigationParams
-    }
-  }  
+    };
+  }
 
   getNavigationParams() {
-    return this.props.navigation.state.params || {}
+    return this.props.navigation.state.params || {};
   }
 
   checkAnswer(actualSolution, userSolution) {
     if (JSON.stringify(actualSolution) == JSON.stringify(userSolution)) {
-      this.props.showResult("Correct!");
+      this.props.showResult({ correct: true, message: "Solid ordering!" });
+      this.props.changeScore(true);
     } else {
-      this.props.showResult("Incorrect!");
+      this.props.showResult({ correct: false, message: "Sorry, wrong order." });
+      this.props.changeScore(false);
     }
-
-    this.props.changeScore();    
   }
 
-  updateOrderView(newOptions, originalIdx, newTextWithOrderNum) {
-    newOptions[originalIdx] = newTextWithOrderNum;
-    this.setState({options: newOptions, orderIdx: this.state.orderIdx+1});
-  }
+  updateViewAndUpdateSolution(originalIdx) {
+    if (this.state.selectedOrder[originalIdx]) {
+      // can only select the last one
+      // originalIdx starts at 0, currentPointer is 1 ahead
+      if (originalIdx+1 !== this.state.currentPointer-1) {
+        return;
+      }
 
-  updateViewAndUpdateSolution(answer, originalIdx) {
-    let newText = '';
-    const match = /\d\.\s/.exec(answer);
-    if (match) {
-      const removal = answer.slice(match.index, match[0].length);
-      newText = removal;
+      // if selected, unselect
+      delete this.state.selectedOrder[originalIdx];
+      this.setState({ currentPointer: this.state.currentPointer - 1 });
     } else {
-      newText = `${this.state.orderIdx}. ${answer}`;
+      this.state.selectedOrder[originalIdx] = this.state.currentPointer;
+      this.setState({ currentPointer: this.state.currentPointer + 1 });
     }
 
-    this.updateOrderView(this.state.options, originalIdx, newText);
-
-    this.state.userSolution.push(newText);
-
-    if (this.state.userSolution.length === this.state.options.length) {
-      this.checkAnswer(this.props.solution, this.state.userSolution);
+    if (this.state.selectedOrder.length === this.state.options.length) {
+      this.checkAnswer(this.props.solution, this.state.selectedOrder);
     }
   }
 
   render() {
     return (
       <View>
-        <Text>Category: {this.props.category}</Text>
-        <View  style={{marginBottom: 20}}>
+        <View style={{ marginBottom: 20 }}>
           <Markdown>
-            ### Tap on the below steps in the order they occur for *{this.props.question}*
+            ### Tap on the below steps in the order they occur for *
+            {this.props.question}*
           </Markdown>
         </View>
-        {
-          this.state.options.map((text, originalIdx) => (
-            <View key={originalIdx} style={{marginBottom: 20}}>
-              <Button
-                small
-                raised
-                onPress={() => this.updateViewAndUpdateSolution(text, originalIdx)}
-                backgroundColor='#303952'
-                title={text} />
-            </View>
-          ))
-        }
-        {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
+        {this.state.options.map((text, originalIdx) => {
+          const title = this.state.selectedOrder[originalIdx] ? `${this.state.selectedOrder[originalIdx]}. ${text}` : text;
+
+          return (<View key={originalIdx} style={{ marginBottom: 20 }}>
+            <Button
+              small
+              raised
+              onPress={() =>
+                this.updateViewAndUpdateSolution(originalIdx)
+              }
+              backgroundColor="#303952"
+              title={title}
+            />
+          </View>);
+        })}
+        {this.props.questionImage && (
+          <Image
+            source={{ uri: this.props.questionImage }}
+            style={{
+              width: 200,
+              height: 200,
+              resizeMode: "contain",
+              alignSelf: "center"
+            }}
+          />
+        )}
       </View>
     );
   }

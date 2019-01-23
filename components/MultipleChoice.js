@@ -28,9 +28,10 @@ class MultipleChoice extends React.Component {
 
   selectAnswer(originalIdx) {
     if (this.props.solution === originalIdx) {
-      this.props.showResult("Correct!");
+      this.props.showResult({correct: true, message: 'Great selection!'});
     } else {
-      this.props.showResult("Incorrect!");
+      this.props.showResult({correct: false, message: `The answer was choice #${this.props.solution+1}.`}
+      );
     }
 
     this.props.changeScore();
@@ -69,7 +70,7 @@ class MultipleChoice extends React.Component {
               ]}
               onPress={() => this.selectAnswer(idx)}
             >
-              <Text style={styles.itemName}>{item}</Text>
+              <Text style={styles.itemName}>{`${idx+1}. ${item}`}</Text>
             </TouchableOpacity>
           )}
         />

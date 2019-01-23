@@ -47,7 +47,7 @@ class Question extends React.Component {
       currentCard: questions[0],
       resultModalVisible: false,
       answeredAlready: false,
-      currentResult: ""
+      currentResult: { correct: false, message: ''}
     };
 
     this.ScoreCalculator = new ScoreCalculator();
@@ -112,9 +112,9 @@ class Question extends React.Component {
     this.state.endClock();
 
     if (question.solution === givenSolution) {
-      this.showResult("Correct!");
+      this.showResult({correct: true, message: 'Nice job, it is true.'});
     } else {
-      this.showResult("Incorrect!");
+      this.showResult({correct: false, message: 'The statement was false.'});
     }
 
     this.changeScore();
