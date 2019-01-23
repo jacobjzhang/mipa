@@ -32,6 +32,17 @@ module.exports = [
   },
   {
     challenge: 1,
+    type: 'swipe',
+    question: "An instance of a pre-order traversal returns the sequence 39, 30, 10, 17, 33, 23, 40, 34, 50.\n\nIts post-order traversal is 17, 10, 23, 33, 30, 34, 50, 40, 30.",
+    code: "",
+    options: null,
+    solution: true,
+    hint: "",
+    category: 'Depth-First Traversal',
+    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+  },
+  {
+    challenge: 1,
     type: 'fill in',
     question: "The following is working code validating a Binary Search Tree in Python.",
     code: "class Solution:\n  def isValidBST(self, root):\n    output = []\n    self.inOrder(root, output)\n    \n    for i in range(1, len(output)):\n      if output[i-1] >= output[i]:\n        return False\n\n    return True\n\n  def inOrder(self, root, output):\n    if root is None:\n      return\n    ____________________________________\n    output.append(root.val)\n    self.inOrder(root.right, output) ",
@@ -40,7 +51,7 @@ module.exports = [
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },  
+  },    
   {
     challenge: 3,
     type: 'swipe',

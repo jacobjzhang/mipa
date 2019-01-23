@@ -11,9 +11,10 @@ class ScoreCalculator {
     this.time = Date.now() - this.time;
   }
 
-  calculatedChange() {
+  calculatedChange(correct) {
     this.endClock();
 
+    const sign = correct ? 1 : -1;
     const changeVar = this.time;
 
     let factor = 0;
@@ -27,7 +28,7 @@ class ScoreCalculator {
       factor = Math.random() * 4;
     }
 
-    return parseInt(factor * 50);
+    return sign * parseInt(factor * 50);
   }
 }
 

@@ -1,12 +1,7 @@
 "use strict";
 
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
@@ -37,8 +32,6 @@ class App extends React.Component {
     const challenges = await this.db.getChallenges();
     const fetchedUser = await this.db.getUser(1);
 
-    console.log(fetchedUser, "fetched User");
-    // datastore();
     const user = {
       name: "Jake Zhang",
       avatar:
@@ -47,12 +40,10 @@ class App extends React.Component {
       positive: fetchedUser.current_score > 0 ? true : false
     };
 
-    console.log("setting state", user);
     this.setState({ challenges: challenges, user: user });
   }
 
   renderValue(user) {
-    console.log("rendering value", user);
     const { value, positive } = user;
 
     if (positive) {
@@ -73,7 +64,6 @@ class App extends React.Component {
           <Text
             style={{
               color: "green",
-              // fontFamily: 'regular',
               fontSize: 13,
               marginLeft: 5
             }}
@@ -100,7 +90,6 @@ class App extends React.Component {
           <Text
             style={{
               color: "red",
-              // fontFamily: 'regular',
               fontSize: 13,
               marginLeft: 5
             }}
@@ -126,15 +115,12 @@ class App extends React.Component {
       name: "Jake Zhang",
       avatar:
         "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
-      value: "- 164",
+      value: "- 0",
       positive: true
     };
 
-    console.log(this.state.user, "state user");
     const currentUser = this.state.user ? this.state.user : user;
-
     const { name, avatar, value } = currentUser;
-    console.log(name, avatar, value, "CURRENT USER");
 
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>

@@ -51,7 +51,7 @@ class Order extends React.Component {
       this.setState({ currentPointer: this.state.currentPointer + 1 });
     }
 
-    if (this.state.selectedOrder.length === this.state.options.length) {
+    if (this.state.selectedOrder.filter(Boolean).length === this.state.options.length) {
       this.checkAnswer(this.props.solution, this.state.selectedOrder);
     }
   }

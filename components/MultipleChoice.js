@@ -49,6 +49,7 @@ class MultipleChoice extends React.Component {
           {this.props.code && (
             <SyntaxHighlighter
               language="python"
+              fontSize={13}
               highlighter={"prism" || "hljs"}
             >
               {this.props.code}

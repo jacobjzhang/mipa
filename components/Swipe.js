@@ -27,16 +27,17 @@ class Swipe extends React.Component {
 
     return (
       <View>
-        <Text>Category: {this.props.category}</Text>
-        <View  style={{marginBottom: 20}}>
+        <View style={{marginBottom: 20, paddingHorizontal: 10}}>
           <Markdown>
-            ### Swipe RIGHT if statement is correct, LEFT if wrong.
+            ### Swipe RIGHT if statement is correct, swipe LEFT if wrong.
           </Markdown>
         </View>
-        <View  style={{marginBottom: 20}}>
-          <Markdown>
-            ## {this.props.question}
-          </Markdown>
+        <View style={{marginBottom: 20, paddingHorizontal: 10}}>
+          {this.props.question.split('\n').map((line, idx) => (
+            <Markdown key={idx}>
+              ## {line}
+            </Markdown>   
+          ))}
         </View>
         {this.props.code && <Text style={{fontFamily: 'Courier', padding: 20}} >
           {this.props.code}

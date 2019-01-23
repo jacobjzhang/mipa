@@ -109,14 +109,12 @@ class Question extends React.Component {
   }
 
   handleAnswer(question, givenSolution) {
-    this.state.endClock();
-
     if (question.solution === givenSolution) {
       this.showResult({correct: true, message: 'Nice job, it is true.'});
-      this.props.changeScore(true);
+      this.changeScore(true);
     } else {
       this.showResult({correct: false, message: 'The statement was false.'});
-      this.props.changeScore(false);
+      this.changeScore(false);
     }
   }
 

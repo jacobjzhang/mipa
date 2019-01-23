@@ -60,7 +60,6 @@ class Database {
           console.log("Error getting documents:", error);
         });
     } else {
-      console.log('Using local data for questions.')
       const allQuestions = require('../content/questions');      
       questions = allQuestions.filter((q) => { return q.challenge == challengeId; })
     }
@@ -68,6 +67,8 @@ class Database {
   }
 
   changeScore(newScore) {
+    console.log('changing user score in db');
+
     var form = new FormData();
     form.append("user", "1");
     form.append("current_score", String(newScore));
@@ -77,9 +78,12 @@ class Database {
       body: form
     })
     .then(response => response.json())
+    .then(response => console.log(response))
   }
 
   async getUser(userId) {
+    console.log('fetching user from db');
+
     let user = {};
     await fetch(`http://mipa.pythonanywhere.com/profiles/${userId}/`)
       .then(function(response) {
@@ -88,7 +92,6 @@ class Database {
       .then(function(myJson) {
         user = JSON.stringify(myJson);
       });
-    console.log(user, 'in db call');
     return JSON.parse(user);
   }
 

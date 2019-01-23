@@ -34,8 +34,8 @@ class App extends React.Component {
   async componentDidMount() {
     this.db = new Database();
     const newScore =
-      this.props.navigation.getParam("oldScore", 100) -
-      this.props.navigation.getParam("score", 100);
+      parseInt(this.props.navigation.getParam("oldScore", 100)) +
+      parseInt(this.props.navigation.getParam("latestScore", 100));
     await this.db.changeScore(newScore);
   }
 
@@ -65,8 +65,8 @@ class App extends React.Component {
         </View>
         <Card title="WELL DONE!" image={require("../images/result.jpg")}>
           <Text style={{ marginBottom: 10 }}>
-            You scored {this.props.navigation.getParam("score", 100)} points for
-            this challenge!
+            You scored {this.props.navigation.getParam("latestScore", 100)}{" "}
+            points for this challenge!
           </Text>
           <Text style={{ marginBottom: 10 }}>
             Here are some related challenges:
