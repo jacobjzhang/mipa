@@ -10,7 +10,6 @@ class MultipleChoice extends React.Component {
     super(props);
 
     this.state = {
-      options: this.props.options,
       userSolution: []
     };
   }
@@ -58,7 +57,7 @@ class MultipleChoice extends React.Component {
         </View>
         <GridView
           itemDimension={130}
-          items={this.state.options}
+          items={this.props.options}
           style={styles.gridView}
           renderItem={(item, idx) => (
             <TouchableOpacity

@@ -84,14 +84,27 @@ class Database {
   async getUser(userId) {
     console.log('fetching user from db');
 
+    const defaultUser = {
+      name: "Jake Zhang",
+      avatar:
+        "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
+      current_score: 9999
+    };
+
     let user = {};
     await fetch(`http://mipa.pythonanywhere.com/profiles/${userId}/`)
       .then(function(response) {
+        if (!response.ok) {
+          throw new Error('bad response')
+        }
         return response.json();
-      })
-      .then(function(myJson) {
+      }).then(function(myJson) {
         user = JSON.stringify(myJson);
+      }).catch(function(error) {
+        console.log('bad response')
+        user = JSON.stringify(defaultUser);
       });
+
     return JSON.parse(user);
   }
 

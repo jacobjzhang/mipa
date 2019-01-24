@@ -36,8 +36,9 @@ class FillIn extends React.Component {
 
   render() {
     const match = /(\s+)_{2}_+/g.exec(this.props.code);
+    console.log(match)
     const divider = match[0];
-    const spaceLen = match[1].length + 40;
+    const spaceLen = match[1].length * 9;
     const fillInQuestion = this.props.code.split(divider);
 
     return (

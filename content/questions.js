@@ -51,7 +51,31 @@ module.exports = [
     hint: "Depth First Traversals:\n(a) Inorder (Left, Root, Right)\n(b) Preorder (Root, Left, Right)\n(c) Postorder (Left, Right, Root)",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },    
+  },
+  {
+    challenge: 2,
+    type: "multiple choice",
+    question: "What will the following code do to an input string?",
+    options: ["Make a copy", "Reverse the string", "Swap the first and last letters", "Infinite loop"],
+    code: "def reverse_str(str):\n  start = 0\n  end = len(str)-1\n  str_copy = [letter for letter in str]\n  while start < end:\n    temp = str_copy[start]\n    str_copy[start] = str_copy[end]\n    str_copy[end] = temp\n    start += 1\n    end -= 1\n  return \"\".join(str_copy)",
+    solution: 1,
+    hint: "",
+    category: "strings",
+    hintImage: "",
+    questionImage: ""
+  },
+  {
+    challenge: 2,
+    type: "multiple choice",
+    question: "What is the run time of the following code?",
+    options: ["O(log n)", "O(n)", "O(n log n)", "O(n^2)"],
+    code: "def reverse_str(str):\n  start = 0\n  end = len(str)-1\n  str_copy = [letter for letter in str]\n  while start < end:\n    temp = str_copy[start]\n    str_copy[start] = str_copy[end]\n    str_copy[end] = temp\n    start += 1\n    end -= 1\n  return \"\".join(str_copy)",
+    solution: 1,
+    hint: "",
+    category: "strings",
+    hintImage: "",
+    questionImage: ""
+  },  
   {
     challenge: 3,
     type: 'swipe',
@@ -74,41 +98,24 @@ module.exports = [
   {
     challenge: 3,
     type: 'fill in',
-    question: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      _______________\n   }\n}",
-    solution: false,
-    hint: "The following is valid code for an inorder traversal in Javascript:\n\nfunction inorder(node){\n   if(node){\n      inorder(node.left);\n      console.log(node.value);\n      inorder(node.right);\n   }\n}",
+    question: "The following is valid code for an inorder traversal.",
+    code: "def inorder(node):\n   if node:\n      inorder(node.left)\n      print node.value;\n      _____________",
+    solution: "inorder(node.right)",
+    hint: "",
     category: 'Depth-First Traversal',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
     challenge: 3,
-    type: 'multiple choice',
-    question: 'Which of the following is not an advantage of a hash map data structure?',
-    options: ['Being able to lookup data on the order of O(1) independent of the size of the data structure.', 'Being able to insert data on the order of O(1) independent of the size of the data structure.', 'Finding the maximum and minimum keys in O(1).', 'If the set of key-value pairs is fixed and known ahead of time, one may reduce the average lookup cost by a careful choice of the hash function, bucket table size, and internal data structures such that keys need not be stored in the table.'],   
-    solution: 'Finding the maximum and minimum keys in O(1).',
-    hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
-    category: 'Hash Tables',
-    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },
-  {
-    challenge: 3,
-    type: 'swipe',
-    question: 'How would you find all the pairs of two integers in an unsorted array that sum up to a given S?\n\nFor example, if the array is [3, 5, 2, -4, 8, 11] and the sum is 7, your program should return [[11, -4], [2, 5]] because 11 + -4 = 7 and 2 + 5 = 7.',
-    code: 'twoSum(int[] nums, int target)\n  map = {}\n  iterate through nums\n    difference = target - nums[i]\n    if map.contains difference\n      return [map.get(complement), i];\n    }\n    map.put(nums[i], i);',
-    solution: true,
-    hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
-    category: 'Two Sum',
-    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  },
-  {
-    challenge: 3,
-    type: 'order',
-    question: 'Given the root of a binary search tree, and a target K, return two nodes in the tree whose sum equals K. Select the order to accomplish this in O(n) time and O(n) space.',
-    options: ['Create a hash map', 'Create an auxiliary array', 'Push an inorder traversal of the BST nodes into the auxiliary array', 'Iterate through each node in the auxiliary array, checking for the difference from the target in the hash map, and returning if found'],
-    solution: [3, 1, 2, 4],
-    hint: "function twoSum(arr, S) {\n\n  var sums = [];\n  var hashTable = {};\n  for (var i = 0; i < arr.length; i++) {\n    var difference = S - arr[i];\n    if (hashTable.hasOwnProperty(difference)) { \n      sums.push([arr[i], difference]);\n    }\n    hashTable[arr[i].toString()] = arr[i];\n\n  }\n  return sums;\n\n}",
-    category: 'Two Sum',
-    hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
+    type: 'fill in',
+    question: 'What missing line would print all permutations of the inputted string?',
+    options: [],
+    code: "def permutations(str, step = 0):\n    if step == len(str):\n        print(\"\".join(str))\n\n    for i in range(step, len(str)):\n        str_arr = [character for character in str]\n        _______________________________\n        permutations(str_arr, step + 1)",
+    solution: "str_arr[step], str_arr[i] = str_arr[i], str_arr[step]",
+    hint: "",
+    category: "permutations",
+    hintImage: "",
+    questionImage: ""
   },
   {
     challenge: 6,
@@ -138,5 +145,17 @@ module.exports = [
     hint: "Hash Table definition:\n\n- Stores data with key value pairs.\n- Hash functions accept a key and return an output unique only to that specific key. This is known as hashing, which is the concept that an input and an output have a one-to-one correspondence to map information.\n- Hash functions return a unique address in memory for that data.\n- Designed to optimize searching, insertion, and deletion.\n- Hash collisions are when a hash function returns the same output for two distinct inputs.\n- Hashes are important for associative arrays and database indexing.",
     category: 'Sorting',
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
-  }  
+  },
+  {
+    challenge: 0,
+    type: "",
+    question: "",
+    options: [],
+    code: "",
+    solution: "",
+    hint: "",
+    category: "",
+    hintImage: "",
+    questionImage: ""
+  }
 ];
