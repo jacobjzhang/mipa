@@ -1,0 +1,26 @@
+<p>You're playing a game with a friend called "Target and Vicinity". One person thinks up a number in their head, and the other makes a guess.</p>
+
+<p>To estimate proximity to the actual number, we use the concept of "targets" and "vicinities". Targets are digits in the guess that have the same value of the digit in <strong>actual</strong> with the same position. Vicinities are digits in <strong>guess</strong> that have the same value as some digit in <strong>actual</strong>, but don't share the same position.</p>
+
+<pre>
+Actual:  "345"
+Guess:   "135"
+"1T1V"
+
+Actual:  "45624"
+Guess:   "24325"
+"1T2V"
+</pre>
+
+<p>Person 1 has to tell person 2 how many targets and vicinities there are by providing a string in this format.</p>
+
+<pre>
+`${number of targets}T${number of vicinities}V"
+</pre>
+
+<p>You're given two strings, an <strong>actual</strong> and a <strong>guess</strong>. Write a function to return the number of targets and vicinities.</p>
+
+<pre>
+getTV("01", "01")     # 2T0V
+getTV("130", "30")    # 0T1V
+</pre>

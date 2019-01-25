@@ -1,0 +1,60 @@
+<div class="container col-10 bg-light p-4">
+  <%= simple_form_for(@question, html: { class: 'form-horizontal' },
+        wrapper: :horizontal_input_group,
+        wrapper_mappings: {
+          check_boxes: :horizontal_radio_and_checkboxes,
+          radio_buttons: :horizontal_radio_and_checkboxes,
+          file: :horizontal_file_input,
+          boolean: :horizontal_boolean
+        }) do |f| %>
+    <%= f.input :name, input_html: { class: 'special' } %>
+    <%= f.input :category, input_html: { maxlength: 30 } %>
+    <%= f.input :difficulty, input_html: { value: @question.difficulty } %>
+
+    <%= f.simple_fields_for :data do |data_f| %>
+      <% @question.data.each do |field_val, val| %>
+        <% if field_val == 'tests' %>
+          <%# val.each_with_index do |test_obj, idx| %>
+            <%# test_obj = TestsFieldsDecorator.new(test_obj) %>
+
+            <% if val.class == String %>
+              <% val = JSON.parse(val) %>
+            <% end %>
+            <% val.each_with_index do |test_obj, idx| %>
+              <div class="form-group">
+                <% if test_obj.class == Hash %>
+                  <%= text_area_tag 'challenge[data][tests][][text]', test_obj['text'], class: 'form-control test' %>
+                  <%= text_field_tag 'challenge[data][tests][][testString]', test_obj['testString'], class: 'form-control test'  %>
+                <% elsif test_obj.class == String %>
+                  <%= text_area_tag 'challenge[data][tests][][text]', 'Enter Text', class: 'form-control test'  %>
+                  <%= text_field_tag 'challenge[data][tests][][testString]', test_obj, class: 'form-control test'  %>              
+                <% end %>
+              </div>
+            <% end %>
+
+            <span onclick="addTest()">Add Test!</span>
+
+          <%# end %>
+        <% else %>
+          <%= data_f.input field_val.to_sym, as: :text, input_html: { value: val, rows: 15 } %>
+        <% end %>
+      <% end %>
+
+      <% if @question.data['testSetup'].nil? %>
+        <%= text_field_tag 'challenge[data][testSetup]', @question.data[:testSetup], class: 'form-control' %>
+      <% end %>
+    <% end %>
+
+    <%= f.button :submit %>
+  <% end %>
+</div>
+
+
+<script>
+  function addTest() {
+    $('.test')
+      .last()
+      .parent()
+      .append("<div class='form-group'><input type='text' name='challenge[data][tests][][text]' id='challenge_data_tests__text' value='test Text' class='form-control'><input type='text' name='challenge[data][tests][][testString]' id='challenge_data_tests__testString' value='testString' class='form-control'></div>")
+  }
+</script>

@@ -21,7 +21,7 @@ module.exports = [
     parentCategory: 'strings'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Stock Buy and Sell Optimization',
     category: 'Arrays',
     difficulty: 5,

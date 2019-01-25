@@ -20,6 +20,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "packagerOpts": {
+      "assetExts": ["md"]
+    },
     "ios": {
       "supportsTablet": true
     }

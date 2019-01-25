@@ -1,0 +1,17 @@
+<pre>
+<code>
+function lonelyNumber(numbers) {
+    let appearances = {};
+    
+    for (let num of numbers) {
+        if (appearances.hasOwnProperty(num)) {
+            delete appearances[num];
+        } else {
+            appearances[num] = true;
+        }
+    };
+    
+    return parseInt(Object.keys(appearances)[0]);
+};
+</code>
+</pre>

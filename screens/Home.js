@@ -7,6 +7,7 @@ import GridView from "react-native-super-grid";
 import Database from "../models/Database";
 import { Avatar, Icon } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
+import WalkThroughs from "../content/walkthroughs";
 
 import Colors from "../constants/Colors";
 
@@ -104,12 +105,18 @@ class App extends React.Component {
   render() {
     const challenges = this.state.challenges || [];
 
-    challenges.forEach(chal => {
+    for (let chal of challenges) {
       const colorId = Math.floor(
         Math.random() * (Colors[chal.parentCategory].length - 1)
       );
+      chal["kind"] = "Challenge";
       chal["code"] = Colors[chal.parentCategory][colorId];
-    });
+    };
+
+    // Add an article
+    console.log(WalkThroughs[0]);
+    challenges.push(WalkThroughs[0]);
+    console.log(challenges);
 
     const user = {
       name: "Jake Zhang",
@@ -198,20 +205,42 @@ class App extends React.Component {
           itemDimension={130}
           items={challenges}
           style={styles.gridView}
-          renderItem={item => (
-            <TouchableOpacity
-              style={[styles.itemContainer, { backgroundColor: item.code }]}
-              onPress={() => {
-                return this.props.navigation.navigate("Question", {
-                  user: this.state.user,
-                  challengeId: item.id
-                });
-              }}
-            >
-              <Text style={styles.itemName}>{item.title}</Text>
-              <Text style={styles.itemCategory}>{item.category}</Text>
-            </TouchableOpacity>
-          )}
+          renderItem={item => {
+            if (item.kind == "Walkthrough") {
+              return (
+                <TouchableOpacity
+                  style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  onPress={() => {
+                    return this.props.navigation.navigate("WalkThrough", {
+                      walkthrough: item
+                    });
+                  }}
+                >
+                  {" "}
+                  <Text style={styles.itemKind}>{item.kind}</Text>
+                  <Text style={styles.itemName}>{item.title}</Text>
+                  <Text style={styles.itemCategory}>{item.category}</Text>
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <TouchableOpacity
+                  style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  onPress={() => {
+                    return this.props.navigation.navigate("Question", {
+                      user: this.state.user,
+                      challengeId: item.id
+                    });
+                  }}
+                >
+                  {" "}
+                  <Text style={styles.itemKind}>{item.kind}</Text>
+                  <Text style={styles.itemName}>{item.title}</Text>
+                  <Text style={styles.itemCategory}>{item.category}</Text>
+                </TouchableOpacity>
+              );
+            }
+          }}
         />
       </View>
     );
@@ -230,6 +259,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     height: 150
+  },
+  itemKind: {
+    top: 10,
+    padding: 10,
+    fontSize: 10,
+    position: "absolute",
+    color: "#fff"
   },
   itemName: {
     fontSize: 16,

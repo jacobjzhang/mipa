@@ -35,15 +35,14 @@ class FillIn extends React.Component {
   }
 
   render() {
-    const match = /(\s+)_{2}_+/g.exec(this.props.code);
-    console.log(match)
+    const match = /(\s+)_{2}_+\n/g.exec(this.props.code);
     const divider = match[0];
     const spaceLen = match[1].length * 9;
     const fillInQuestion = this.props.code.split(divider);
 
     return (
       <View>
-        <Text>
+        <Text style={{fontSize: 16, paddingBottom: 10}}>
           Fill in the code that would make this algorithm correct. {this.props.question}
         </Text>
         <SyntaxHighlighter 
@@ -54,9 +53,9 @@ class FillIn extends React.Component {
         >
           {fillInQuestion[0]}
         </SyntaxHighlighter>
-        <View style={{backgroundColor: '#F0F0F0', marginHorizontal: 8, padding: 0, marginVertical: 0}}>
+        <View style={{height: 24, backgroundColor: '#F0F0F0', marginHorizontal: 8, padding: 0, marginVertical: 0}}>
           <TextInput
-              style={[styles.fillInInput, { marginLeft: spaceLen, width: 200, marginHorizontal: 0, paddingHorizontal: 0 }]}
+              style={[styles.fillInInput, { fontSize: 14, marginLeft: spaceLen, width: 200, marginHorizontal: 0, paddingHorizontal: 0 }]}
               placeholder="# enter missing line here"
               onChangeText={(userSolution) => this.setState({userSolution})}
               autoCapitalize='none'
@@ -66,7 +65,7 @@ class FillIn extends React.Component {
           language='python' 
           highlighter={"prism" || "hljs"}
           fontSize={13}
-          customStyle={{paddingTop: 0, marginTop: 0}}          
+          customStyle={{paddingTop: 3, marginTop: 0}}          
         >
           {fillInQuestion[1]}
         </SyntaxHighlighter>

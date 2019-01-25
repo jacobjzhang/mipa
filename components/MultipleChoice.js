@@ -99,14 +99,15 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     justifyContent: "center",
-    borderRadius: 5,
-    padding: 10,
-    height: 150
+    borderRadius: 8,
+    height: 150,
+    padding: 8
   },
   itemName: {
     fontSize: 16,
     color: "#fff",
-    fontWeight: "600"
+    fontWeight: "600",
+    textAlign: 'center'    
   },
   itemCategory: {
     fontWeight: "600",

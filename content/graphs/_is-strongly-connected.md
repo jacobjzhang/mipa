@@ -1,0 +1,1 @@
+A directed graph is said to be strongly connected if every vertex is reachable from every other vertex. Given a directed graph represented via an adjacency list, write a method `isStronglyConnected` that would return a `boolean` if the graph is strongly connected.

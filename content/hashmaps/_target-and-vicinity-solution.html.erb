@@ -1,0 +1,30 @@
+<h4 style="text-align: center;font-weight:600;">Solution</h4>
+
+<pre>
+<code>
+function getTV(secret, guess) {
+    let targets = 0;
+    let vicinities = 0;
+    
+    let num = [];
+    for (let i = 0; i < 10; i++) {
+        num[i] = 0;
+    }
+    
+    for (let pos in guess) {
+        let secretChar = secret[pos];        
+        let guessChar = guess[pos];
+        if (guessChar == secret[pos]) {
+            targets++;
+        } else {
+            if (num[secretChar] < 0) vicinities++;
+            if (num[guessChar] > 0) vicinities++;
+            num[secretChar]++;
+            num[guessChar]--;
+        }
+    }
+    
+    return `${targets}T${vicinities}V`
+};
+</code>
+</pre>

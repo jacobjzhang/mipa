@@ -118,6 +118,18 @@ module.exports = [
     questionImage: ""
   },
   {
+    challenge: 4,
+    type: "fill in",
+    question: "What line would get us the max profit for each day?",
+    options: [],
+    code: "def maxProfit(self, prices):\n    if len(prices)==0: return 0\n    if len(prices) == 1: return 0\n    curMax = prices[len(prices)-1]\n    maxP = 0\n    for i in range(len(prices)):\n        temp = prices[len(prices)-i-1]\n        _____________\n            curMax = temp\n        curProfit = curMax-temp\n        if curProfit > maxP:\n            maxP = curProfit\n    return maxP",
+    solution: "if temp > curMax:",
+    hint: "",
+    category: "",
+    hintImage: "",
+    questionImage: ""
+  },
+  {
     challenge: 6,
     type: 'swipe',
     question: 'Recurrence and time complexity for worst case of QuickSort is T(n-1) + O(n) and O(n^2) respectively.',
