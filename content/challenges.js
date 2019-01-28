@@ -54,7 +54,7 @@ module.exports = [
     category: 'Binary Search Trees',
     difficulty: 5,
     parentCategory: 'trees'
-  },      
+  },
   {
     id: 6,
     title: 'Dutch national flag sorting problem',
