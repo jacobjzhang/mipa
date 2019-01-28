@@ -247,9 +247,6 @@ class Question extends React.Component {
             />
           </View>
           <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
-          <Text style={theme.cardActionStyle}>
-            Tap on this card to get hints.
-          </Text>
         </GestureRecognizer>
         <ResultModal
           currentResult={this.state.currentResult}
