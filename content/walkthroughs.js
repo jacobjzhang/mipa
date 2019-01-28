@@ -7,7 +7,7 @@ module.exports = [
     difficulty: 8,
     parentCategory: 'graphs',
     code: '#f8a5c2',
-    fileName: '../content/graphs/_flood-bucket-fill.md'
+    fileName: '_flood-bucket-fill'
   },
   {
     id: 2,

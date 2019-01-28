@@ -1,5 +1,6 @@
 module.exports = [
   {
+    kind: 'challenge',
     challenge: 1,
     type: 'multiple choice',
     question: 'Which of the following is NOT a property of the Binary Search Tree data structure?',
@@ -10,6 +11,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 1,
     type: 'order',
     question: 'A Pre-order Traversal for a Binary Search Tree called with function preOrder()',
@@ -20,6 +22,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },  
   {
+    kind: 'challenge',
     challenge: 1,
     type: 'multiple choice',
     question: 'What would be the result of the following recursive function?',
@@ -31,6 +34,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 1,
     type: 'swipe',
     question: "An instance of a pre-order traversal returns the sequence 39, 30, 10, 17, 33, 23, 40, 34, 50.\n\nIts post-order traversal is 17, 10, 23, 33, 30, 34, 50, 40, 30.",
@@ -42,6 +46,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 1,
     type: 'fill in',
     question: "The following is working code validating a Binary Search Tree in Python.",
@@ -53,6 +58,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 2,
     type: "multiple choice",
     question: "What will the following code do to an input string?",
@@ -65,6 +71,7 @@ module.exports = [
     questionImage: ""
   },
   {
+    kind: 'challenge',
     challenge: 2,
     type: "multiple choice",
     question: "What is the run time of the following code?",
@@ -77,6 +84,7 @@ module.exports = [
     questionImage: ""
   },  
   {
+    kind: 'challenge',
     challenge: 3,
     type: 'swipe',
     question: 'The worst case time complexity for search, insert and delete operations in a general Binary Search Tree is O(n).',
@@ -86,6 +94,7 @@ module.exports = [
     questionImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/192px-Binary_tree.svg.png'
   },
   {
+    kind: 'challenge',
     challenge: 3,
     type: 'order',
     question: 'An In-order Traversal for a Binary Search Tree with function inOrder()',
@@ -96,6 +105,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 3,
     type: 'fill in',
     question: "The following is valid code for an inorder traversal.",
@@ -106,6 +116,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 3,
     type: 'fill in',
     question: 'What missing line would print all permutations of the inputted string?',
@@ -118,6 +129,7 @@ module.exports = [
     questionImage: ""
   },
   {
+    kind: 'challenge',
     challenge: 4,
     type: "fill in",
     question: "What line would get us the max profit for each day?",
@@ -130,6 +142,7 @@ module.exports = [
     questionImage: ""
   },
   {
+    kind: 'challenge',
     challenge: 6,
     type: 'swipe',
     question: 'Recurrence and time complexity for worst case of QuickSort is T(n-1) + O(n) and O(n^2) respectively.',
@@ -139,6 +152,7 @@ module.exports = [
     questionImage: ''
   },
   {
+    kind: 'challenge',
     challenge: 6,
     type: 'order',
     question: 'What is the order of steps in Quick Sort?',
@@ -149,6 +163,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 6,
     type: 'multiple choice',
     question: 'Which of the following one of these is the missing step to this algorithm:"\n\n(1) Create a low pointer at the beginning of the array and a high pointer at the end of the array.\n(2) Create a mid pointer that starts at the beginning of the array and iterates through each element.\n(3) _______________\n(4) If the element at arr[mid] is a 0, then swap arr[mid] and arr[low] and increase the low and mid pointers by 1.\n(5) If the element at arr[mid] is a 1, don\'t swap anything and just increase the mid pointer by 1.\n"',
@@ -159,6 +174,7 @@ module.exports = [
     hintImage: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'
   },
   {
+    kind: 'challenge',
     challenge: 0,
     type: "",
     question: "",

@@ -21,9 +21,12 @@ class WalkThrough extends React.Component {
     super(props);
 
     this.state = {
-      markdown: 'Currently waiting for the walkthrough to load, please be patient.',
-      solution: ''
+      content: 'Currently waiting for the walkthrough to load, please be patient.',
+      solution: 'Here is a sample solution.',
+      contentView: true,
     };
+
+    this.toggleContent = this.toggleContent.bind(this);
   }
 
   async componentDidMount() {
@@ -33,7 +36,7 @@ class WalkThrough extends React.Component {
     // let file = Expo.Asset.fromModule(require('../content/flood-bucket-fill.md'));
     // await file.downloadAsync() // Optional, saves file into cache
     let content = ""
-    await fetch('http://127.0.0.1:5000/content/graphs/_flood-bucket-fill.md')
+    await fetch(`https://storage.googleapis.com/mipa-backend/static/graphs/${question.fileName}.md`)
       .then(function(response) {
         if (!response.ok) {
           throw new Error('bad response')
@@ -44,30 +47,32 @@ class WalkThrough extends React.Component {
         console.log(resp)
       }).catch(function(error) {
         console.log('bad response')
-        user = JSON.stringify(defaultUser);
       });
 
       let solution = ""
-      await fetch('http://127.0.0.1:5000/content/graphs/_flood-bucket-fill-solution.md')
+      await fetch(`https://storage.googleapis.com/mipa-backend/static/graphs/${question.fileName}-solution.md`)
         .then(function(response) {
           if (!response.ok) {
             throw new Error('bad response')
           }
           return response.text();
         }).then(function(resp) {
-          content = resp;
+          solution = resp;
           console.log(resp)
         }).catch(function(error) {
           console.log('bad response')
-          user = JSON.stringify(defaultUser);
         });      
 
-    await this.setState({markdown: content, solution: solution});
+    await this.setState({content: content, solution: solution});
+  }
+
+  toggleContent() {
+    this.setState({ contentView: !this.state.contentView })
   }
 
   render() {
-    const content = this.state.markdown;
-    const solution = this.state.solution;    
+    const content = this.state.content;
+    const solution = this.state.solution;
 
     console.log(content, '000')
     return (
@@ -84,51 +89,43 @@ class WalkThrough extends React.Component {
             # MIPA
           </Text>
         </View>
-        <View
-          style={{
-            marginTop: 0,
-            padding: 20,
-            minHeight: 300
+        <ScrollView style={{ marginBottom: 20, padding: 20, minHeight: 300 }}>
+          <Markdown
+            rules={{
+              codeBlock: {
+                react: (node, output, state) => {
+                  return (
+                    <SyntaxHighlighter
+                      key={node.content.substr(0,30)}
+                      language="js"
+                      fontSize={13}
+                      highlighter={"prism" || "hljs"}
+                      customStyle={{marginVertical: 20}}
+                    >{node.content}
+                    </SyntaxHighlighter>
+                  )
+                }
+              },
+            }}
+            styles={{text: {fontSize: 16}}}
+          >
+            {this.state.contentView ? content : solution}
+          </Markdown>
+        </ScrollView>
+        <Button
+          icon={{ name: "home" }}
+          backgroundColor="#03A9F4"
+          onPress={() => {
+            return this.toggleContent();
           }}
-        >
-          <ScrollView style={{ marginBottom: 20 }}>
-            <Markdown
-              rules={{
-                codeBlock: {
-                  react: (node, output, state) => {
-                    console.log(node.content, '---')
-                    return (
-                      <SyntaxHighlighter
-                        language="js"
-                        fontSize={13}
-                        highlighter={"prism" || "hljs"}
-                      >{node.content}
-                      </SyntaxHighlighter>
-                    )
-                  }
-                },
-              }}
-              styles={{text: {fontSize: 18}}}
-            >
-              {content}
-              {solution}
-            </Markdown>
-          </ScrollView>
-          <Button
-            icon={{ name: "home" }}
-            backgroundColor="#03A9F4"
-            onPress={() => {
-              return this.props.navigation.navigate("Home");
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0
-            }}
-            title="GO HOME"
-          />
-        </View>
+          buttonStyle={{
+            borderRadius: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0
+          }}
+          title={this.state.contentView ? "VIEW SOLUTION": "VIEW QUESTION"}
+        />
       </View>
     );
   }

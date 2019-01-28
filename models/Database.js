@@ -66,15 +66,18 @@ class Database {
     return questions;
   }
 
-  changeScore(newScore) {
-    console.log('changing user score in db');
+  addCompletion(user, challengeId, pointsReceived) {
+    console.log('adding completion, changing user score in db');
+
+    console.log(user)
 
     var form = new FormData();
-    form.append("user", "1");
-    form.append("current_score", String(newScore));
+    form.append("profile", user.id);
+    form.append("points_received", pointsReceived);
+    form.append("challenge", challengeId);
     
-    return fetch('http://mipa.pythonanywhere.com/profiles/1/', {
-      method: 'PUT',
+    return fetch('https://mipa-postgres.appspot.com/challenge_completions/', {
+      method: 'POST',
       body: form
     })
     .then(response => response.json())
@@ -85,6 +88,7 @@ class Database {
     console.log('fetching user from db');
 
     const defaultUser = {
+      id: 1,
       name: "Jake Zhang",
       avatar:
         "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
@@ -92,8 +96,9 @@ class Database {
     };
 
     let user = {};
-    await fetch(`http://mipa.pythonanywhere.com/profiles/${userId}/`)
+    await fetch(`https://mipa-postgres.appspot.com/profiles/${userId}/`)
       .then(function(response) {
+        console.log(response)
         if (!response.ok) {
           throw new Error('bad response')
         }

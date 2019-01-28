@@ -2,11 +2,8 @@
 
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Platform
 } from "react-native";
 import { withNavigation } from "react-navigation";
 import { Card, Button } from "react-native-elements";
@@ -33,10 +30,10 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.db = new Database();
-    const newScore =
-      parseInt(this.props.navigation.getParam("oldScore", 100)) +
-      parseInt(this.props.navigation.getParam("latestScore", 100));
-    await this.db.changeScore(newScore);
+    const newScore = this.props.navigation.getParam("latestScore", 100);
+    const user = this.props.navigation.getParam("user");
+    const challengeId = this.props.navigation.getParam("challengeId");
+    await this.db.addCompletion(user, challengeId, newScore);
   }
 
   render() {

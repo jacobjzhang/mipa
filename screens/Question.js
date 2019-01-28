@@ -88,7 +88,8 @@ class Question extends React.Component {
     } else {
       return this.props.navigation.navigate("Result", {
         latestScore: this.state.latestScore,
-        oldScore: this.props.navigation.getParam("user").value
+        user: this.props.navigation.getParam("user"),
+        challengeId: this.props.navigation.getParam("challengeId")
       });
     }
   }

@@ -31,9 +31,17 @@ class App extends React.Component {
   async fetchNewInfo() {
     this.db = new Database();
     const challenges = await this.db.getChallenges();
+
+    for (let chal of challenges) {
+      chal["kind"] = 'Challenge';
+    };
+
     const fetchedUser = await this.db.getUser(1);
 
+    console.log('FETCHED USER', fetchedUser)
+
     const user = {
+      id: 1,
       name: "Jake Zhang",
       avatar:
         "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
@@ -41,7 +49,7 @@ class App extends React.Component {
       positive: fetchedUser.current_score > 0 ? true : false
     };
 
-    this.setState({ challenges: challenges, user: user });
+    this.setState({ challenges: challenges.concat(WalkThroughs), user: user });
   }
 
   renderValue(user) {
@@ -109,14 +117,8 @@ class App extends React.Component {
       const colorId = Math.floor(
         Math.random() * (Colors[chal.parentCategory].length - 1)
       );
-      chal["kind"] = "Challenge";
       chal["code"] = Colors[chal.parentCategory][colorId];
     };
-
-    // Add an article
-    console.log(WalkThroughs[0]);
-    challenges.push(WalkThroughs[0]);
-    console.log(challenges);
 
     const user = {
       name: "Jake Zhang",
