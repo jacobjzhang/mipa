@@ -7,9 +7,11 @@ import {
 } from "react-native";
 import { withNavigation } from "react-navigation";
 import { Card, Button } from "react-native-elements";
+import { NavigationEvents } from "react-navigation";
 
 import Database from "../models/Database";
 import Colors from "../constants/Colors";
+import SyntaxHighlighter from "react-native-syntax-highlighter";
 
 class App extends React.Component {
   constructor(props) {
@@ -30,10 +32,6 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.db = new Database();
-    const newScore = this.props.navigation.getParam("latestScore", 100);
-    const user = this.props.navigation.getParam("user");
-    const challengeId = this.props.navigation.getParam("challengeId");
-    await this.db.addCompletion(user, challengeId, newScore);
   }
 
   render() {
@@ -46,8 +44,14 @@ class App extends React.Component {
       chal["code"] = Colors[chal.parentCategory][colorId];
     });
 
+    const newScore = this.props.navigation.getParam("latestScore", 100);
+    const user = this.props.navigation.getParam("user");
+    const challenge = this.props.navigation.getParam("challenge");
+    const challengeId = challenge.id;
+
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
+        {user && <NavigationEvents onDidFocus={()=>this.db.addCompletion(user, challengeId, newScore)} />}
         <View
           style={{
             height: 100,
@@ -60,12 +64,20 @@ class App extends React.Component {
             # MIPA
           </Text>
         </View>
-        <Card title="WELL DONE!" image={require("../images/result.jpg")}>
-          <Text style={{ marginBottom: 10 }}>
-            You scored {this.props.navigation.getParam("latestScore", 100)}{" "}
-            points for this challenge!
-          </Text>
-          <Text style={{ marginBottom: 10 }}>
+        {user && <Text style={{ marginBottom: 10, fontSize: 20, padding: 10 }}>
+          Well done! You scored {this.props.navigation.getParam("latestScore", 100)}{" "}
+          points for this challenge!
+        </Text>}     
+        <View style={{ marginBottom: 10 }}>
+          {challenge.solution && <SyntaxHighlighter
+            language="python"
+            fontSize={13}
+            highlighter={"prism" || "hljs"}
+          >
+            {challenge.solution}
+          </SyntaxHighlighter>}
+        </View>
+        <Text style={{ marginBottom: 10, fontSize: 20, padding: 10  }}>
             Here are some related challenges:
           </Text>
           <Button
@@ -82,7 +94,6 @@ class App extends React.Component {
             }}
             title="GO HOME"
           />
-        </Card>
       </View>
     );
   }

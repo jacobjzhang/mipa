@@ -11,6 +11,7 @@ import GestureRecognizer, {
 } from "react-native-swipe-gestures";
 import { Header } from "react-native-elements";
 
+import ChallengePresenter from "../components/ChallengePresenter";
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
 import FillIn from "../components/FillIn";
@@ -19,8 +20,6 @@ import ResultModal from "../components/ResultModal";
 
 import Database from "../models/Database";
 import ScoreCalculator from "../models/ScoreCalculator";
-
-const theme = getTheme();
 
 class Question extends React.Component {
   constructor(props) {
@@ -64,7 +63,7 @@ class Question extends React.Component {
   }
 
   async fetchQuestions() {
-    const challengeId = this.props.navigation.getParam("challengeId", 1);
+    const challengeId = this.props.navigation.getParam("challenge", {}).id;
 
     const db = new Database();
 
@@ -84,12 +83,16 @@ class Question extends React.Component {
         currentCard: this.state.questions[currIdx + 1],
         answeredAlready: false
       });
-      this.setModalVisible(!this.state.resultModalVisible);
+
+      // fix for presenters!
+      if (this.state.questions[currIdx].category !== 'presenter') {
+        this.setModalVisible(!this.state.resultModalVisible);
+      }
     } else {
       return this.props.navigation.navigate("Result", {
         latestScore: this.state.latestScore,
         user: this.props.navigation.getParam("user"),
-        challengeId: this.props.navigation.getParam("challengeId")
+        challenge: this.props.navigation.getParam("challenge")
       });
     }
   }
@@ -165,6 +168,17 @@ class Question extends React.Component {
 
     let content;
     switch (currentCard.type) {
+      case "challenge presenter":
+        content = (
+          <ChallengePresenter
+            {...currentCard}
+            challenge={this.props.navigation.getParam("challenge", {})}
+            showResult={this.showResult}
+            changeScore={this.changeScore}
+            goToNextQuestion={this.goToNextQuestion}
+          />
+        );
+        break;      
       case "swipe":
         content = (
           <Swipe
@@ -230,7 +244,7 @@ class Question extends React.Component {
             backgroundColor="#74b9ff"
             leftComponent={{ icon: "close", color: "#000", onPress: pressLeft }}
             centerComponent={{
-              text: this.state.currentCard.category,
+              text: 'MIPA',
               style: { color: "#000", fontSize: 18 }
             }}
             rightComponent={{

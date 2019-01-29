@@ -1,6 +1,18 @@
 module.exports = [
   {
     challenge: 1,
+    type: "challenge presenter",
+    question: "Given a tree, write a method to return true if it is a binary search tree.",
+    options: [],
+    code: "",
+    solution: "",
+    hint: "",
+    category: "presenter",
+    hintImage: "",
+    questionImage: "https://www.geeksforgeeks.org/wp-content/uploads/2009/11/BST.gif"
+  },
+  {
+    challenge: 1,
     type: 'multiple choice',
     question: 'Which of the following is NOT a property of the Binary Search Tree data structure?',
     options: ['The LEFT subtree of a node contains only nodes with keys LESS than the node’s key.', 'The LEFT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'The RIGHT subtree of a node contains only nodes with keys GREATER than the node’s key.', 'Both the LEFT and RIGHT subtrees must also be binary search trees.'],
@@ -125,7 +137,7 @@ module.exports = [
     question: "generation of all permutations of a string",
     code: "",
     options: ["Determine string length, return is null or 0", "Keep the first character of the string", "Swap the first character with each of the rest", "Recursively call the algorithm on the rest of the characters"],
-    solution: [1, 2, 3 4],
+    solution: [1, 2, 3, 4],
     hint: "",
     category: '',
     hintImage: ''

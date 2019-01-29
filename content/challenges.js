@@ -4,7 +4,8 @@ module.exports = [
     title: 'Validate a BST',
     category: 'Binary Search Trees',
     difficulty: 4,
-    parentCategory: 'trees'
+    parentCategory: 'trees',
+    solution: "class Solution:\n  def isValidBST(self, root):\n    output = []\n    self.inOrder(root, output)\n    \n    for i in range(1, len(output)):\n      if output[i-1] >= output[i]:\n        return False\n\n    return True\n\n  def inOrder(self, root, output):\n    if root is None:\n      return\n    self.inOrder(node.left, output)\n    output.append(root.val)\n    self.inOrder(root.right, output) ",
   },
   {
     id: 2,

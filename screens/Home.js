@@ -231,7 +231,7 @@ class App extends React.Component {
                   onPress={() => {
                     return this.props.navigation.navigate("Question", {
                       user: this.state.user,
-                      challengeId: item.id
+                      challenge: item,
                     });
                   }}
                 >
