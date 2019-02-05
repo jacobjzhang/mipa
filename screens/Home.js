@@ -114,10 +114,10 @@ class App extends React.Component {
     const challenges = this.state.challenges || [];
 
     for (let chal of challenges) {
-      const colorId = Math.floor(
-        Math.random() * (Colors[chal.parentCategory].length - 1)
-      );
-      chal["code"] = Colors[chal.parentCategory][colorId];
+      // fixme: should be stabilized to categories always
+      const categories = chal.category;
+      const colorKeys = Object.keys(Colors)
+      chal['color'] = Colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]][Math.floor(Math.random() * 2)]
     };
 
     const user = {
@@ -211,7 +211,7 @@ class App extends React.Component {
             if (item.kind == "Walkthrough") {
               return (
                 <TouchableOpacity
-                  style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  style={[styles.itemContainer, { backgroundColor: item.color }]}
                   onPress={() => {
                     return this.props.navigation.navigate("WalkThrough", {
                       walkthrough: item
@@ -227,7 +227,7 @@ class App extends React.Component {
             } else {
               return (
                 <TouchableOpacity
-                  style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  style={[styles.itemContainer, { backgroundColor: item.color }]}
                   onPress={() => {
                     return this.props.navigation.navigate("Question", {
                       user: this.state.user,

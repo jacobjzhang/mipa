@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import firestore from 'firebase/firestore';
 import auth from './auth';
 
-const CONNECT_TO_DB = false;
+const CONNECT_TO_DB = true;
 
 class Database {
   constructor() {
@@ -22,18 +22,20 @@ class Database {
     let challenges = [];
       
     if (CONNECT_TO_DB) {
-      const challengesQuery = this.db.collection("Challenges");
-
-      await challengesQuery
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(doc => {
-            challenges.push(doc.data());
-          });
-        })
-        .catch(function(error) {
-          console.log("Error getting documents:", error);
+      await fetch(`http://127.0.0.1:8000/challenges/`)
+        .then(function(response) {
+          console.log(response)
+          if (!response.ok) {
+            throw new Error('bad response')
+          }
+          return response.json();
+        }).then(function(myJson) {
+          challenges = JSON.stringify(myJson);
+        }).catch(function(error) {
+          console.log('bad response')
         });
+  
+      return JSON.parse(challenges);
     } else {
       console.log('Using local data for challenges.')
       challenges = require('../content/challenges');
