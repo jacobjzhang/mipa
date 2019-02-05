@@ -44,28 +44,29 @@ class Database {
     return challenges;
   }
 
-  async getQuestions(challengeId) {
-    let questions = [];
+  async getChallenge(slug) {
+    let challenge = [];
 
     if (CONNECT_TO_DB) {
-      const questionQuery = this.db.collection("Questions");
-      const query = questionQuery.where("challenge", "==", challengeId);
-  
-      await query
-        .get()
-        .then(function(querySnap) {
-          querySnap.forEach(doc => {
-            questions.push(doc.data());
-          });
-        })
-        .catch(function(error) {
-          console.log("Error getting documents:", error);
+      await fetch(`http://127.0.0.1:8000/challenges/${slug}`)
+        .then(function(response) {
+          console.log(response)
+          if (!response.ok) {
+            throw new Error('bad response')
+          }
+          return response.json();
+        }).then(function(myJson) {
+          challenge = JSON.stringify(myJson);
+        }).catch(function(error) {
+          console.log('bad response')
         });
+  
+      return JSON.parse(challenge);
     } else {
-      const allQuestions = require('../content/questions');      
-      questions = allQuestions.filter((q) => { return q.challenge == challengeId; })
+      // const allQuestions = require('../content/questions');      
+      // questions = allQuestions.filter((q) => { return q.challenge == challengeId; })
     }
-    return questions;
+    return challenge;
   }
 
   addCompletion(user, challengeId, pointsReceived) {

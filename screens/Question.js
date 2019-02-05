@@ -1,11 +1,8 @@
 "use strict";
 
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { withNavigation } from "react-navigation";
-
-import { getTheme } from "react-native-material-kit";
-import * as Progress from "react-native-progress";
 import GestureRecognizer, {
   swipeDirections
 } from "react-native-swipe-gestures";
@@ -27,13 +24,10 @@ class Question extends React.Component {
 
     const questions = [
       {
-        challenge: 1,
         type: "swipe", // needed to decide what view
         question: "Question A",
         solution: true,
-        hint: "Hint A",
-        category: "Category A",
-        questionImage: "http://example.com/"
+        code: ""
       }
     ];
 
@@ -51,7 +45,7 @@ class Question extends React.Component {
 
     this.ScoreCalculator = new ScoreCalculator();
 
-    this.fetchQuestions = this.fetchQuestions.bind(this);
+    this.fetchChallenge = this.fetchChallenge.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
     this.showResult = this.showResult.bind(this);
@@ -59,15 +53,14 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestions();
+    this.fetchChallenge();
   }
 
-  async fetchQuestions() {
-    const challengeId = this.props.navigation.getParam("challenge", {}).id;
-
+  async fetchChallenge() {
+    const slug = this.props.navigation.getParam("challenge", {}).slug;
     const db = new Database();
+    const challengeQuestions = await db.getChallenge(slug);
 
-    const challengeQuestions = await db.getQuestions(challengeId);
     this.setState({
       questions: challengeQuestions,
       currentCard: challengeQuestions[0]
@@ -220,14 +213,6 @@ class Question extends React.Component {
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
-    };
-
-    const pressLeft = () => {
-      return this.props.navigation.navigate("Home");
-    };
-
-    const pressRight = () => {
-      return this.props.navigation.navigate("Home");
     };
 
     return (

@@ -171,7 +171,6 @@ class App extends React.Component {
             </View>
             <Text
               style={{
-                // fontFamily: 'regular',
                 fontSize: 15,
                 marginLeft: 10,
                 color: "gray"
@@ -229,7 +228,7 @@ class App extends React.Component {
                 <TouchableOpacity
                   style={[styles.itemContainer, { backgroundColor: item.color }]}
                   onPress={() => {
-                    return this.props.navigation.navigate("Question", {
+                    return this.props.navigation.navigate("Challenge", {
                       user: this.state.user,
                       challenge: item,
                     });

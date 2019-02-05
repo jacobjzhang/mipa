@@ -2,13 +2,13 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import MainCardNavigator from './MainCardNavigator';
-import QuestionCardNavigator from './QuestionCardNavigator';
+import ChallengeCardNavigator from './ChallengeCardNavigator';
 
 export default createStackNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Main: MainCardNavigator,
-  Question: QuestionCardNavigator,
+  Challenge: ChallengeCardNavigator,
 }, {
   headerMode: 'none'
 });

@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import { withNavigation } from "react-navigation";
-import { Card, Button } from "react-native-elements";
+import { Button } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
 
 import Database from "../models/Database";
