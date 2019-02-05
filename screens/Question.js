@@ -15,24 +15,16 @@ import FillIn from "../components/FillIn";
 import MultipleChoice from "../components/MultipleChoice";
 import ResultModal from "../components/ResultModal";
 
-import Database from "../models/Database";
 import ScoreCalculator from "../models/ScoreCalculator";
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
 
-    const questions = [
-      {
-        type: "swipe", // needed to decide what view
-        question: "Question A",
-        solution: true,
-        code: ""
-      }
-    ];
+    const challenge = props.navigation.getParam('challenge', {});
 
     this.state = {
-      questions: questions,
+      questions: challenge.hints,
       answer: "",
       lastScore: 0,
       latestScore: 0,
@@ -45,26 +37,10 @@ class Question extends React.Component {
 
     this.ScoreCalculator = new ScoreCalculator();
 
-    this.fetchChallenge = this.fetchChallenge.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
     this.showResult = this.showResult.bind(this);
     this.changeScore = this.changeScore.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchChallenge();
-  }
-
-  async fetchChallenge() {
-    const slug = this.props.navigation.getParam("challenge", {}).slug;
-    const db = new Database();
-    const challengeQuestions = await db.getChallenge(slug);
-
-    this.setState({
-      questions: challengeQuestions,
-      currentCard: challengeQuestions[0]
-    });
   }
 
   goToNextQuestion() {
