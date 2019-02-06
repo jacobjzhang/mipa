@@ -1,11 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {
-  getTheme
-} from 'react-native-material-kit';
 import Markdown from 'react-native-simple-markdown';
-
-const theme = getTheme();
 
 class Swipe extends React.Component {
   constructor(props) {

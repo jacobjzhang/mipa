@@ -6,14 +6,13 @@ import { withNavigation } from "react-navigation";
 import GestureRecognizer, {
   swipeDirections
 } from "react-native-swipe-gestures";
-import { Header } from "react-native-elements";
 
-import ChallengePresenter from "../components/ChallengePresenter";
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
 import FillIn from "../components/FillIn";
 import MultipleChoice from "../components/MultipleChoice";
 import ResultModal from "../components/ResultModal";
+import ChallengeHeader from "../components/ChallengeHeader";
 
 import ScoreCalculator from "../models/ScoreCalculator";
 
@@ -29,7 +28,7 @@ class Question extends React.Component {
       lastScore: 0,
       latestScore: 0,
       currentCardIdx: 0,
-      currentCard: questions[0],
+      currentCard: challenge.hints[0],
       resultModalVisible: false,
       answeredAlready: false,
       currentResult: { correct: false, message: ''}
@@ -136,18 +135,8 @@ class Question extends React.Component {
     const currentCard = this.state.currentCard;
 
     let content;
-    switch (currentCard.type) {
-      case "challenge presenter":
-        content = (
-          <ChallengePresenter
-            {...currentCard}
-            challenge={this.props.navigation.getParam("challenge", {})}
-            showResult={this.showResult}
-            changeScore={this.changeScore}
-            goToNextQuestion={this.goToNextQuestion}
-          />
-        );
-        break;      
+
+    switch (currentCard.kind) {  
       case "swipe":
         content = (
           <Swipe
@@ -191,6 +180,8 @@ class Question extends React.Component {
       directionalOffsetThreshold: 80
     };
 
+    console.log(currentCard)
+
     return (
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <GestureRecognizer
@@ -201,26 +192,7 @@ class Question extends React.Component {
             backgroundColor: this.state.backgroundColor
           }}
         >
-          <Header
-            backgroundColor="#74b9ff"
-            leftComponent={{ icon: "close", color: "#000", onPress: pressLeft }}
-            centerComponent={{
-              text: 'MIPA',
-              style: { color: "#000", fontSize: 18 }
-            }}
-            rightComponent={{
-              icon: "thumb-up",
-              color: "#000",
-              onPress: pressRight
-            }}
-          />
-          <View style={{ padding: 20 }}>
-            <Progress.Bar
-              width={320}
-              progress={currentScore}
-              style={{ alignSelf: "center", margin: 10 }}
-            />
-          </View>
+          <ChallengeHeader progressScore={currentScore} />
           <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
         </GestureRecognizer>
         <ResultModal

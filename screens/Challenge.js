@@ -87,7 +87,7 @@ class Challenge extends React.Component {
             backgroundColor="#03A9F4"
             onPress={() => {
               return this.props.navigation.navigate("Question", {
-                challenge: this.props.challenge,
+                challenge: this.state.challenge,
               });
             }}
             buttonStyle={{
