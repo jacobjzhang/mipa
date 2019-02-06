@@ -3,9 +3,6 @@
 import React from "react";
 import { View } from "react-native";
 import { withNavigation } from "react-navigation";
-import GestureRecognizer, {
-  swipeDirections
-} from "react-native-swipe-gestures";
 
 import Swipe from "../components/Swipe";
 import Order from "../components/Order";
@@ -31,7 +28,7 @@ class Question extends React.Component {
       currentCard: challenge.hints[0],
       resultModalVisible: false,
       answeredAlready: false,
-      currentResult: { correct: false, message: ''}
+      currentResult: { correct: false, message: '' }
     };
 
     this.ScoreCalculator = new ScoreCalculator();
@@ -80,51 +77,6 @@ class Question extends React.Component {
     });
   }
 
-  handleAnswer(question, givenSolution) {
-    if (question.solution === givenSolution) {
-      this.showResult({correct: true, message: 'Nice job, it is true.'});
-      this.changeScore(true);
-    } else {
-      this.showResult({correct: false, message: 'The statement was false.'});
-      this.changeScore(false);
-    }
-  }
-
-  checkAnswer(gestureName) {
-    let answer;
-
-    if (gestureName == "SWIPE_LEFT") {
-      answer = false;
-    } else if (gestureName == "SWIPE_RIGHT") {
-      answer = true;
-    } else {
-      return;
-    }
-
-    this.handleAnswer(this.state.currentCard, answer);
-  }
-
-  onSwipe(gestureName, gestureState) {
-    if (this.state.currentCard.type == "swipe") {
-      const { SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
-      this.checkAnswer(gestureName);
-      switch (gestureName) {
-        case SWIPE_UP:
-          this.setState({ answer: "up" });
-          break;
-        case SWIPE_DOWN:
-          this.setState({ answer: "down" });
-          break;
-        case SWIPE_LEFT:
-          this.setState({ answer: "FALSE" });
-          break;
-        case SWIPE_RIGHT:
-          this.setState({ answer: "TRUE" });
-          break;
-      }
-    }
-  }
-
   setModalVisible(visible) {
     this.setState({ resultModalVisible: visible });
   }
@@ -136,7 +88,7 @@ class Question extends React.Component {
 
     let content;
 
-    switch (currentCard.kind) {  
+    switch (currentCard.kind) {
       case "swipe":
         content = (
           <Swipe
@@ -175,26 +127,10 @@ class Question extends React.Component {
         break;
     }
 
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    };
-
-    console.log(currentCard)
-
     return (
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
-        <GestureRecognizer
-          onSwipe={(direction, state) => this.onSwipe(direction, state)}
-          config={config}
-          style={{
-            flex: 1,
-            backgroundColor: this.state.backgroundColor
-          }}
-        >
-          <ChallengeHeader progressScore={currentScore} />
-          <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
-        </GestureRecognizer>
+        <ChallengeHeader navigation={this.props.navigation} progressScore={currentScore} />
+        <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
         <ResultModal
           currentResult={this.state.currentResult}
           resultModalVisible={this.state.resultModalVisible}

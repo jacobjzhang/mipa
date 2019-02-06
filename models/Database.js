@@ -1,23 +1,6 @@
-import firebase from 'firebase';
-import firestore from 'firebase/firestore';
-import auth from './auth';
-
 const CONNECT_TO_DB = true;
 
 class Database {
-  constructor() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(auth);
-    }
-
-    this.db = firebase.firestore();
-
-    // Disable deprecated features
-    this.db.settings({
-      timestampsInSnapshots: true
-    });
-  }
-
   async getChallenges() {
     let challenges = [];
       
@@ -50,7 +33,6 @@ class Database {
     if (CONNECT_TO_DB) {
       await fetch(`http://127.0.0.1:8000/challenges/${slug}`)
         .then(function(response) {
-          console.log(response)
           if (!response.ok) {
             throw new Error('bad response')
           }
