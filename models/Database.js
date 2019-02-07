@@ -33,6 +33,7 @@ class Database {
     if (CONNECT_TO_DB) {
       await fetch(`http://127.0.0.1:8000/challenges/${slug}`)
         .then(function(response) {
+          console.log(response)
           if (!response.ok) {
             throw new Error('bad response')
           }
@@ -43,6 +44,7 @@ class Database {
           console.log('bad response')
         });
   
+      console.log(challenge)
       return JSON.parse(challenge);
     } else {
       // const allQuestions = require('../content/questions');      

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
 import SyntaxHighlighter from 'react-native-syntax-highlighter';
 
@@ -18,7 +18,7 @@ class FillIn extends React.Component {
       ...this.props,
       ...this.getNavigationParams
     }
-  }  
+  }
 
   getNavigationParams() {
     return this.props.navigation.state.params || {}
@@ -42,34 +42,34 @@ class FillIn extends React.Component {
 
     return (
       <View>
-        <Text style={{fontSize: 16, paddingBottom: 10}}>
+        <Text style={{ fontSize: 16, paddingBottom: 10 }}>
           Fill in the code that would make this algorithm correct. {this.props.question}
         </Text>
-        <SyntaxHighlighter 
-          language='python' 
+        <SyntaxHighlighter
+          language='python'
           highlighter={"prism" || "hljs"}
-          fontSize={13}          
-          customStyle={{paddingBottom: 0, marginBottom: 0}}
+          fontSize={13}
+          customStyle={{ paddingBottom: 0, marginBottom: 0 }}
         >
           {fillInQuestion[0]}
         </SyntaxHighlighter>
-        <View style={{height: 24, backgroundColor: '#F0F0F0', marginHorizontal: 8, padding: 0, marginVertical: 0}}>
+        <View style={{ height: 24, backgroundColor: '#F0F0F0', marginHorizontal: 8, padding: 0, marginVertical: 0 }}>
           <TextInput
-              style={[styles.fillInInput, { fontSize: 14, marginLeft: spaceLen, width: 200, marginHorizontal: 0, paddingHorizontal: 0 }]}
-              placeholder="# enter missing line here"
-              onChangeText={(userSolution) => this.setState({userSolution})}
-              autoCapitalize='none'
-            />
+            style={[styles.fillInInput, { fontSize: 14, marginLeft: spaceLen, width: 200, marginHorizontal: 0, paddingHorizontal: 0 }]}
+            placeholder="# enter missing line here"
+            onChangeText={(userSolution) => this.setState({ userSolution })}
+            autoCapitalize='none'
+          />
         </View>
-        <SyntaxHighlighter 
-          language='python' 
+        <SyntaxHighlighter
+          language='python'
           highlighter={"prism" || "hljs"}
           fontSize={13}
-          customStyle={{paddingTop: 3, marginTop: 0}}          
+          customStyle={{ paddingTop: 3, marginTop: 0 }}
         >
           {fillInQuestion[1]}
         </SyntaxHighlighter>
-        {this.props.questionImage && <Image source={{uri : this.props.questionImage}} style={{width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center'}}/>}
+        {this.props.questionImage && <Image source={{ uri: this.props.questionImage }} style={{ width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center' }} />}
         <Button
           title="Check Answer"
           onPress={() => this.checkAnswer()}

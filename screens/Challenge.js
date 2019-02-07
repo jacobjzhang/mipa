@@ -57,6 +57,7 @@ class Challenge extends React.Component {
   render() {
     let question = this.state.challenge.question;
 
+    console.log(question)
     return (
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <ChallengeHeader navigation={this.props.navigation} progressScore={0.1}/>
@@ -78,9 +79,9 @@ class Challenge extends React.Component {
                 }
               },
             }}
-            styles={{text: {fontSize: 16}}}
+            styles={{text: {fontSize: 16}, lineBreak: { paddingBottom: 10 }}}
           >
-            {question}
+            {question.replace('/n', '/n/n')}
           </Markdown>
           <Button
             icon={{ name: "play-arrow" }}
@@ -105,7 +106,7 @@ class Challenge extends React.Component {
             onPress={() => {
               return this.props.navigation.navigate("Result", {
                 user: false,
-                challenge: this.props.challenge
+                challenge: this.state.challenge
               });
             }}
             buttonStyle={{

@@ -5,11 +5,11 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import Database from "../models/Database";
-import { Avatar, Icon } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
 import WalkThroughs from "../content/walkthroughs";
 
 import Colors from "../constants/Colors";
+import ProfileWidget from "../components/ProfileWidget";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,18 +28,14 @@ class App extends React.Component {
     };
   }
 
-  async fetchNewInfo() {
+  async fetchLatestInfo() {
     this.db = new Database();
     const challenges = await this.db.getChallenges();
-
     for (let chal of challenges) {
       chal["kind"] = 'Challenge';
     };
 
     const fetchedUser = await this.db.getUser(1);
-
-    console.log('FETCHED USER', fetchedUser)
-
     const user = {
       id: 1,
       name: "Jake Zhang",
@@ -50,64 +46,6 @@ class App extends React.Component {
     };
 
     this.setState({ challenges: challenges.concat(WalkThroughs), user: user });
-  }
-
-  renderValue(user) {
-    const { value, positive } = user;
-
-    if (positive) {
-      return (
-        <View
-          style={{
-            backgroundColor: "rgba(220,230,218,1)",
-            width: 70,
-            height: 28,
-            borderRadius: 5,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-            marginLeft: 10
-          }}
-        >
-          <Icon name="arrow-drop-up" color="green" size={25} />
-          <Text
-            style={{
-              color: "green",
-              fontSize: 13,
-              marginLeft: 5
-            }}
-          >
-            {value}
-          </Text>
-        </View>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            backgroundColor: "rgba(244,230,224,1)",
-            width: 70,
-            height: 28,
-            borderRadius: 5,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-            marginLeft: 10
-          }}
-        >
-          <Icon name="arrow-drop-down" color="red" size={25} />
-          <Text
-            style={{
-              color: "red",
-              fontSize: 13,
-              marginLeft: 5
-            }}
-          >
-            {value}
-          </Text>
-        </View>
-      );
-    }
   }
 
   render() {
@@ -129,11 +67,10 @@ class App extends React.Component {
     };
 
     const currentUser = this.state.user ? this.state.user : user;
-    const { name, avatar, value } = currentUser;
 
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
-        <NavigationEvents onDidFocus={() => this.fetchNewInfo()} />
+        <NavigationEvents onDidFocus={() => this.fetchLatestInfo()} />
         <View
           style={{
             height: 100,
@@ -143,65 +80,10 @@ class App extends React.Component {
           }}
         >
           <Text style={{ color: "black", fontSize: 35, fontFamily: "Arial" }}>
-            # MIPA
+            # ALGODAILY
           </Text>
         </View>
-        <View
-          key={1}
-          style={{
-            height: 60,
-            marginHorizontal: 10,
-            marginTop: 10,
-            backgroundColor: "white",
-            borderRadius: 5,
-            alignItems: "center",
-            flexDirection: "row"
-          }}
-        >
-          <View style={{ flex: 2, flexDirection: "row", alignItems: "center" }}>
-            <View style={{ marginLeft: 15 }}>
-              <Avatar
-                small
-                rounded
-                source={{
-                  uri: avatar
-                }}
-                activeOpacity={0.7}
-              />
-            </View>
-            <Text
-              style={{
-                fontSize: 15,
-                marginLeft: 10,
-                color: "gray"
-              }}
-            >
-              {name}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              marginRight: 10
-            }}
-          >
-            {this.renderValue(currentUser)}
-            <View
-              style={{
-                backgroundColor: "rgba(222,222,222,1)",
-                width: 35,
-                height: 28,
-                borderRadius: 5,
-                justifyContent: "center",
-                alignItems: "center",
-                marginHorizontal: 10
-              }}
-            >
-              <Icon name="person-add" color="gray" size={20} />
-            </View>
-          </View>
-        </View>
+        <ProfileWidget user={user} />
         <GridView
           itemDimension={130}
           items={challenges}
@@ -220,7 +102,7 @@ class App extends React.Component {
                   {" "}
                   <Text style={styles.itemKind}>{item.kind}</Text>
                   <Text style={styles.itemName}>{item.title}</Text>
-                  <Text style={styles.itemCategory}>{item.category}</Text>
+                  <Text style={styles.itemCategory}>{item.categories.toString()}</Text>
                 </TouchableOpacity>
               );
             } else {
