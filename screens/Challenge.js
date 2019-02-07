@@ -73,13 +73,14 @@ class Challenge extends React.Component {
                       fontSize={13}
                       highlighter={"prism" || "hljs"}
                       customStyle={{marginVertical: 20}}
-                    >{node.content}
+                    >
+                      {node.content}
                     </SyntaxHighlighter>
                   )
                 }
               },
             }}
-            styles={{text: {fontSize: 16}, lineBreak: { paddingBottom: 10 }}}
+            styles={{text: {fontSize: 16}, paragraph: {flexWrap: 'wrap', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', marginBottom: 10}}}
           >
             {question.replace('/n', '/n/n')}
           </Markdown>
