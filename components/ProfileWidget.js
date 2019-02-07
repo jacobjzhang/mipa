@@ -116,7 +116,7 @@ class ProfileWidget extends React.Component {
               marginHorizontal: 10
             }}
           >
-            <Icon name="person-add" color="gray" size={20} />
+            <Icon name="star" color="gray" size={20} />
           </View>
         </View>
       </View>

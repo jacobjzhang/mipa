@@ -41,9 +41,11 @@ class MultipleChoice extends React.Component {
   render() {
     return (
       <View style={styles.cardContainer}>
-        <Markdown>
-          #### Press the correct multiple choice answer. {this.props.question}
-        </Markdown>
+        <View style={{ paddingHorizontal: 10 }}>
+          <Markdown>
+            #### Press the correct multiple choice answer. {this.props.question}
+          </Markdown>
+        </View>
         <View style={{ marginBottom: 10 }}>
           {this.props.code && (
             <SyntaxHighlighter

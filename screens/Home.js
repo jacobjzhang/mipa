@@ -20,11 +20,19 @@ class App extends React.Component {
         {
           id: 1,
           name: "Loading",
-          category: "Loading",
+          categories: ["Loading"],
           difficulty: 1,
           parentCategory: "arrays"
         }
-      ]
+      ],
+      user: {
+        id: 1,
+        name: "Jake Zhang",
+        avatar:
+          "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
+        value: 999,
+        positive: true
+      }
     };
   }
 
@@ -36,6 +44,7 @@ class App extends React.Component {
     };
 
     const fetchedUser = await this.db.getUser(1);
+
     const user = {
       id: 1,
       name: "Jake Zhang",
@@ -43,7 +52,7 @@ class App extends React.Component {
         "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
       value: String(fetchedUser.current_score),
       positive: fetchedUser.current_score > 0 ? true : false
-    };
+    }
 
     this.setState({ challenges: challenges.concat(WalkThroughs), user: user });
   }
@@ -53,7 +62,7 @@ class App extends React.Component {
 
     for (let chal of challenges) {
       // fixme: should be stabilized to categories always
-      const categories = chal.category;
+      const categories = chal.categories;
       const colorKeys = Object.keys(Colors)
       chal['color'] = Colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]][Math.floor(Math.random() * 2)]
     };
@@ -67,7 +76,7 @@ class App extends React.Component {
     };
 
     const currentUser = this.state.user ? this.state.user : user;
-
+    console.log('in home render', this.state.user)
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
         <NavigationEvents onDidFocus={() => this.fetchLatestInfo()} />
@@ -83,7 +92,7 @@ class App extends React.Component {
             # ALGODAILY
           </Text>
         </View>
-        <ProfileWidget user={user} />
+        <ProfileWidget user={this.state.user} />
         <GridView
           itemDimension={130}
           items={challenges}
@@ -102,7 +111,7 @@ class App extends React.Component {
                   {" "}
                   <Text style={styles.itemKind}>{item.kind}</Text>
                   <Text style={styles.itemName}>{item.title}</Text>
-                  <Text style={styles.itemCategory}>{item.categories.toString()}</Text>
+                  <Text style={styles.itemCategory}>{item.category}</Text>
                 </TouchableOpacity>
               );
             } else {
@@ -119,7 +128,7 @@ class App extends React.Component {
                   {" "}
                   <Text style={styles.itemKind}>{item.kind}</Text>
                   <Text style={styles.itemName}>{item.title}</Text>
-                  <Text style={styles.itemCategory}>{item.category}</Text>
+                  <Text style={styles.itemCategory}>{item.categories.join(", ")}</Text>
                 </TouchableOpacity>
               );
             }
