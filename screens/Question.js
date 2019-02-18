@@ -88,6 +88,8 @@ class Question extends React.Component {
 
     let content;
 
+    console.log(currentCard, "========CURRENT CARD")
+
     switch (currentCard.kind) {
       case "swipe":
         content = (

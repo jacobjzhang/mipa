@@ -4,12 +4,12 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
-import Database from "../models/Database";
 import { NavigationEvents } from "react-navigation";
 import WalkThroughs from "../content/walkthroughs";
 
 import Colors from "../constants/Colors";
 import ProfileWidget from "../components/ProfileWidget";
+import { ScrollView } from "react-native-gesture-handler";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,36 +25,8 @@ class App extends React.Component {
           parentCategory: "arrays"
         }
       ],
-      user: {
-        id: 1,
-        name: "Jake Zhang",
-        avatar:
-          "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
-        value: 999,
-        positive: true
-      }
+      user: this.props.navigation.getParam('user', {});
     };
-  }
-
-  async fetchLatestInfo() {
-    this.db = new Database();
-    const challenges = await this.db.getChallenges();
-    for (let chal of challenges) {
-      chal["kind"] = 'Challenge';
-    };
-
-    const fetchedUser = await this.db.getUser(1);
-
-    const user = {
-      id: 1,
-      name: "Jake Zhang",
-      avatar:
-        "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
-      value: String(fetchedUser.current_score),
-      positive: fetchedUser.current_score > 0 ? true : false
-    }
-
-    this.setState({ challenges: challenges.concat(WalkThroughs), user: user });
   }
 
   render() {
@@ -67,19 +39,10 @@ class App extends React.Component {
       chal['color'] = Colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]][Math.floor(Math.random() * 2)]
     };
 
-    const user = {
-      name: "Jake Zhang",
-      avatar:
-        "https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1553731200&v=beta&t=__PqXGP5f6F9lO6RqnNmZ7pSF7mckJfNyakV9iEp7G4",
-      value: "- 0",
-      positive: true
-    };
-
-    const currentUser = this.state.user ? this.state.user : user;
     console.log('in home render', this.state.user)
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
-        <NavigationEvents onDidFocus={() => this.fetchLatestInfo()} />
+        {/* <NavigationEvents onDidFocus={() => this.fetchLatestInfo()} /> */}
         <View
           style={{
             height: 100,
@@ -92,7 +55,11 @@ class App extends React.Component {
             # ALGODAILY
           </Text>
         </View>
+        <ScrollView>
+          <Text>{JSON.stringify()}</Text>
+        </ScrollView>
         <ProfileWidget user={this.state.user} />
+        <Text>{JSON.stringify(this.state.user)}</Text>
         <GridView
           itemDimension={130}
           items={challenges}
@@ -125,7 +92,6 @@ class App extends React.Component {
                     });
                   }}
                 >
-                  {" "}
                   <Text style={styles.itemKind}>{item.kind}</Text>
                   <Text style={styles.itemName}>{item.title}</Text>
                   <Text style={styles.itemCategory}>{item.categories.join(", ")}</Text>

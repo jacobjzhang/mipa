@@ -28,12 +28,19 @@ class App extends React.Component {
           difficulty: 1,
           parentCategory: "arrays"
         }
-      ]
+      ],
+      contentView: true
     };
+
+    this.toggleContent = this.toggleContent.bind(this);    
   }
 
   async componentDidMount() {
     this.db = new Database();
+  }
+
+  toggleContent() {
+    this.setState({ contentView: !this.state.contentView })
   }
 
   render() {
@@ -89,14 +96,24 @@ class App extends React.Component {
               },
             }}
             styles={markdownStyles}
-          // styles={{text: {fontSize: 16}}}
           >
-            {challenge.solution}
+            {this.state.contentView ? challenge.solution : challenge.solutionCode}
           </Markdown>
         </ScrollView>
-        <Text style={{ marginBottom: 10, fontSize: 20, padding: 10 }}>
-          Here are some related challenges:
-          </Text>
+        <Button
+          icon={{ name: "refresh" }}
+          backgroundColor="#03A9F4"
+          onPress={() => {
+            return this.toggleContent();
+          }}
+          buttonStyle={{
+            borderRadius: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 10
+          }}
+          title={this.state.contentView ? "VIEW SOLUTION": "VIEW EXPLANATION"}
+        />        
         <Button
           icon={{ name: "home" }}
           backgroundColor="#03A9F4"
