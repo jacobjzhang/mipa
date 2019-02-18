@@ -23,7 +23,6 @@ class Database {
 				isPromptEnabled: true,
 				clientId: this.clientId
 			});
-			this.syncUserWithStateAsync();
 		} catch ({ message }) {
 			alert('GoogleSignIn.initAsync(): ' + message);
 		}
@@ -67,6 +66,7 @@ class Database {
       user: {
         ...user.toJSON(),
         photoURL: photoURL || user.photoURL,
+        value: 123
       },
     });  
   }

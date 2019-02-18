@@ -62,7 +62,7 @@ class ProfileWidget extends React.Component {
   }
 
   render() {
-    const { name, avatar, value } = this.props.user;
+    const { displayName, photoURL, value } = this.props.user;
     return(
       <View
         key={1}
@@ -82,7 +82,7 @@ class ProfileWidget extends React.Component {
               small
               rounded
               source={{
-                uri: avatar
+                uri: photoURL
               }}
               activeOpacity={0.7}
             />
@@ -94,7 +94,7 @@ class ProfileWidget extends React.Component {
               color: "gray"
             }}
           >
-            {name}
+            {displayName}
           </Text>
         </View>
         <View

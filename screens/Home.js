@@ -25,7 +25,7 @@ class App extends React.Component {
           parentCategory: "arrays"
         }
       ],
-      user: this.props.navigation.getParam('user', {});
+      user: this.props.navigation.getParam('user', {})
     };
   }
 
@@ -55,11 +55,7 @@ class App extends React.Component {
             # ALGODAILY
           </Text>
         </View>
-        <ScrollView>
-          <Text>{JSON.stringify()}</Text>
-        </ScrollView>
         <ProfileWidget user={this.state.user} />
-        <Text>{JSON.stringify(this.state.user)}</Text>
         <GridView
           itemDimension={130}
           items={challenges}

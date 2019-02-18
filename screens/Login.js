@@ -12,16 +12,28 @@ class Login extends React.Component {
 
   componentDidMount() {
     this.db.initSignIn();
+    const user = this.db.signInSilentAsync();
+    if (user) {
+      this.goToHome(user);
+    }
+  }
+
+  goToHome(user) {
+    return this.props.navigation.navigate("Home", {
+      user: user
+    });
   }
 
   async signIn() {
     const user = await this.db.signIn();
 
+    // const user = {
+    //   displayName: 'blah',
+    //   photoURL: 'test.jpg'
+    // }
+
     if (user) {
-      this.setState({ user });
-      return this.props.navigation.navigate("Home", {
-        user: user
-      });
+      this.goToHome(user);
     }
   }
 
