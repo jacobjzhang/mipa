@@ -3,14 +3,10 @@ import { View, Image } from 'react-native';
 import { createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import Login from '../screens/Login';
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
-import Result from '../screens/Result';
-import WalkThrough from '../screens/WalkThrough';
 
 const HomeStack = createBottomTabNavigator({
-  Login: Login,
   Home: {
     screen: Home,
     navigationOptions: () => ({
@@ -23,8 +19,6 @@ const HomeStack = createBottomTabNavigator({
       )
     })
   },
-  Result: Result,
-  WalkThrough: WalkThrough,
   Settings: {
     screen: Settings,
     navigationOptions: () => ({
