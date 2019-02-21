@@ -5,3 +5,4 @@ ios/
 models/auth.js
 .gitignore
 .DS_Store
+content/

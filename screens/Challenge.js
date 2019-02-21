@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { withNavigation } from "react-navigation";
 
 import Database from "../models/Database";
@@ -56,12 +56,31 @@ class Challenge extends React.Component {
 
   render() {
     let question = this.state.challenge.question;
+    let startChallengeButton = (<Text></Text>);
+    if (this.state.challenge.hints && this.state.challenge.hints.length > 0) {
+      startChallengeButton = (<Button
+        icon={{ name: "play-arrow" }}
+        backgroundColor="#03A9F4"
+        onPress={() => {
+          return this.props.navigation.navigate("Question", {
+            challenge: this.state.challenge,
+          });
+        }}
+        buttonStyle={{
+          borderRadius: 0,
+          marginLeft: 0,
+          marginRight: 0,
+          marginBottom: 20,
+          marginTop: 20
+        }}
+        title="Start challenge"
+      />)
+    }
 
-    console.log(question)
     return (
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <ChallengeHeader navigation={this.props.navigation} progressScore={0.1}/>
-        <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+        <ScrollView style={{marginBottom: 20, paddingHorizontal: 20}}>
           <Markdown
             rules={{
               codeBlock: {
@@ -84,23 +103,7 @@ class Challenge extends React.Component {
           >
             {question.replace('/n', '/n/n')}
           </Markdown>
-          <Button
-            icon={{ name: "play-arrow" }}
-            backgroundColor="#03A9F4"
-            onPress={() => {
-              return this.props.navigation.navigate("Question", {
-                challenge: this.state.challenge,
-              });
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 20,
-              marginTop: 20
-            }}
-            title="Start challenge"
-          />
+          {startChallengeButton}
           <Button
             icon={{ name: "forward-30" }}
             backgroundColor="#03A9F4"
@@ -118,7 +121,7 @@ class Challenge extends React.Component {
             }}
             title="View solution"
           />
-        </View>        
+        </ScrollView>        
       </View>
     );
   }

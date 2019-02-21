@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import GridView from "react-native-super-grid";
 import { NavigationEvents } from "react-navigation";
-import WalkThroughs from "../content/walkthroughs";
 
 import Colors from "../constants/Colors";
 import ProfileWidget from "../components/ProfileWidget";
@@ -16,15 +15,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      challenges: [
-        {
-          id: 1,
-          name: "Loading",
-          categories: ["Loading"],
-          difficulty: 1,
-          parentCategory: "arrays"
-        }
-      ],
+      challenges: require('../content/index.json'),
       user: this.props.navigation.getParam('user', {})
     };
   }

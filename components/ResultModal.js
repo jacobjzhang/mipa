@@ -46,9 +46,8 @@ class ResultModal extends React.Component {
                 titleStyle={{ color: "#fff" }}
                 leftIcon={{ name: icon, color: "#fff" }}
               />
-              {"\n"}
               <Text style={{ padding: 10, fontSize: 16, color: "#fff" }}>
-                SCORE:{" "}
+                {"\n"}SCORE:{" "}
                 <Counter
                   end={this.props.latestScore} // REQUIRED End of the counter
                   start={this.props.lastScore} // Beginning of the counter

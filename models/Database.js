@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 import firestore from 'firebase/firestore';
-
 import { GoogleSignIn } from 'expo-google-sign-in';
 import auth from './auth';
+import mapper from '../content/ChallengeMap';
 
 class Database {
 	constructor() {
@@ -91,7 +91,11 @@ class Database {
 			.catch(function(error) {
 				console.error('Error adding document: ', error);
 			});
-	}
+  }
+  
+  getChallenge(slug) {
+    return mapper(slug);
+  }
 
 	async getUser(userId) {
 		console.log('fetching user from db');

@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { withNavigation } from "react-navigation";
 
 import Swipe from "../components/Swipe";
@@ -42,17 +42,17 @@ class Question extends React.Component {
   goToNextQuestion() {
     let currIdx = this.state.currentCardIdx;
 
+    // fix for presenters!
+    if (this.state.questions[currIdx].category !== 'presenter') {
+      this.setModalVisible(!this.state.resultModalVisible);
+    }    
+
     if (this.state.questions[currIdx + 1]) {
       this.setState({
         currentCardIdx: currIdx + 1,
         currentCard: this.state.questions[currIdx + 1],
         answeredAlready: false
       });
-
-      // fix for presenters!
-      if (this.state.questions[currIdx].category !== 'presenter') {
-        this.setModalVisible(!this.state.resultModalVisible);
-      }
     } else {
       return this.props.navigation.navigate("Result", {
         latestScore: this.state.latestScore,
@@ -132,7 +132,7 @@ class Question extends React.Component {
     return (
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <ChallengeHeader navigation={this.props.navigation} progressScore={currentScore} />
-        <View style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</View>
+        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</ScrollView>
         <ResultModal
           currentResult={this.state.currentResult}
           resultModalVisible={this.state.resultModalVisible}

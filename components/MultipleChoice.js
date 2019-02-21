@@ -47,7 +47,7 @@ class MultipleChoice extends React.Component {
           </Markdown>
         </View>
         <View style={{ marginBottom: 10 }}>
-          {this.props.code && (
+          {this.props.code ? (
             <SyntaxHighlighter
               language="python"
               fontSize={13}
@@ -55,7 +55,7 @@ class MultipleChoice extends React.Component {
             >
               {this.props.code}
             </SyntaxHighlighter>
-          )}
+          ) : null}
         </View>
         <GridView
           itemDimension={130}
@@ -73,17 +73,6 @@ class MultipleChoice extends React.Component {
             </TouchableOpacity>
           )}
         />
-        {this.props.questionImage && (
-          <Image
-            source={{ uri: this.props.questionImage }}
-            style={{
-              width: 200,
-              height: 200,
-              resizeMode: "contain",
-              alignSelf: "center"
-            }}
-          />
-        )}
       </View>
     );
   }

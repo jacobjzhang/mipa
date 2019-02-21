@@ -7,7 +7,7 @@ import { Font } from 'expo';
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
-		this.db = new Database();
+		// this.db = new Database();
 		this.state = { user: {} };
 	}
 
@@ -17,11 +17,20 @@ class Login extends React.Component {
     });
     this.setState({ fontLoaded: true });
 
-		this.db.initSignIn();
-		// const user = this.db.signInSilentAsync();
-		// if (user) {
-		//   this.goToHome(user);
-		// }
+		// this.db.initSignIn();
+    // const user = await this.db.signInSilentAsync();
+		const user = {
+      uid: 'XLcQgzfFUfgI5oDq99GKTT6fivu1',
+      email: 'jacobjzhang@gmail.com',
+      displayName: 'Jacob Zhang',
+      photoURL: 'nah.jpg',
+      firstName: 'Jacob',
+      lastName: 'Zhang'
+		}
+    
+		if (user) {
+		  this.goToHome(user);
+		}
 	}
 
 	goToHome(user) {
@@ -31,12 +40,7 @@ class Login extends React.Component {
 	}
 
 	async signIn() {
-		// const user = await this.db.signIn();
-
-		const user = {
-		  displayName: 'blah',
-		  photoURL: 'test.jpg'
-		}
+    const user = await this.db.signIn();
 
 		if (user) {
 		  this.goToHome(user);

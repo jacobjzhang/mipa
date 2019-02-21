@@ -69,9 +69,9 @@ class Swipe extends React.Component {
             </Markdown>
           ))}
         </View>
-        {this.props.code && <Text style={{ fontFamily: 'Courier', padding: 20 }} >
+        {this.props.code ? (<Text style={{ fontFamily: 'Courier', padding: 20 }} >
           {this.props.code}
-        </Text>}
+        </Text>) : null}
         {this.props.questionImage && <Image source={{ uri: this.props.questionImage }} style={{ width: 200, height: 200, resizeMode: 'contain', alignSelf: 'center' }} />}
       </GestureRecognizer>
     );
