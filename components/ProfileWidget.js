@@ -63,6 +63,7 @@ class ProfileWidget extends React.Component {
 
   render() {
     const { displayName, photoURL, value } = this.props.user;
+    console.log(photoURL)
     return(
       <View
         key={1}

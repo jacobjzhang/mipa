@@ -23,9 +23,10 @@ class Login extends React.Component {
       uid: 'XLcQgzfFUfgI5oDq99GKTT6fivu1',
       email: 'jacobjzhang@gmail.com',
       displayName: 'Jacob Zhang',
-      photoURL: 'nah.jpg',
+      photoURL: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1556150400&v=beta&t=6YamNKMA6LKEcPZCRef0L05Hl7fhqjVCV5n9o2Rfbhk',
       firstName: 'Jacob',
-      lastName: 'Zhang'
+      lastName: 'Zhang',
+      value: 999
 		}
     
 		if (user) {

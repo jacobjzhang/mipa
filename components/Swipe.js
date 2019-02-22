@@ -34,7 +34,7 @@ class Swipe extends React.Component {
 
   checkAnswer(gestureName) {
     let answer;
-
+    console.log(gestureName)
     if (gestureName == "SWIPE_LEFT") {
       answer = false;
     } else if (gestureName == "SWIPE_RIGHT") {
@@ -56,6 +56,7 @@ class Swipe extends React.Component {
       <GestureRecognizer
         onSwipe={(direction, state) => this.checkAnswer(direction, state)}
         config={config}
+        style={{height: 600}}
       >
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
           <Markdown>

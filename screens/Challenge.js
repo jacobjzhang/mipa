@@ -64,6 +64,7 @@ class Challenge extends React.Component {
         onPress={() => {
           return this.props.navigation.navigate("Question", {
             challenge: this.state.challenge,
+            user: this.props.navigation.getParam("user")
           });
         }}
         buttonStyle={{

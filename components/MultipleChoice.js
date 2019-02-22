@@ -82,7 +82,7 @@ export default MultipleChoice;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 600
+    flex: 1
   },
   gridView: {
     paddingTop: 25,

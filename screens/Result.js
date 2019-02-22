@@ -58,6 +58,8 @@ class App extends React.Component {
     const challenge = this.props.navigation.getParam("challenge");
     // const challengeId = challenge.id;
 
+    console.log(user)
+
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
         {/* {user && <NavigationEvents onDidFocus={() => this.db.addCompletion(user, challengeId, newScore)} />} */}
@@ -73,10 +75,10 @@ class App extends React.Component {
             # MIPA
           </Text>
         </View>
-        {user && <Text style={{ marginBottom: 10, fontSize: 20, padding: 10 }}>
+        {user ? (<Text style={{ marginBottom: 10, fontSize: 20, padding: 10 }}>
           Well done! You scored {this.props.navigation.getParam("latestScore", 100)}{" "}
           points for this challenge!
-        </Text>}
+        </Text>) : null}
         <ScrollView style={{ marginBottom: 10, padding: 20 }}>
           <Markdown
             rules={{
@@ -112,7 +114,7 @@ class App extends React.Component {
             marginRight: 0,
             marginBottom: 10
           }}
-          title={this.state.contentView ? "VIEW SOLUTION": "VIEW EXPLANATION"}
+          title={this.state.contentView ? "VIEW SOLUTION CODE": "VIEW EXPLANATION"}
         />        
         <Button
           icon={{ name: "home" }}
