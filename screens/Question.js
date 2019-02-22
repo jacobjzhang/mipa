@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Button } from "react-native";
 import { withNavigation } from "react-navigation";
 
 import Swipe from "../components/Swipe";
@@ -34,6 +34,7 @@ class Question extends React.Component {
     this.ScoreCalculator = new ScoreCalculator();
 
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
+    this.skipToSolution = this.skipToSolution.bind(this);    
     this.setModalVisible = this.setModalVisible.bind(this);
     this.showResult = this.showResult.bind(this);
     this.changeScore = this.changeScore.bind(this);
@@ -60,6 +61,14 @@ class Question extends React.Component {
         challenge: this.props.navigation.getParam("challenge")
       });
     }
+  }
+
+  skipToSolution() {
+    return this.props.navigation.navigate("Result", {
+      latestScore: this.state.latestScore,
+      user: this.props.navigation.getParam("user"),
+      challenge: this.props.navigation.getParam("challenge")
+    });
   }
 
   changeScore(correct) {
@@ -133,6 +142,7 @@ class Question extends React.Component {
       <View style={{ flex: 1, paddingVertical: 0, backgroundColor: "#fff" }}>
         <ChallengeHeader navigation={this.props.navigation} progressScore={currentScore} />
         <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 0 }}>{content}</ScrollView>
+        <Button onPress={this.skipToSolution} title={'I got it, skip to the end!'}></Button>        
         <ResultModal
           currentResult={this.state.currentResult}
           resultModalVisible={this.state.resultModalVisible}

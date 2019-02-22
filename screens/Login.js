@@ -19,19 +19,19 @@ class Login extends React.Component {
 
 		// this.db.initSignIn();
     // const user = await this.db.signInSilentAsync();
-		const user = {
-      uid: 'XLcQgzfFUfgI5oDq99GKTT6fivu1',
-      email: 'jacobjzhang@gmail.com',
-      displayName: 'Jacob Zhang',
-      photoURL: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1556150400&v=beta&t=6YamNKMA6LKEcPZCRef0L05Hl7fhqjVCV5n9o2Rfbhk',
-      firstName: 'Jacob',
-      lastName: 'Zhang',
-      value: 999
-		}
+		// const user = {
+    //   uid: 'XLcQgzfFUfgI5oDq99GKTT6fivu1',
+    //   email: 'jacobjzhang@gmail.com',
+    //   displayName: 'Jacob Zhang',
+    //   photoURL: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1556150400&v=beta&t=6YamNKMA6LKEcPZCRef0L05Hl7fhqjVCV5n9o2Rfbhk',
+    //   firstName: 'Jacob',
+    //   lastName: 'Zhang',
+    //   value: 999
+		// }
     
-		if (user) {
-		  this.goToHome(user);
-		}
+		// if (user) {
+		//   this.goToHome(user);
+		// }
 	}
 
 	goToHome(user) {
@@ -41,7 +41,16 @@ class Login extends React.Component {
 	}
 
 	async signIn() {
-    const user = await this.db.signIn();
+    // const user = await this.db.signIn();
+		const user = {
+      uid: 'XLcQgzfFUfgI5oDq99GKTT6fivu1',
+      email: 'jacobjzhang@gmail.com',
+      displayName: 'Jacob Zhang',
+      photoURL: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1556150400&v=beta&t=6YamNKMA6LKEcPZCRef0L05Hl7fhqjVCV5n9o2Rfbhk',
+      firstName: 'Jacob',
+      lastName: 'Zhang',
+      value: 999
+		}    
 
 		if (user) {
 		  this.goToHome(user);
@@ -53,6 +62,7 @@ class Login extends React.Component {
 			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 200, backgroundColor: '#fff'}}>
 				{this.state.fontLoaded ? <Text style={{ fontFamily: 'Poppins', fontSize: 55, textAlign: 'center' }}>AlgoDaily</Text> : null}
         <TouchableOpacity onPress={() => this.signIn()}>
+          <Text>Sign in with Google{'\n'}</Text>
           <Image style={{width: 200, height: 50, paddingVertical: 100, resizeMode: 'contain'}} source={require('../assets/images/google-sign-in.png')} />
         </TouchableOpacity>
 			</View>
