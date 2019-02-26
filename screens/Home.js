@@ -9,6 +9,7 @@ import { NavigationEvents } from "react-navigation";
 import Colors from "../constants/Colors";
 import ProfileWidget from "../components/ProfileWidget";
 import { ScrollView } from "react-native-gesture-handler";
+import Database from "../models/Database";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,23 @@ class App extends React.Component {
 
     this.state = {
       challenges: require('../content/index.json'),
-      user: this.props.navigation.getParam('user', {})
+      user: this.props.navigation.getParam('user', {}),
+      completedSlugs: []
     };
+
+    this.db = new Database();
+  }
+
+  async getLatestScore() {
+    const challenges = await this.db.getCompletedChallenges(this.state.user.uid);
+    console.log(challenges, 'challenges!');
+    const completedSlugs = challenges.map((c) => { return c.challenge; })
+    const totalPoints = challenges.reduce(function(cnt, obj){ return parseInt(cnt + obj.points); }, 0);
+
+    console.log(totalPoints)
+    const user = this.state.user;
+    user['value'] = totalPoints;
+    this.setState({user: user, completedSlugs: completedSlugs});
   }
 
   render() {
@@ -30,10 +46,10 @@ class App extends React.Component {
       chal['color'] = Colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]][Math.floor(Math.random() * 2)]
     };
 
-    console.log('in home render', this.state.user)
+    console.log('in home render', this.state.completedSlugs)
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
-        {/* <NavigationEvents onDidFocus={() => this.fetchLatestInfo()} /> */}
+        <NavigationEvents onDidFocus={() => this.getLatestScore()} />
         <View
           style={{
             height: 100,
@@ -52,21 +68,15 @@ class App extends React.Component {
           items={challenges}
           style={styles.gridView}
           renderItem={item => {
-            if (item.kind == "Walkthrough") {
+            if (this.state.completedSlugs.includes(item.slug)) {
               return (
-                <TouchableOpacity
-                  style={[styles.itemContainer, { backgroundColor: item.color }]}
-                  onPress={() => {
-                    return this.props.navigation.navigate("WalkThrough", {
-                      walkthrough: item
-                    });
-                  }}
+                <View
+                  style={[styles.itemContainer, { backgroundColor: 'gray' }]}
                 >
-                  {" "}
                   <Text style={styles.itemKind}>{item.kind}</Text>
-                  <Text style={styles.itemName}>{item.title}</Text>
-                  <Text style={styles.itemCategory}>{item.category}</Text>
-                </TouchableOpacity>
+                  <Text style={styles.itemName}>{item.title} (Completed)</Text>
+                  <Text style={styles.itemCategory}>{item.categories.join(", ")}</Text>
+                </View>
               );
             } else {
               return (

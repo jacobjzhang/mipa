@@ -56,13 +56,13 @@ class App extends React.Component {
     const newScore = this.props.navigation.getParam("latestScore", 100);
     const user = this.props.navigation.getParam("user");
     const challenge = this.props.navigation.getParam("challenge");
-    // const challengeId = challenge.id;
+    const challengeSlug = challenge.slug;
 
-    console.log(user)
+    console.log(user, challenge, newScore)
 
     return (
       <View style={{ flex: 1, paddingTop: 0, backgroundColor: "white" }}>
-        {/* {user && <NavigationEvents onDidFocus={() => this.db.addCompletion(user, challengeId, newScore)} />} */}
+        {user && <NavigationEvents onDidFocus={() => this.db.addCompletion(user, challengeSlug, newScore)} />}
         <View
           style={{
             height: 100,

@@ -49,7 +49,7 @@ class Login extends React.Component {
       photoURL: 'https://media.licdn.com/dms/image/C4D03AQGixtUY3Frw8w/profile-displayphoto-shrink_200_200/0?e=1556150400&v=beta&t=6YamNKMA6LKEcPZCRef0L05Hl7fhqjVCV5n9o2Rfbhk',
       firstName: 'Jacob',
       lastName: 'Zhang',
-      value: 999
+      value: 0
 		}    
 
 		if (user) {
@@ -61,8 +61,8 @@ class Login extends React.Component {
 		return (
 			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 200, backgroundColor: '#fff'}}>
 				{this.state.fontLoaded ? <Text style={{ fontFamily: 'Poppins', fontSize: 55, textAlign: 'center' }}>AlgoDaily</Text> : null}
-        <TouchableOpacity onPress={() => this.signIn()}>
-          <Text>Sign in with Google{'\n'}</Text>
+        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}} onPress={() => this.signIn()}>
+          <Text>{'\n'}Sign in with Google</Text>
           <Image style={{width: 200, height: 50, paddingVertical: 100, resizeMode: 'contain'}} source={require('../assets/images/google-sign-in.png')} />
         </TouchableOpacity>
 			</View>

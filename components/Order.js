@@ -38,11 +38,13 @@ class Order extends React.Component {
 
 	updateViewAndUpdateSolution(originalIdx) {
 		// undo
-		if (this.state.selectedOrder[originalIdx]) {
+		if (this.state.selectedOrder[originalIdx] || this.state.selectedOrder[originalIdx] === 0) {
 			// can only select the last one
 			// originalIdx starts at 0, currentPointer is 1 ahead
-			console.log(this.state.selectedOrder[originalIdx], this.state.currentPointer);
-			if (this.state.selectedOrder[originalIdx] !== this.state.currentPointer) {
+      console.log(this.state.selectedOrder[originalIdx], this.state.currentPointer);  // 0, 1
+      // if the previously selected position(+1) does not equal the current pointer
+      // meaning it is not the last selection
+			if (this.state.selectedOrder[originalIdx]+1 !== this.state.currentPointer) {
 				return;
 			}
 
